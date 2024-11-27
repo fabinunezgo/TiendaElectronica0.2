@@ -36,10 +36,6 @@ public class UsuarioDTO {
         return rol;
     }
 
- 
-    public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
-        this(id, nombre, username, password, rol);
-    }
 
     public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
         this.id = id;

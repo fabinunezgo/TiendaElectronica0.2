@@ -27,8 +27,6 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO>{
 
     @Override
     public Producto toEnt(ProductoDTO dto) throws SQLException {
-        return new Producto(
-               
-    }
-    
+       
 }
+    }

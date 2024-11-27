@@ -27,6 +27,13 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO>{
 
     @Override
     public Producto toEnt(ProductoDTO dto) throws SQLException {
+<<<<<<< HEAD
        
+=======
+        return new Producto(
+        
+    }
+    
+>>>>>>> 4933252 (Correcion de errores)
 }
     }

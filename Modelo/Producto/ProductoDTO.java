@@ -13,12 +13,12 @@ public class ProductoDTO {
     public ProductoDTO(int codigo, String nombre, String categoria, int cantidadDisponible, double precio, String proveedor) {
     }
     public class Producto {
-    private int codigo;
-    private String nombre;
-    private String categoria;
-    private double precio;
-    private int cantidadDisponible;
-    private String proveedor;
+    private final int codigo;
+    private final String nombre;
+    private final String categoria;
+    private final double precio;
+    private final int cantidadDisponible;
+    private final String proveedor;
 
         public int getCodigo() {
             return codigo;

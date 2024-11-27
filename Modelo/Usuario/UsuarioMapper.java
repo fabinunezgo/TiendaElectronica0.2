@@ -15,19 +15,19 @@ public class UsuarioMapper implements Mapper<UsuarioDTO,Usuario> {
 
     @Override
     public Usuario toDTO(UsuarioDTO ent) {
-        return new UsuarioDTO(
-                ent.getId(),
-                ent.getNombre(),
-                ent.getUsername(),
-                ent.getPassword(),
-                ent.getRol()
-                
-        );
+       return new Usuario(
+        ent.getId(),
+        ent.getNombre(),
+        ent.getUsername(),
+        ent.getPassword(),
+        ent.getRol()
+       );
     }
 
     @Override
     public UsuarioDTO toEnt(Usuario dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        
     }
-    
+
 }

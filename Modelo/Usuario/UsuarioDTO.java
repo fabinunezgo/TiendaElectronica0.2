@@ -9,11 +9,11 @@ package Modelo.Usuario;
  * @author thyfa
  */
 public class UsuarioDTO {
-    private int id;
-    private String nombre;
-    private String username;
-    private String password;
-    private String rol; // Puede ser "Administrador" o "Vendedor"
+    private final int id;
+    private final String nombre;
+    private final String username;
+    private final String password;
+    private final String rol; // Puede ser "Administrador" o "Vendedor"
 
     public int getId() {
         return id;
@@ -27,9 +27,6 @@ public class UsuarioDTO {
         return username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getPassword() {
         return password;
@@ -40,6 +37,10 @@ public class UsuarioDTO {
     }
 
  
+    public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
+        this(id, nombre, username, password, rol);
+    }
+
     public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
         this.id = id;
         this.nombre = nombre;

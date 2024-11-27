@@ -16,7 +16,7 @@ public class Usuario {
     private String nombre;
     private String username;
     private String password;
-    private String rol; // Puede ser "Administrador" o "Vendedor"
+    private String rol; 
 
     public int getId() {
         return id;

@@ -10,8 +10,12 @@ package Modelo.Cliente;
  */
 public class ClienteDTO {
 
+   
+
     public ClienteDTO(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
     }
+
+   
     public class Cliente {
     private final String cedula;
     private final String nombreCompleto;

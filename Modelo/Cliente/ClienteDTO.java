@@ -13,11 +13,11 @@ public class ClienteDTO {
     public ClienteDTO(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
     }
     public class Cliente {
-    private String cedula;
-    private String nombreCompleto;
-    private String direccion;
-    private String telefono;
-    private String correo;
+    private final String cedula;
+    private final String nombreCompleto;
+    private final String direccion;
+    private final String telefono;
+    private final String correo;
 
         public String getCedula() {
             return cedula;

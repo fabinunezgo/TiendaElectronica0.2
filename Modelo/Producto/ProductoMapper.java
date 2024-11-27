@@ -27,14 +27,7 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO>{
 
     @Override
     public Producto toEnt(ProductoDTO dto) throws SQLException {
-<<<<<<< HEAD
-     return new Producto(
-        
 
-
-                }
-    }
-=======
 
        return new Producto(
                dto.getCodigo(),
@@ -46,6 +39,3 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO>{
        );
 }
 }
-
-    
->>>>>>> 8d33174 (Se realizan cambios)

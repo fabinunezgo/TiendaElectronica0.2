@@ -10,11 +10,6 @@ package Modelo.Cliente;
  */
 public class ClienteDTO {
 
-    
-    public ClienteDTO(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
-    }
-   
-    public class Cliente {
     private final String cedula;
     private final String nombreCompleto;
     private final String direccion;
@@ -41,14 +36,15 @@ public class ClienteDTO {
             return correo;
         }
 
-        public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
-            this.cedula = cedula;
-            this.nombreCompleto = nombreCompleto;
-            this.direccion = direccion;
-            this.telefono = telefono;
-            this.correo = correo;
-        }
-      
+    public ClienteDTO(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
+        this.cedula = cedula;
+        this.nombreCompleto = nombreCompleto;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+
+       
 
     }
-}
+

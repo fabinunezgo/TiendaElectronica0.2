@@ -28,11 +28,13 @@ public class ClienteMapper implements Mapper<Cliente,ClienteDTO> {
     @Override
     public Cliente toEnt(ClienteDTO dto) throws SQLException {
        return new Cliente(
-               
-               
-               
-               
-              
+               dto.getCedula(),
+               dto.getNombreCompleto(),
+               dto.getDireccion(),
+               dto.getTelefono(),
+               dto.getDireccion()
+                    
        );
     
+}
 }

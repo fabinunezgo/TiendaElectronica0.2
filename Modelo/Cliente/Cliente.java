@@ -51,13 +51,6 @@ public class Cliente {
         this.correo = correo;
     }
 
-   
-   
-
-    public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
-        this(cedula, nombreCompleto, direccion, telefono, correo);
-    }
-
     public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
         this.cedula = cedula;
         this.nombreCompleto = nombreCompleto;

@@ -19,17 +19,33 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO>{
                ent.getCodigo(),
                ent.getNombre(),
                ent.getCategoria(),
-               ent.getCantidadDisponible(),
                ent.getPrecio(),
+               ent.getCantidadDisponible(),
                ent.getProveedor()
        );
     }
 
     @Override
     public Producto toEnt(ProductoDTO dto) throws SQLException {
+<<<<<<< HEAD
      return new Producto(
         
 
 
                 }
     }
+=======
+
+       return new Producto(
+               dto.getCodigo(),
+               dto.getNombre(),
+               dto.getCategoria(),
+               dto.getPrecio(),
+               dto.getCantidadDisponible(),
+               dto.getProveedor()
+       );
+}
+}
+
+    
+>>>>>>> 8d33174 (Se realizan cambios)

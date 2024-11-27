@@ -38,6 +38,11 @@ public class Venta {
         return total;
     }
 
+    public double getImpuesto() {
+        return impuesto;
+    }
+    
+
     public void setImpuesto(double impuesto) {
         this.impuesto = impuesto;
     }

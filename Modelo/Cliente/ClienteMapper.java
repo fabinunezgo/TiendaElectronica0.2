@@ -4,7 +4,8 @@
  */
 package Modelo.Cliente;
 
-import Modelo.Mapper.Mapper;
+
+import Model.Mapper.Mapper;
 import java.sql.SQLException;
 
 /**

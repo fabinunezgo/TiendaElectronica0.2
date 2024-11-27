@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo.Usuario;
+package Modelo.Ventas;
 
 import Model.Mapper.Mapper;
 import java.sql.SQLException;
@@ -11,23 +11,23 @@ import java.sql.SQLException;
  *
  * @author thyfa
  */
-public class UsuarioMapper implements Mapper<UsuarioDTO,Usuario> {
+public class VentasMapper implements Mapper<Venta, VentasDTO> {
 
     @Override
-    public Usuario toDTO(UsuarioDTO ent) {
-        return new UsuarioDTO(
+    public VentasDTO toDTO(Venta ent) {
+        return new VentasDTO(
                 ent.getId(),
-                ent.getNombre(),
-                ent.getUsername(),
-                ent.getPassword(),
-                ent.getRol()
-                
+                ent.getFecha(),
+                ent.getProductosVendidos(),
+                ent.getSubtotal(),
+                ent.getProductosVendidos(),
+                ent.getTotal()
         );
     }
 
     @Override
-    public UsuarioDTO toEnt(Usuario dto) throws SQLException {
+    public Venta toEnt(VentasDTO dto) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

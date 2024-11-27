@@ -9,5 +9,8 @@ package Modelo.Ventas;
  * @author thyfa
  */
 public class VentasDTO {
+
+    public VentasDTO(int id, Date fecha, List<productovendido> productosVendidos, double subtotal, List<productovendido> productosVendidos1, double total) {
+    }
     
 }

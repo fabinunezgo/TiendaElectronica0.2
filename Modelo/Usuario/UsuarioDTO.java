@@ -34,6 +34,11 @@ public class UsuarioDTO {
     public String getRol() {
         return rol;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ba8fdca6e6d2030f7cb6a8ce0ff334b9327ad25e
     public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
         this.id = id;
         this.nombre = nombre;

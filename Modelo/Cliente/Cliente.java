@@ -7,6 +7,10 @@ public class Cliente {
     private String telefono;
     private String correo;
 
+    Cliente() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public String getCedula() {
         return cedula;
     }
@@ -46,9 +50,6 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-   
-   
 
     public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
         this.cedula = cedula;

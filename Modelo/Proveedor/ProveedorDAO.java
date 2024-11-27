@@ -16,6 +16,7 @@ import java.util.List;
  *
  * @author thyfa
  */
+<<<<<<< HEAD
 public class ProveedorDAO extends Dao<ProveedorDTO> {
 
     public ProveedorDAO(Connection connection) {
@@ -91,3 +92,37 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
         }
     }
 }
+=======
+//public class ProveedorDAO extends Dao<ProveedorDTO>{
+//
+//    public ProveedorDAO(Connection connection) {
+//        super(connection);
+//    }
+//
+//    @Override
+//    public boolean agregar(ProveedorDTO dto) throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    @Override
+//    public ProveedorDTO read(Object id) throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    @Override
+//    public List<ProveedorDTO> readAll() throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    @Override
+//    public boolean actualizar(ProveedorDTO dto) throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//
+//    @Override
+//    public boolean eliminar(Object id) throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//    
+//}
+>>>>>>> ba8fdca6e6d2030f7cb6a8ce0ff334b9327ad25e

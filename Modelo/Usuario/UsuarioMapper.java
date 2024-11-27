@@ -26,8 +26,13 @@ public class UsuarioMapper implements Mapper<UsuarioDTO,Usuario> {
 
     @Override
     public UsuarioDTO toEnt(Usuario dto) throws SQLException {
-        
+        return new UsuarioDTO(
+                dto.getId(),
+                dto.getNombre(),
+                dto.getUsername(),
+                dto.getPassword(),
+                dto.getRol()
+        );
         
     }
-
 }

@@ -27,7 +27,6 @@ public class UsuarioDTO {
         return username;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -35,12 +34,6 @@ public class UsuarioDTO {
     public String getRol() {
         return rol;
     }
-
- 
-    public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
-        this(id, nombre, username, password, rol);
-    }
-
     public UsuarioDTO(int id, String nombre, String username, String password, String rol) {
         this.id = id;
         this.nombre = nombre;
@@ -48,5 +41,4 @@ public class UsuarioDTO {
         this.password = password;
         this.rol = rol;
     }
-
 }

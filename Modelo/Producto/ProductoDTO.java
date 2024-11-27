@@ -10,50 +10,43 @@ package Modelo.Producto;
  */
 public class ProductoDTO {
 
-    public ProductoDTO(int codigo, String nombre, String categoria, int cantidadDisponible, double precio, String proveedor) {
-    }
-    public class Producto {
     private final int codigo;
     private final String nombre;
     private final String categoria;
-    private final double precio;
     private final int cantidadDisponible;
+    private final double precio;
     private final String proveedor;
 
-        public int getCodigo() {
-            return codigo;
-        }
+    public ProductoDTO(int codigo, String nombre, String categoria, int cantidadDisponible, double precio, String proveedor) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.cantidadDisponible = cantidadDisponible;
+        this.precio = precio;
+        this.proveedor = proveedor;
+    }
 
-        public String getNombre() {
-            return nombre;
-        }
+    public int getCodigo() {
+        return codigo;
+    }
 
-        public String getCategoria() {
-            return categoria;
-        }
-        
-        public double getPrecio() {
-            return precio;
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
-        public int getCantidadDisponible() {
-            return cantidadDisponible;
-        }
+    public String getCategoria() {
+        return categoria;
+    }
 
-        public String getProveedor() {
-            return proveedor;
-        }
-       
-      
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
 
-        public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
-            this.codigo = codigo;
-            this.nombre = nombre;
-            this.categoria = categoria;
-            this.precio = precio;
-            this.cantidadDisponible = cantidadDisponible;
-            this.proveedor = proveedor;
-        }
-  
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getProveedor() {
+        return proveedor;
     }
 }

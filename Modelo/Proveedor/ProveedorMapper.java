@@ -25,7 +25,12 @@ public class ProveedorMapper implements Mapper<Proveedor, ProveedorDTO> {
 
     @Override
     public Proveedor toEnt(ProveedorDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Proveedor(
+                dto.getId(),
+                dto.getNombre(),
+                dto.getContacto(),
+                dto.getDireccion()
+        );
     }
     
 }

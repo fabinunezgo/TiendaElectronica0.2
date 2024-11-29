@@ -4,11 +4,16 @@
  */
 package Frames;
 
+import Modelo.Cliente.Cliente;
+import View.View;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fabia
  */
-public class FrmProveedor extends javax.swing.JPanel {
+public class FrmProveedor extends javax.swing.JPanel implements View<Cliente> {
 
     /**
      * Creates new form FrmProveedor
@@ -82,6 +87,11 @@ public class FrmProveedor extends javax.swing.JPanel {
         });
 
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,12 +159,28 @@ public class FrmProveedor extends javax.swing.JPanel {
     }//GEN-LAST:event_txtContactoActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        // TODO add your handling code here:
+        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || 
+        txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        // TODO add your handling code here:
+        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || 
+        txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        if (txtId.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese el ID del proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -172,4 +198,29 @@ public class FrmProveedor extends javax.swing.JPanel {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Cliente ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showAll(List<Cliente> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showError(String err) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean validateRequired() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

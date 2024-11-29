@@ -1,5 +1,6 @@
 package Frames;
 
+
 import Modelo.Producto.Producto;
 import View.View;
 import java.util.List;
@@ -238,7 +239,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     if (Producto==null){
+     if (producto==null){
             showError("No hay ningun cliente cargado actualmente");
             return;
         }
@@ -249,7 +250,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
             JOptionPane.YES_NO_OPTION
         );
         if(option==JOptionPane.NO_OPTION) return;
-        Producto.delete(Producto);
+        Producto.delete(producto);
         clear();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -281,26 +282,50 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
 
     @Override
     public void show(Producto ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+           Producto=ent;
+        if (ent==null) {
+            clear();
+            return;
+        }
+        TxtNombre.setText(ent.getNombre());
+        TxtCodigo.setText(ent.getCodigo();
+        TxtCategoria.setText(ent.getCategoria());
+        TxtPrecio.setText(String.valueOf(ent.getPrecio());
+        TxtCantidadDisponible.setText(ent.getCantidadDisponible());
+         TxtProveedor.setText(String.valueOf(ent.getProveedor();
     }
 
     @Override
     public void showAll(List<Producto> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(FrmProductos==null){
+            FrmProductos = new  FrmProductosBuscar(null,true);
+            FrmProductos.setObserver(this);
+        }
+          FrmProductos.setEnts(ents);
+          FrmProductos.setVisible(true);
     }
 
     @Override
     public void showMessage(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public boolean validateRequired() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return UtilGui.validateFields(TxtNombre,TxtCodigo,TxtCategoria,TxtPrecio,TxtCantidadDisponible,TxtProveedor);
     }
+    
+    private void clear(){
+    TxtNombre.setText("");
+    TxtCodigo.setText("");
+    TxtCategoria.setText("");
+    TxtPrecio.setText("");
+    TxtCantidadDisponible.setText("");
+    TxtProveedor.setText("");
+}
 }

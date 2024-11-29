@@ -4,10 +4,14 @@
  */
 package Frames;
 
+
 import Modelo.Cliente.Cliente;
 import View.View;
 import java.util.List;
 import javax.swing.JOptionPane;
+
+import Modelo.Proveedor.Proveedor;
+
 
 /**
  *
@@ -21,6 +25,7 @@ public class FrmProveedor extends javax.swing.JPanel implements View<Cliente> {
     public FrmProveedor() {
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

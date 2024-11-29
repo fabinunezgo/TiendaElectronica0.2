@@ -10,6 +10,7 @@ import Modelo.Cliente.ClienteDAO;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Cliente.ClienteMapper;
 import View.View;
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -19,17 +20,18 @@ import java.util.stream.Collectors;
  *
  * @author jprod
  */
-public class ControllerProducto {
+public class ControllerCliente {
 
         private ClienteDAO dao;
     private final View view;
     private final ClienteMapper mapper;
 
-    public ControllerProducto(View view) {
+
+    public ControllerCliente(View view) {
         this.view = view;
         mapper = new ClienteMapper();
         try {
-            dao = new ClienteDAO(DataBase.getConnection());
+            dao = new ClienteDAO(Connection.
         } catch (SQLException ex) {
             view.showError("Error al conectar con la Base de Datos");
         }

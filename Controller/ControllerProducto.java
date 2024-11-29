@@ -70,7 +70,7 @@ public class ControllerProducto {
                     .collect(Collectors.toList());
             view.showAll(customerList);
         } catch (SQLException ex) {
-            view.showError("Error al cargar los datos: " + ex.getMessage());
+            view.("Error al cargar los datos: " + ex.getMessage());
         }
     }
 

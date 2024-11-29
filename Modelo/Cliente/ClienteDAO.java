@@ -103,4 +103,8 @@ public class ClienteDAO extends Dao<ClienteDTO> {
             return statement.executeUpdate() > 0;
         }
     }
+
+    public boolean validatePK(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

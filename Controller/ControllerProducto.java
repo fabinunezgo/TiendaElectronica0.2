@@ -5,9 +5,6 @@
 package Controller;
 
 import DataBase.DataBase;
-
-import Model.Customer.CustomerMapper;
-import Model.Mapper.Mapper;
 import Modelo.Cliente.Cliente;
 import Modelo.Cliente.ClienteDAO;
 import Modelo.Cliente.ClienteDTO;
@@ -17,7 +14,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.swing.text.View;
 
 /**
  *
@@ -25,7 +21,7 @@ import javax.swing.text.View;
  */
 public class ControllerProducto {
 
-    private ClienteDAO dao;
+        private ClienteDAO dao;
     private final View view;
     private final ClienteMapper mapper;
 
@@ -39,13 +35,13 @@ public class ControllerProducto {
         }
     }
 
-    public void agregar (Cliente cliente {
+    public void agregar(Cliente cliente) {  
         if (cliente == null || !validateRequired(cliente)) {
             view.showError("Faltan datos requeridos");
             return;
         }
         try {
-            if (!validatePK(cliente.getCedula())) {
+            if (validatePK(cliente.getCedula())) {
                 view.showError("La cedula ingresada ya se encuentra registrada");
                 return;
             }
@@ -56,21 +52,16 @@ public class ControllerProducto {
         }
     }
 
-    public void read() {
-
-    }
-
     public void readAll() {
         try {
             List<ClienteDTO> dtoList = dao.readAll();
-            List<Cliente> customerList;
-            customerList = dtoList.stream()
+            List<Cliente> customerList = dtoList.stream()
                     .map(mapper::toEnt)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
             view.showAll(customerList);
         } catch (SQLException ex) {
-            view.("Error al cargar los datos: " + ex.getMessage());
+            view.showError("Error al cargar los datos: " + ex.getMessage());
         }
     }
 
@@ -80,11 +71,12 @@ public class ControllerProducto {
             return;
         }
         try {
-            if (validatePK(cliente.getCedula())) {
+            if (!validatePK(cliente.getCedula())) {
                 view.showError("La cedula ingresada no se encuentra registrada");
                 return;
             }
             dao.actualizar(mapper.toDTO(cliente));
+            view.showMessage("Datos actualizados correctamente");
         } catch (SQLException ex) {
             view.showError("Ocurrio un error al actualizar los datos: " + ex.getMessage());
         }
@@ -96,11 +88,12 @@ public class ControllerProducto {
             return;
         }
         try {
-            if (validatePK(cliente.getCedula())) {
+            if (!validatePK(cliente.getCedula())) {
                 view.showError("La cedula ingresada no ya se encuentra registrada");
                 return;
             }
             dao.eliminar(cliente.getCedula());
+            view.showMessage("Cliente eliminado correctamente");
         } catch (SQLException ex) {
             view.showError("Ocurrio un error al eliminar los datos: " + ex.getMessage());
         }
@@ -116,7 +109,7 @@ public class ControllerProducto {
 
     public boolean validatePK(String id) {
         try {
-            return dao.validatePK(id);
+            return dao.read(id) != null;  
         } catch (SQLException ex) {
             return false;
         }

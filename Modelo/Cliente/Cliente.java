@@ -51,6 +51,10 @@ public class Cliente {
     }
 
     public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
+        this(cedula, nombreCompleto, direccion, telefono);
+    }
+
+    public Cliente(String cedula, String nombreCompleto, String direccion, String telefono) {
         this(cedula);
     }
 

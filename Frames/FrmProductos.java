@@ -1,12 +1,12 @@
 package Frames;
 
-
 import Modelo.Producto.Producto;
 import View.View;
 import java.util.List;
-
+import Frames.FrmProductos;
 
 import Modelo.Producto.Producto;
+import Utilis.UtilGui;
 import javax.swing.JOptionPane;
 
 
@@ -14,12 +14,13 @@ import javax.swing.JOptionPane;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author user
  */
-public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
+public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
+
+    Producto producto;
 
     /**
      * Creates new form FrmProductos
@@ -27,8 +28,6 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
     public FrmProductos() {
         initComponents();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,14 +46,14 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
         TxtCodigo = new javax.swing.JTextField();
         TxtCantidadDisponible = new javax.swing.JTextField();
         TxtPrecio = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
+        txtCategoria = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         TxtCategoria = new javax.swing.JTextField();
         TxtProveedor = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
+        txtProveedor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -92,9 +91,9 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
         TxtPrecio.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
         TxtPrecio.setText("Precio");
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtCodigoActionPerformed(evt);
             }
         });
 
@@ -119,12 +118,12 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
                     .addComponent(TxtCantidadDisponible, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                    .addComponent(jTextField9)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField7)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                    .addComponent(txtPrecio)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(txtCodigo)
+                    .addComponent(txtProveedor, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(10, 10, 10))
         );
         jPanel2Layout.setVerticalGroup(
@@ -132,30 +131,30 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField6)
+                    .addComponent(txtNombre)
                     .addComponent(TxtNombre))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TxtCodigo)
-                    .addComponent(jTextField7))
+                    .addComponent(txtCodigo))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField8)
+                    .addComponent(txtCategoria)
                     .addComponent(TxtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TxtPrecio)
-                    .addComponent(jTextField9))
+                    .addComponent(txtPrecio))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TxtCantidadDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(TxtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField13))
+                    .addComponent(txtProveedor))
                 .addGap(12, 12, 12))
         );
 
@@ -230,26 +229,28 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     if (producto==null){
+        if (producto == null) {
             showError("No hay ningun cliente cargado actualmente");
             return;
         }
         int option = JOptionPane.showConfirmDialog(
-            this, 
-            "¿Está seguro que desea eliminar el cliente actual?",
-            "Confirmar Eliminación", 
-            JOptionPane.YES_NO_OPTION
+                this,
+                "¿Está seguro que desea eliminar el cliente actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
         );
-        if(option==JOptionPane.NO_OPTION) return;
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
         Producto.delete(producto);
         clear();
 
@@ -272,60 +273,55 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto>{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCategoria;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void show(Producto ent) {
-           Producto=ent;
-        if (ent==null) {
+        producto = ent;
+        if (ent == null) {
             clear();
             return;
         }
+        txtCodigo.setText(String.valueOf((int) ent.getCodigo()));
         TxtNombre.setText(ent.getNombre());
-        TxtCodigo.setText(ent.getCodigo();
-        TxtCategoria.setText(ent.getCategoria());
-        TxtPrecio.setText(String.valueOf(ent.getPrecio());
-        TxtCantidadDisponible.setText(ent.getCantidadDisponible());
-         TxtProveedor.setText(String.valueOf(ent.getProveedor();
+        txtCategoria.setText(ent.getCategoria());
+        txtPrecio.setText(String.valueOf((double) ent.getPrecio()));
+        txtCantidad.setText(String.valueOf((int)ent.getCantidadDisponible()));
+        txtProveedor.setText(ent.getProveedor());
     }
 
     @Override
     public void showAll(List<Producto> ents) {
-        if(FrmProductos==null){
-            FrmProductos = new  FrmProductosBuscar(null,true);
-            FrmProductos.setObserver(this);
-        }
-          FrmProductos.setEnts(ents);
-          FrmProductos.setVisible(true);
+      
     }
 
     @Override
     public void showMessage(String msg) {
-       JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-     JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public boolean validateRequired() {
-       return UtilGui.validateFields(TxtNombre,TxtCodigo,TxtCategoria,TxtPrecio,TxtCantidadDisponible,TxtProveedor);
+        return UtilGui.validateFields(TxtNombre, TxtCodigo, TxtCategoria, TxtPrecio, TxtCantidadDisponible, TxtProveedor);
     }
-    
-    private void clear(){
-    TxtNombre.setText("");
-    TxtCodigo.setText("");
-    TxtCategoria.setText("");
-    TxtPrecio.setText("");
-    TxtCantidadDisponible.setText("");
-    TxtProveedor.setText("");
-}
+
+    private void clear() {
+        TxtNombre.setText("");
+        TxtCodigo.setText("");
+        TxtCategoria.setText("");
+        TxtPrecio.setText("");
+        TxtCantidadDisponible.setText("");
+        TxtProveedor.setText("");
+    }
 }

@@ -4,6 +4,8 @@
  */
 package Frames;
 
+import Modelo.Proveedor.Proveedor;
+
 /**
  *
  * @author fabia
@@ -15,6 +17,19 @@ public class FrmProveedor extends javax.swing.JPanel {
      */
     public FrmProveedor() {
         initComponents();
+    }
+
+    
+    public void show(Proveedor ent) {
+        customer=ent;
+        if (ent==null) {
+            clear();
+            return;
+        }
+        txtId.setText(ent.getId());
+        txtNombre.setText(ent.getNombre());
+        txtContacto.setText(ent.getContacto());
+        txtDireccion.setText(ent.getDireccion());
     }
 
     /**

@@ -13,7 +13,6 @@ import java.util.List;
 public interface View <Ent>{
     public void show(Ent ent);
     public void showAll(List<Ent> ents);
-    
     public void showMessage(String msg);
     public void showError(String err);
     public boolean validateRequired();

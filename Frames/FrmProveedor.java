@@ -41,7 +41,7 @@ public class FrmProveedor extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 0, 24)); // NOI18N
-        jLabel1.setText("             Busqueda de Proovedor");
+        jLabel1.setText("                        Proovedor");
 
         jLabel2.setText("ID");
 

@@ -86,7 +86,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Sylfaen" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="             Busqueda de Proovedor"/>
+        <Property name="text" type="java.lang.String" value="                        Proovedor"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

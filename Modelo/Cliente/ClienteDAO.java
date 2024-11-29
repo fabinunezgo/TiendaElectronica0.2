@@ -104,7 +104,7 @@ public class ClienteDAO extends Dao<ClienteDTO> {
         }
     }
 
-    public boolean validatePK(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean validatePK(String id) throws SQLException {
+       return read(id) == null;
     }
 }

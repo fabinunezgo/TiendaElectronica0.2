@@ -5,19 +5,19 @@
 package Frames;
 
 
-import Modelo.Cliente.Cliente;
 import View.View;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 import Modelo.Proveedor.Proveedor;
+import Utilis.UtilGui;
 
 
 /**
  *
  * @author fabia
  */
-public class FrmProveedor extends javax.swing.JPanel implements View<Cliente> {
+public class FrmProveedor extends javax.swing.JPanel implements View<Proveedor> {
 
     /**
      * Creates new form FrmProveedor
@@ -25,6 +25,8 @@ public class FrmProveedor extends javax.swing.JPanel implements View<Cliente> {
     public FrmProveedor() {
         initComponents();
     }
+
+    
 
 
     /**
@@ -204,28 +206,49 @@ public class FrmProveedor extends javax.swing.JPanel implements View<Cliente> {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
+    private Proveedor proveedor;
+    
     @Override
-    public void show(Cliente ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void show(Proveedor ent) {
+        proveedor = ent;
+        if (ent == null) {
+            clear();   
+            return;
+        }
+        txtId.setText(String.valueOf(ent.getId()));  
+        txtNombre.setText(ent.getNombre());  
+        txtContacto.setText(ent.getContacto());  
+        txtDireccion.setText(ent.getDireccion());  
     }
 
     @Override
-    public void showAll(List<Cliente> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void showAll(List<Proveedor> ents) {
+    for (Proveedor p : ents) {
+        System.out.println("ID: " + p.getId() + ", Nombre: " + p.getNombre() + 
+                           ", Contacto: " + p.getContacto() + ", Dirección: " + p.getDireccion());
     }
+}
 
     @Override
     public void showMessage(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public boolean validateRequired() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return UtilGui.validateFields(txtId, txtNombre, txtContacto, txtDireccion);
     }
+    
+    private void clear() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtContacto.setText("");
+        txtDireccion.setText("");
+    }
+
 }

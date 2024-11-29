@@ -4,6 +4,7 @@
  */
 package Modelo.Usuario;
 
+import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
         super(connection);
     }
 
-    @Override
+    
     public boolean agregar(UsuarioDTO dto) throws SQLException {
         String sql = "INSERT INTO Usuario (nombre, username, password, rol) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -93,5 +94,10 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
             statement.setInt(1, (Integer) id);
             return statement.executeUpdate() > 0;
         }
+    }
+
+    @Override
+    public boolean agregar(ClienteDTO dto) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

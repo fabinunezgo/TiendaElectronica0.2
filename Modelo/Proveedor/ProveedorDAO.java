@@ -4,6 +4,7 @@
  */
 package Modelo.Proveedor;
 
+import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +17,14 @@ import java.util.List;
  *
  * @author thyfa
  */
-<<<<<<< HEAD
+
 public class ProveedorDAO extends Dao<ProveedorDTO> {
 
     public ProveedorDAO(Connection connection) {
         super(connection);
     }
 
-    @Override
+    
     public boolean agregar(ProveedorDTO dto) throws SQLException {
         String sql = "INSERT INTO Proveedor (nombre, contacto, direccion) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -91,8 +92,13 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
             return statement.executeUpdate() > 0;
         }
     }
+
+    @Override
+    public boolean agregar(ClienteDTO dto) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
-=======
+
 //public class ProveedorDAO extends Dao<ProveedorDTO>{
 //
 //    public ProveedorDAO(Connection connection) {
@@ -125,4 +131,4 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
 //    }
 //    
 //}
->>>>>>> ba8fdca6e6d2030f7cb6a8ce0ff334b9327ad25e
+

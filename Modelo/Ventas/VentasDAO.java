@@ -4,6 +4,7 @@
  */
 package Modelo.Ventas;
 
+import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ public class VentasDAO extends Dao<VentasDTO> {
         super(connection);
     }
 
-    @Override
+ 
     public boolean agregar(VentasDTO dto) throws SQLException {
         String sql = "INSERT INTO Ventas (fecha, clienteId, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -102,5 +103,10 @@ public class VentasDAO extends Dao<VentasDTO> {
             statement.setInt(1, (Integer) id);
             return statement.executeUpdate() > 0;
         }
+    }
+
+    @Override
+    public boolean agregar(ClienteDTO dto) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Conexion.Conexion;
 import DataBase.DataBase;
 import Modelo.Cliente.Cliente;
 import Modelo.Cliente.ClienteDAO;
@@ -18,26 +19,25 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author jprod
+ * @author thyfa
  */
 public class ControllerCliente {
 
-        private ClienteDAO dao;
+    private ClienteDAO dao;
     private final View view;
     private final ClienteMapper mapper;
-
 
     public ControllerCliente(View view) {
         this.view = view;
         mapper = new ClienteMapper();
         try {
-            dao = new ClienteDAO(Connection.
+            dao = new Cliente(Conexion.getInstancia());
         } catch (SQLException ex) {
             view.showError("Error al conectar con la Base de Datos");
         }
     }
 
-    public void agregar(Cliente cliente) {  
+    public void agregar(Cliente cliente) {
         if (cliente == null || !validateRequired(cliente)) {
             view.showError("Faltan datos requeridos");
             return;
@@ -56,12 +56,12 @@ public class ControllerCliente {
 
     public void readAll() {
         try {
-            List<ClienteDTO> dtoList = dao.readAll();
+            List<ClienteDTO> dtoList = dao.readAll(); // Recupera los datos de la base.
             List<Cliente> customerList = dtoList.stream()
-                    .map(mapper::toEnt)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
-            view.showAll(customerList);
+                    .map(dto -> mapper.toEnt(dto)) // Mapea DTO a Entidad.
+                    .filter(Objects::nonNull) // Filtra valores nulos.
+                    .collect(Collectors.toList()); // Convierte a lista.
+            view.showAll(customerList); // Muestra la lista en la vista.
         } catch (SQLException ex) {
             view.showError("Error al cargar los datos: " + ex.getMessage());
         }
@@ -111,7 +111,7 @@ public class ControllerCliente {
 
     public boolean validatePK(String id) {
         try {
-            return dao.read(id) != null;  
+            return dao.read(id) != null;
         } catch (SQLException ex) {
             return false;
         }

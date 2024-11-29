@@ -4,12 +4,14 @@
  */
 package Conexion;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author fabia
  */
 public class PruebaConexion {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Conexion conexion = Conexion.getInstancia();
         if (conexion.getConexion() != null) {
             System.out.println("Conexión exitosa a la base de datos");

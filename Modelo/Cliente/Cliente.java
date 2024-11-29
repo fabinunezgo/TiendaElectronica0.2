@@ -1,5 +1,7 @@
 package Modelo.Cliente;
 
+import Conexion.Conexion;
+
 public class Cliente {
     private String cedula;
     private String nombreCompleto;
@@ -7,10 +9,7 @@ public class Cliente {
     private String telefono;
     private String correo;
 
-    Cliente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+  
     public String getCedula() {
         return cedula;
     }
@@ -52,6 +51,10 @@ public class Cliente {
     }
 
     public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
+        this(cedula);
+    }
+
+    public Cliente(String cedula) {
         this.cedula = cedula;
         this.nombreCompleto = nombreCompleto;
         this.direccion = direccion;

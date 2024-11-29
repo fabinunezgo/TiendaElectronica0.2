@@ -51,11 +51,11 @@ public class ClienteDAO extends Dao<ClienteDTO> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new ClienteDTO(
-                        resultSet.getString("cedula"),
-                        resultSet.getString("nombreCompleto"),
-                        resultSet.getString("direccion"),
-                        resultSet.getString("telefono"),
-                        resultSet.getString("correo")
+                            resultSet.getString("cedula"),
+                            resultSet.getString("nombreCompleto"),
+                            resultSet.getString("direccion"),
+                            resultSet.getString("telefono"),
+                            resultSet.getString("correo")
                     );
                 }
             }
@@ -66,17 +66,17 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     @Override
     public List<ClienteDTO> readAll() throws SQLException {
         List<ClienteDTO> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM Cliente";
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                clientes.add(new ClienteDTO(
-                        resultSet.getString("cedula"),
-                        resultSet.getString("nombreCompleto"),
-                        resultSet.getString("direccion"),
-                        resultSet.getString("telefono"),
-                        resultSet.getString("correo")
-                ));
+        String query = "SELECT * FROM cliente"; // Cambia "cliente" al nombre de tu tabla.
+        try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                ClienteDTO cliente = new ClienteDTO(
+                        rs.getString("cedula"),
+                        rs.getString("nombre"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("correo")
+                );
+                clientes.add(cliente);
             }
         }
         return clientes;

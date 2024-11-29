@@ -4,7 +4,6 @@
  */
 package Modelo.Cliente;
 
-
 import Model.Mapper.Mapper;
 import java.sql.SQLException;
 
@@ -16,7 +15,7 @@ public class ClienteMapper implements Mapper<Cliente,ClienteDTO> {
 
     @Override
     public ClienteDTO toDTO(Cliente ent) {
-        return new ClienteDTO(
+       return new ClienteDTO(
                 ent.getCedula(),
                 ent.getNombreCompleto(),
                 ent.getDireccion(),
@@ -27,14 +26,14 @@ public class ClienteMapper implements Mapper<Cliente,ClienteDTO> {
 
     @Override
     public Cliente toEnt(ClienteDTO dto) throws SQLException {
-       return new Cliente(
+     
+   return new Cliente(
                dto.getCedula(),
                dto.getNombreCompleto(),
                dto.getDireccion(),
                dto.getTelefono(),
                dto.getDireccion()
-                    
-       );
+   );
+    }
     
-}
 }

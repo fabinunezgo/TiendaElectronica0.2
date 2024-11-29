@@ -30,13 +30,13 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
         if (ents == null || tableModel == null) return;
         tableModel.setNumRows(0);
         
-        ents.forEach(customer -> tableModel.addRow(
+        ents.forEach(cliente -> tableModel.addRow(
                 new Object[]{
-                    customer.getCedula(),
-                    customer.getNombreCompleto(),
-                    customer.getTelefono(),
-                    customer.getCorreo(),
-                    customer.getDireccion()
+                    cliente.getCedula(),
+                    cliente.getNombreCompleto(),
+                    cliente.getTelefono(),
+                    cliente.getCorreo(),
+                    cliente.getDireccion()
                 }
         ));
     }
@@ -51,9 +51,9 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
     public FrmBuscarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tableModel = (DefaultTableModel) tblCustomers.getModel();
-        sorter = new TableRowSorter<>(this.tblCustomers.getModel());
-        tblCustomers.setRowSorter(sorter);
+        tableModel = (DefaultTableModel) tblClientes.getModel();
+        sorter = new TableRowSorter<>(this.tblClientes.getModel());
+        tblClientes.setRowSorter(sorter);
     }
        
     /**
@@ -69,10 +69,10 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         txtFilter = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        btnSearch = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,8 +90,8 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
             }
         });
 
-        tblCustomers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,7 +114,7 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblCustomers);
+        jScrollPane2.setViewportView(tblClientes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,17 +139,17 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Search.png"))); // NOI18N
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Search.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Close.png"))); // NOI18N
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Close.png"))); // NOI18N
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -159,9 +159,9 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,8 +169,8 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,9 +200,9 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnExitActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterKeyReleased
         String searchText=txtFilter.getText();
@@ -213,13 +213,13 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtFilterKeyReleased
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        int selectedRow = tblCustomers.getSelectedRow();
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int selectedRow = tblClientes.getSelectedRow();
         if (selectedRow==-1) return;
-        String id = tblCustomers.getValueAt(selectedRow, 0).toString();
+        String id = tblClientes.getValueAt(selectedRow, 0).toString();
         observer.show(ents.stream().filter(customer -> customer.getCedula().equals(id)).findFirst().orElse(null));
         this.dispose();
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,13 +266,13 @@ public class FrmBuscarCliente extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 }

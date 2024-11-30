@@ -1,11 +1,11 @@
 package Frames;
 
-import Modelo.Producto.Producto;
+
 import View.View;
 import java.util.List;
-import Frames.FrmProductos;
 
 import Modelo.Producto.Producto;
+import Modelo.Producto.ProductoDAO;
 import Utilis.UtilGui;
 import javax.swing.JOptionPane;
 
@@ -178,9 +178,19 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Delete.png"))); // NOI18N
         btnEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Edit.png"))); // NOI18N
         btnEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -234,11 +244,79 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (producto == null) {
+
+    String nombre = TxtNombre.getText().trim();
+    String categoria = TxtCategoria.getText().trim();
+    String precioStr = TxtPrecio.getText().trim();
+    String cantidadStr = TxtCantidadDisponible.getText().trim();
+    String proveedor = TxtProveedor.getText().trim();
+
+    if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
+        showError("Todos los campos son obligatorios");
+        return;
+    }
+
+    double precio = 0;
+    int cantidad = 0;
+    try {
+        precio = Double.parseDouble(precioStr);
+        cantidad = Integer.parseInt(cantidadStr);
+    } catch (NumberFormatException e) {
+        showError("Precio y cantidad deben ser números válidos.");
+        return;
+    }
+
+   
+    Producto nuevoProducto = new Producto();
+    nuevoProducto.setNombre(nombre);
+    nuevoProducto.setCategoria(categoria);
+    nuevoProducto.setPrecio(precio);
+    nuevoProducto.setCantidad(cantidad);
+    nuevoProducto.setProveedor(proveedor);
+
+
+    ProductoDAO productoDAO = new ProductoDAO();
+    boolean success = productoDAO.agregar(nuevoProducto); 
+
+   
+    if (success) {
+        showMessage("El producto ha sido agregado correctamente");
+        clear(); 
+    } else {
+        showError("Ha ocurrido un error al agregar el producto");
+    }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    if (producto == null) {
+    showError("No hay ningún producto cargado actualmente.");
+    return;
+   }
+
+    if (!validateRequired()) {
+    showError("Faltan datos requeridos.");
+    return;
+   }
+    
+    String newNombre = TxtNombre.getText().trim();
+    String newCategoria = TxtCategoria.getText().trim();
+    double newPrecio = Double.parseDouble(TxtPrecio.getText().trim());
+    int newCantidadDisponible = Integer.parseInt(TxtCantidadDisponible.getText().trim());
+    String newProveedor = TxtProveedor.getText().trim();
+
+    ProductoDAO productoDAO = new ProductoDAO();
+    if (productoDAO.actualizar(producto)) {
+    showMessage("El Producto hasido editado correctamente");
+    } else {
+    showError("Error al editar el producto");
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+             if (producto == null) {
             showError("No hay ningun cliente cargado actualmente");
             return;
         }
@@ -254,7 +332,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
         Producto.delete(producto);
         clear();
 
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

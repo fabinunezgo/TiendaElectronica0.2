@@ -33,6 +33,32 @@ public class Producto {
         return proveedor;
     }
 
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void setCantidadDisponible(int cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    
+
     public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
         this.codigo = codigo;
         this.nombre = nombre;

@@ -244,11 +244,30 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+     String codigoStr = txtCodigo.getText().trim();
+
+    if (codigoStr.isEmpty()) {
+        showError("Por favor ingrese un código de producto.");
+        return;
+    }
+
+    try {
+        int codigo = Integer.parseInt(codigoStr);
+        ProductoDAO productoDAO = new ProductoDAO();
+        Producto productoBuscado = productoDAO.buscarPorCodigo(codigo);
+
+        if (productoBuscado != null) {
+            show(productoBuscado);  
+        } else {
+            showError("Producto no encontrado.");
+        }
+    } catch (NumberFormatException e) {
+        showError("El código debe ser un número válido.");
+    }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
+        
     String nombre = TxtNombre.getText().trim();
     String categoria = TxtCategoria.getText().trim();
     String precioStr = TxtPrecio.getText().trim();
@@ -259,7 +278,6 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
         showError("Todos los campos son obligatorios");
         return;
     }
-
     double precio = 0;
     int cantidad = 0;
     try {
@@ -269,23 +287,18 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
         showError("Precio y cantidad deben ser números válidos.");
         return;
     }
-
-   
     Producto nuevoProducto = new Producto();
     nuevoProducto.setNombre(nombre);
     nuevoProducto.setCategoria(categoria);
     nuevoProducto.setPrecio(precio);
-    nuevoProducto.setCantidad(cantidad);
+    nuevoProducto.setCantidadDisponible(cantidad);
     nuevoProducto.setProveedor(proveedor);
-
-
     ProductoDAO productoDAO = new ProductoDAO();
-    boolean success = productoDAO.agregar(nuevoProducto); 
+    boolean success = productoDAO.agregar(dto);
 
-   
     if (success) {
         showMessage("El producto ha sido agregado correctamente");
-        clear(); 
+        clear();
     } else {
         showError("Ha ocurrido un error al agregar el producto");
     }
@@ -293,45 +306,66 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
     if (producto == null) {
-    showError("No hay ningún producto cargado actualmente.");
-    return;
-   }
+        showError("No hay ningún producto cargado actualmente.");
+        return;
+    }
 
     if (!validateRequired()) {
-    showError("Faltan datos requeridos.");
-    return;
-   }
-    
+        showError("Faltan datos requeridos.");
+        return;
+    }
+
     String newNombre = TxtNombre.getText().trim();
     String newCategoria = TxtCategoria.getText().trim();
-    double newPrecio = Double.parseDouble(TxtPrecio.getText().trim());
-    int newCantidadDisponible = Integer.parseInt(TxtCantidadDisponible.getText().trim());
+    double newPrecio = 0;
+    int newCantidadDisponible = 0;
+
+    try {
+        newPrecio = Double.parseDouble(TxtPrecio.getText().trim());
+        newCantidadDisponible = Integer.parseInt(TxtCantidadDisponible.getText().trim());
+    } catch (NumberFormatException e) {
+        showError("El precio y la cantidad deben ser números válidos.");
+        return;
+    }
+
     String newProveedor = TxtProveedor.getText().trim();
 
+    producto.setNombre(newNombre);
+    producto.setCategoria(newCategoria);
+    producto.setPrecio(newPrecio);
+    producto.setCantidadDisponible(newCantidadDisponible);
+    producto.setProveedor(newProveedor);
+
     ProductoDAO productoDAO = new ProductoDAO();
-    if (productoDAO.actualizar(producto)) {
-    showMessage("El Producto hasido editado correctamente");
+    if (productoDAO.actualizar(dto)) {
+        showMessage("El Producto ha sido editado correctamente");
     } else {
-    showError("Error al editar el producto");
+        showError("Error al editar el producto");
+    }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-             if (producto == null) {
-            showError("No hay ningun cliente cargado actualmente");
-            return;
-        }
-        int option = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea eliminar el cliente actual?",
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
-        Producto.delete(producto);
-        clear();
+    if (producto == null) {
+        showError("No hay ningún producto cargado actualmente.");
+        return;
+    }
+    int option = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea eliminar el producto actual?",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION
+    );
+    if (option == JOptionPane.NO_OPTION) {
+        return;
+    }
 
+    ProductoDAO productoDAO = new ProductoDAO();
+    if (productoDAO.eliminar(id)) {
+        showMessage("Producto eliminado correctamente.");
+        clear();
+    } else {
+        showError("Error al eliminar el producto.");
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -396,10 +430,11 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     private void clear() {
         TxtNombre.setText("");
-        TxtCodigo.setText("");
-        TxtCategoria.setText("");
-        TxtPrecio.setText("");
-        TxtCantidadDisponible.setText("");
-        TxtProveedor.setText("");
+    TxtCodigo.setText("");
+    TxtCategoria.setText("");
+    TxtPrecio.setText("");
+    TxtCantidadDisponible.setText("");
+    TxtProveedor.setText("");
+    producto = null;
     }
 }

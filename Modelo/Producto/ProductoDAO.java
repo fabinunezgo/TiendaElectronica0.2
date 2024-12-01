@@ -22,6 +22,8 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     public ProductoDAO(Connection connection) {
         super(connection);
     }
+    
+    private Connection connection;
 
     public boolean agregar(ProductoDTO dto) throws SQLException {
         String sql = "INSERT INTO Producto (codigo, nombre, categoria, cantidadDisponible, precio, proveedor) VALUES (?, ?, ?, ?, ?, ?)";
@@ -35,7 +37,25 @@ public class ProductoDAO extends Dao<ProductoDTO> {
             return statement.executeUpdate() > 0;
         }
     }
-
+    public ProductoDTO buscarPorCodigo(int codigo) throws SQLException {
+    String sql = "SELECT * FROM Producto WHERE codigo = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setInt(1, codigo);  // Establecer el código del producto
+        ResultSet resultSet = statement.executeQuery();
+        
+        if (resultSet.next()) {
+            return new ProductoDTO(
+                resultSet.getInt("codigo"),
+                resultSet.getString("nombre"),
+                resultSet.getString("categoria"),
+                resultSet.getInt("cantidadDisponible"),
+                resultSet.getDouble("precio"),
+                resultSet.getString("proveedor")
+            );
+        }
+    }
+    return null;  
+}
     @Override
     public ProductoDTO read(Object id) throws SQLException {
         String sql = "SELECT * FROM Producto WHERE codigo = ?";
@@ -102,6 +122,6 @@ public class ProductoDAO extends Dao<ProductoDTO> {
 
     @Override
     public boolean agregar(ClienteDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

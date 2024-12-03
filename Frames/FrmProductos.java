@@ -1,6 +1,5 @@
 package Frames;
 
-
 import View.View;
 import java.util.List;
 import Modelo.Producto.Producto;
@@ -26,10 +25,11 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
      */
     public FrmProductos() {
         initComponents();
+        producto = new Producto(this);
     }
-    private void initComponents(){
-        
-    }
+
+  
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,128 +245,128 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-     String codigoStr = txtCodigo.getText().trim();
+        String codigoStr = txtCodigo.getText().trim();
 
-    if (codigoStr.isEmpty()) {
-        showError("Por favor ingrese un código de producto.");
-        return;
-    }
-
-    try {
-        int codigo = Integer.parseInt(codigoStr);
-        ProductoDAO productoDAO = new ProductoDAO();
-        Producto productoBuscado = productoDAO.buscarPorCodigo(codigo);
-
-        if (productoBuscado != null) {
-            show(productoBuscado);  
-        } else {
-            showError("Producto no encontrado.");
+        if (codigoStr.isEmpty()) {
+            showError("Por favor ingrese un código de producto.");
+            return;
         }
-    } catch (NumberFormatException e) {
-        showError("El código debe ser un número válido.");
-    }
+
+        try {
+            int codigo = Integer.getInteger(codigoStr);
+            ProductoDAO productoDAO = new ProductoDAO();
+            Producto productoBuscado = productoDAO.buscarPorCodigo(codigo);
+
+            if (productoBuscado != null) {
+                show(productoBuscado);
+            } else {
+                showError("Producto no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            showError("El código debe ser un número válido.");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-    String nombre = TxtNombre.getText().trim();
-    String categoria = TxtCategoria.getText().trim();
-    String precioStr = TxtPrecio.getText().trim();
-    String cantidadStr = TxtCantidadDisponible.getText().trim();
-    String proveedor = TxtProveedor.getText().trim();
 
-    if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
-        showError("Todos los campos son obligatorios");
-        return;
-    }
-    double precio = 0;
-    int cantidad = 0;
-    try {
-        precio = Double.parseDouble(precioStr);
-        cantidad = Integer.parseInt(cantidadStr);
-    } catch (NumberFormatException e) {
-        showError("Precio y cantidad deben ser números válidos.");
-        return;
-    }
-    Producto nuevoProducto = new Producto();
-    nuevoProducto.setNombre(nombre);
-    nuevoProducto.setCategoria(categoria);
-    nuevoProducto.setPrecio(precio);
-    nuevoProducto.setCantidadDisponible(cantidad);
-    nuevoProducto.setProveedor(proveedor);
-    ProductoDAO productoDAO = new ProductoDAO();
-    boolean success = productoDAO.agregar(dto);
+        String nombre = TxtNombre.getText().trim();
+        String categoria = TxtCategoria.getText().trim();
+        String precioStr = TxtPrecio.getText().trim();
+        String cantidadStr = TxtCantidadDisponible.getText().trim();
+        String proveedor = TxtProveedor.getText().trim();
 
-    if (success) {
-        showMessage("El producto ha sido agregado correctamente");
-        clear();
-    } else {
-        showError("Ha ocurrido un error al agregar el producto");
-    }
+        if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
+            showError("Todos los campos son obligatorios");
+            return;
+        }
+        double precio = 0;
+        int cantidad = 0;
+        try {
+            precio = Double.parseDouble(precioStr);
+            cantidad = Integer.parseInt(cantidadStr);
+        } catch (NumberFormatException e) {
+            showError("Precio y cantidad deben ser números válidos.");
+            return;
+        }
+        Producto nuevoProducto = new Producto();
+        nuevoProducto.setNombre(nombre);
+        nuevoProducto.setCategoria(categoria);
+        nuevoProducto.setPrecio(precio);
+        nuevoProducto.setCantidadDisponible(cantidad);
+        nuevoProducto.setProveedor(proveedor);
+        ProductoDAO productoDAO = new ProductoDAO();
+        boolean success = productoDAO.agregar(dto);
+
+        if (success) {
+            showMessage("El producto ha sido agregado correctamente");
+            clear();
+        } else {
+            showError("Ha ocurrido un error al agregar el producto");
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-    if (producto == null) {
-        showError("No hay ningún producto cargado actualmente.");
-        return;
-    }
+        if (producto == null) {
+            showError("No hay ningún producto cargado actualmente.");
+            return;
+        }
 
-    if (!validateRequired()) {
-        showError("Faltan datos requeridos.");
-        return;
-    }
+        if (!validateRequired()) {
+            showError("Faltan datos requeridos.");
+            return;
+        }
 
-    String newNombre = TxtNombre.getText().trim();
-    String newCategoria = TxtCategoria.getText().trim();
-    double newPrecio = 0;
-    int newCantidadDisponible = 0;
+        String newNombre = TxtNombre.getText().trim();
+        String newCategoria = TxtCategoria.getText().trim();
+        double newPrecio = 0;
+        int newCantidadDisponible = 0;
 
-    try {
-        newPrecio = Double.parseDouble(TxtPrecio.getText().trim());
-        newCantidadDisponible = Integer.parseInt(TxtCantidadDisponible.getText().trim());
-    } catch (NumberFormatException e) {
-        showError("El precio y la cantidad deben ser números válidos.");
-        return;
-    }
+        try {
+            newPrecio = Double.parseDouble(TxtPrecio.getText().trim());
+            newCantidadDisponible = Integer.parseInt(TxtCantidadDisponible.getText().trim());
+        } catch (NumberFormatException e) {
+            showError("El precio y la cantidad deben ser números válidos.");
+            return;
+        }
 
-    String newProveedor = TxtProveedor.getText().trim();
+        String newProveedor = TxtProveedor.getText().trim();
 
-    producto.setNombre(newNombre);
-    producto.setCategoria(newCategoria);
-    producto.setPrecio(newPrecio);
-    producto.setCantidadDisponible(newCantidadDisponible);
-    producto.setProveedor(newProveedor);
+        producto.setNombre(newNombre);
+        producto.setCategoria(newCategoria);
+        producto.setPrecio(newPrecio);
+        producto.setCantidadDisponible(newCantidadDisponible);
+        producto.setProveedor(newProveedor);
 
-    ProductoDAO productoDAO = new ProductoDAO();
-    if (productoDAO.actualizar(dto)) {
-        showMessage("El Producto ha sido editado correctamente");
-    } else {
-        showError("Error al editar el producto");
-    }
+        ProductoDAO productoDAO = new ProductoDAO();
+        if (productoDAO.actualizar(dto)) {
+            showMessage("El Producto ha sido editado correctamente");
+        } else {
+            showError("Error al editar el producto");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    if (producto == null) {
-        showError("No hay ningún producto cargado actualmente.");
-        return;
-    }
-    int option = JOptionPane.showConfirmDialog(
-            this,
-            "¿Está seguro que desea eliminar el producto actual?",
-            "Confirmar Eliminación",
-            JOptionPane.YES_NO_OPTION
-    );
-    if (option == JOptionPane.NO_OPTION) {
-        return;
-    }
+        if (producto == null) {
+            showError("No hay ningún producto cargado actualmente.");
+            return;
+        }
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea eliminar el producto actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
 
-    ProductoDAO productoDAO = new ProductoDAO();
-    if (productoDAO.eliminar(id)) {
-        showMessage("Producto eliminado correctamente.");
-        clear();
-    } else {
-        showError("Error al eliminar el producto.");
-    }
+        ProductoDAO productoDAO = new ProductoDAO();
+        if (productoDAO.eliminar(id)) {
+            showMessage("Producto eliminado correctamente.");
+            clear();
+        } else {
+            showError("Error al eliminar el producto.");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -405,13 +405,13 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
         TxtNombre.setText(ent.getNombre());
         txtCategoria.setText(ent.getCategoria());
         txtPrecio.setText(String.valueOf((double) ent.getPrecio()));
-        txtCantidad.setText(String.valueOf((int)ent.getCantidadDisponible()));
+        txtCantidad.setText(String.valueOf((int) ent.getCantidadDisponible()));
         txtProveedor.setText(ent.getProveedor());
     }
 
     @Override
     public void showAll(List<Producto> ents) {
-      
+
     }
 
     @Override
@@ -431,11 +431,11 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     private void clear() {
         TxtNombre.setText("");
-    TxtCodigo.setText("");
-    TxtCategoria.setText("");
-    TxtPrecio.setText("");
-    TxtCantidadDisponible.setText("");
-    TxtProveedor.setText("");
-    producto = null;
+        TxtCodigo.setText("");
+        TxtCategoria.setText("");
+        TxtPrecio.setText("");
+        TxtCantidadDisponible.setText("");
+        TxtProveedor.setText("");
+        producto = null;
     }
 }

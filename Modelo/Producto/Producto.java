@@ -1,5 +1,7 @@
 package Modelo.Producto;
 
+import Frames.FrmProductos;
+
 public class Producto {
 
     private int codigo;
@@ -61,6 +63,10 @@ public class Producto {
 
 
     public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
+        this(codigo);
+    }
+
+    public Producto(FrmProductos codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.categoria = categoria;

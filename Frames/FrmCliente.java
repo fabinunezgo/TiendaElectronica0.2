@@ -27,7 +27,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
      */
     public FrmCliente() {
         initComponents();
-        controller= new ControllerCliente (this);
+      
     }
 
     @Override
@@ -356,15 +356,15 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                 txtTelefono.getText(),
                 txtCorreo.getText()
         );
-//        controller.create(cliente);
-//        this.SetEditableStateTxts(false);
-//        changeStateBtns();
+        controller.agregar(cliente);
+        this.SetEditableStateTxts(false);
+        changeStateBtns();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-//        show(cliente;
-//        this.SetEditableStateTxts(false);
-//        changeStateBtns();
+        show(cliente);
+        this.SetEditableStateTxts(false);
+        changeStateBtns();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed

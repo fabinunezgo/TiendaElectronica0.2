@@ -29,9 +29,11 @@ public class ProductoDAO extends Dao<ProductoDTO> {
         super(connection);
     }
 
+   
+
     public boolean agregar(ProductoDTO dto) throws SQLException {
        String sql = "{CALL insertarProducto(?, ?, ?, ?, ?, ?)}";  
-        Connection con = Conexion.getInstancia().getConexion();
+         Connection con = Conexion.getConnection();
         if (con == null) {
             System.err.println("Error: La conexión es nula.");
             return false;

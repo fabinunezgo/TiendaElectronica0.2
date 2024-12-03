@@ -4,13 +4,15 @@
  */
 package Controller;
 
-import Conexion.Conexion; 
+
+
+import Conexion.Conexion;
 import Modelo.Cliente.Cliente;
 import Modelo.Cliente.ClienteDAO;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Cliente.ClienteMapper;
 import View.View;
-import java.sql.Connection;
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -22,17 +24,19 @@ import java.util.stream.Collectors;
  */
 public class ControllerCliente {
 
-    private ClienteDAO dao;
+      private ClienteDAO dao;
     private final View view;
     private final ClienteMapper mapper;
-
+    
     public ControllerCliente(View view) {
         this.view = view;
-        this.mapper = new ClienteMapper();
+        mapper=new ClienteMapper();
         try {
-            dao = new ClienteDAO((Connection) Conexion.getInstancia());
-        } catch (SQLException ex) {
-            view.showError("Error al conectar con la Base de Datos: " + ex.getMessage());
+            dao=new ClienteDAO(Conexion.getConnection());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            view.showError("Error al conectar con la Base de Datos");
+            
         }
     }
 

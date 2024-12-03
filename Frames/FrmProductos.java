@@ -3,7 +3,6 @@ package Frames;
 
 import View.View;
 import java.util.List;
-
 import Modelo.Producto.Producto;
 import Modelo.Producto.ProductoDAO;
 import Utilis.UtilGui;
@@ -28,7 +27,9 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     public FrmProductos() {
         initComponents();
     }
-
+    private void initComponents(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

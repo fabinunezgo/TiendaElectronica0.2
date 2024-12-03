@@ -59,6 +59,7 @@ public class Producto {
     
     
 
+
     public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -66,7 +67,6 @@ public class Producto {
         this.precio = precio;
         this.cantidadDisponible = cantidadDisponible;
         this.proveedor = proveedor;
-
     }
 
 }

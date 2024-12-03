@@ -12,19 +12,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.CallableStatement;
+
 
 /**
  *
  * @author thyfa
  */
 import Modelo.Dao.Dao;
-import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ClienteDAO extends Dao<ClienteDTO> {
 

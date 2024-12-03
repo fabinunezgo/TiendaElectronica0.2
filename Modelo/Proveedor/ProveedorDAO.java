@@ -7,7 +7,7 @@ package Modelo.Proveedor;
 import Conexion.Conexion;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
-import com.mysql.cj.jdbc.CallableStatement;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

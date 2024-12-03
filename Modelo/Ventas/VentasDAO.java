@@ -61,71 +61,97 @@ public class VentasDAO extends Dao<VentasDTO> {
 
     @Override
     public VentasDTO read(Object id) throws SQLException {
-        String sql = "SELECT * FROM Ventas WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, (Integer) id);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    List<productovendido> productosVendidos = new ArrayList<>();
-
-                    return new VentasDTO(
-                            rs.getInt("id"),
-                            rs.getDate("fecha"),
-                            rs.getInt("clienteId"),
-                            productosVendidos,
-                            rs.getDouble("subtotal"),
-                            rs.getDouble("impuesto"),
-                            rs.getDouble("total")
-                    );
-                }
-                return null;
-            }
+        String sql = "{CALL leerVentaPorID(?)}";
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+        stmt = con.prepareCall(sql);
+        stmt.setInt(1, (int) id);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            List<productovendido> productosVendidos = new ArrayList<>();
+            return new VentasDTO(
+                rs.getInt("id"),
+                rs.getDate("fecha"),
+                rs.getInt("clienteId"),
+                productosVendidos,
+                rs.getDouble("subtotal"),
+                rs.getDouble("impuesto"),
+                rs.getDouble("total")
+            );
         }
+        return null;
+    } finally {
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
     }
 
     @Override
     public List<VentasDTO> readAll() throws SQLException {
+        String sql = "{CALL obtenerTodasLasVentas()}";
         List<VentasDTO> ventas = new ArrayList<>();
-        String sql = "SELECT * FROM Ventas";
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
-            while (rs.next()) {
-                List<productovendido> productosVendidos = new ArrayList<>();
-                ventas.add(new VentasDTO(
-                        rs.getInt("id"),
-                        rs.getDate("fecha"),
-                        rs.getInt("clienteId"),
-                        productosVendidos, 
-                        rs.getDouble("subtotal"),
-                        rs.getDouble("impuesto"),
-                        rs.getDouble("total")
-                ));
-            }
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+    try {
+        stmt = con.prepareCall(sql);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            List<productovendido> productosVendidos = new ArrayList<>();
+            ventas.add(new VentasDTO(
+                rs.getInt("id"),
+                rs.getDate("fecha"),
+                rs.getInt("clienteId"),
+                productosVendidos,
+                rs.getDouble("subtotal"),
+                rs.getDouble("impuesto"),
+                rs.getDouble("total")
+            ));
         }
-        return ventas;
+    } finally {
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
+    return ventas;
     }
 
     @Override
     public boolean actualizar(VentasDTO dto) throws SQLException {
-        String sql = "UPDATE Ventas SET fecha = ?, clienteId = ?, subtotal = ?, impuesto = ?, total = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setDate(1, new java.sql.Date(dto.getFecha().getTime()));
-            statement.setInt(2, dto.getClienteId());
-            statement.setDouble(3, dto.getSubtotal());
-            statement.setDouble(4, dto.getImpuesto());
-            statement.setDouble(5, dto.getTotal());
-            statement.setInt(6, dto.getId());
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL actualizarVenta(?, ?, ?, ?, ?, ?)}";
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+    try {
+        stmt = con.prepareCall(sql);
+        stmt.setInt(1, dto.getId());
+        stmt.setDate(2, new java.sql.Date(dto.getFecha().getTime()));
+        stmt.setInt(3, dto.getClienteId());
+        stmt.setDouble(4, dto.getSubtotal());
+        stmt.setDouble(5, dto.getImpuesto());
+        stmt.setDouble(6, dto.getTotal());
+        return stmt.executeUpdate() > 0;
+    } finally {
+        if (stmt != null) {
+            stmt.close();
         }
+    }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "DELETE FROM Ventas WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, (Integer) id);
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL eliminarVenta(?)}";
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+        stmt = con.prepareCall(sql);
+        stmt.setInt(1, (int) id);
+        return stmt.executeUpdate() > 0;
+    } finally {
+        if (stmt != null) {
+            stmt.close();
         }
+    }
     }
 
     @Override

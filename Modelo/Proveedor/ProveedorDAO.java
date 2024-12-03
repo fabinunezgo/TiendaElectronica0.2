@@ -58,10 +58,13 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
 
     @Override
     public ProveedorDTO read(Object id) throws SQLException {
-        String sql = "SELECT * FROM Proveedor WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, (int) id);
-            ResultSet resultSet = statement.executeQuery();
+        String sql = "{CALL leerProveedorPorID(?)}"; 
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setInt(1, (int) id);
+            ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 return new ProveedorDTO(
                     resultSet.getInt("id"),
@@ -70,16 +73,23 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
                     resultSet.getString("direccion")
                 );
             }
-            return null;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
+        return null;
     }
 
     @Override
     public List<ProveedorDTO> readAll() throws SQLException {
+        String sql = "{CALL obtenerTodosLosProveedores()}";  
         List<ProveedorDTO> proveedores = new ArrayList<>();
-        String sql = "SELECT * FROM Proveedor";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statement.executeQuery();
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+            stmt = con.prepareCall(sql);
+            ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 ProveedorDTO proveedor = new ProveedorDTO(
                     resultSet.getInt("id"),
@@ -89,28 +99,46 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
                 );
                 proveedores.add(proveedor);
             }
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
         return proveedores;
     }
 
     @Override
     public boolean actualizar(ProveedorDTO dto) throws SQLException {
-        String sql = "UPDATE Proveedor SET nombre = ?, contacto = ?, direccion = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, dto.getNombre());
-            statement.setString(2, dto.getContacto());
-            statement.setString(3, dto.getDireccion());
-            statement.setInt(4, dto.getId());
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL actualizarProveedor(?, ?, ?, ?)}";  
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setInt(1, dto.getId());
+            stmt.setString(2, dto.getNombre());
+            stmt.setString(3, dto.getContacto());
+            stmt.setString(4, dto.getDireccion());
+            return stmt.executeUpdate() > 0;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "DELETE FROM Proveedor WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, (int) id);
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL eliminarProveedor(?)}"; 
+        Connection con = Conexion.getInstancia().getConexion();
+        CallableStatement stmt = null;
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setInt(1, (int) id);
+            return stmt.executeUpdate() > 0;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 

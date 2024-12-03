@@ -99,24 +99,24 @@ public class ClienteDAO extends Dao<ClienteDTO> {
 
     @Override
     public boolean actualizar(ClienteDTO dto) throws SQLException {
-        String sql = "UPDATE Cliente SET nombreCompleto = ?, direccion = ?, telefono = ?, correo = ? WHERE cedula = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, dto.getNombreCompleto());
-            statement.setString(2, dto.getDireccion());
-            statement.setString(3, dto.getTelefono());
-            statement.setString(4, dto.getCorreo());
-            statement.setString(5, dto.getCedula());
-            return statement.executeUpdate() > 0;
-        }
+         String sql = "{CALL actualizarCliente(?, ?, ?, ?, ?)}"; 
+    try (CallableStatement statement = connection.prepareCall(sql)) {
+        statement.setString(1, dto.getCedula()); 
+        statement.setString(2, dto.getNombreCompleto());
+        statement.setString(3, dto.getDireccion());
+        statement.setString(4, dto.getTelefono());
+        statement.setString(5, dto.getCorreo());
+        return statement.executeUpdate() > 0; 
+    }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "DELETE FROM Cliente WHERE cedula = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, (String) id);
-            return statement.executeUpdate() > 0;
-        }
+        String sql = "{CALL eliminarCliente(?)}"; 
+        try (CallableStatement statement = connection.prepareCall(sql)) {
+        statement.setString(1, (String) id); 
+        return statement.executeUpdate() > 0; 
+    }
     }
 
     public boolean validatePK(String id) throws SQLException {

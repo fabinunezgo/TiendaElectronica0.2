@@ -62,23 +62,22 @@ public class ProductoDAO extends Dao<ProductoDTO> {
         }
     }
     public ProductoDTO buscarPorCodigo(int codigo) throws SQLException {
-    String sql = "SELECT * FROM Producto WHERE codigo = ?";
-    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setInt(1, codigo);  
-        ResultSet resultSet = statement.executeQuery();
-        
-        if (resultSet.next()) {
-            return new ProductoDTO(
-                resultSet.getInt("codigo"),
-                resultSet.getString("nombre"),
-                resultSet.getString("categoria"),
-                resultSet.getInt("cantidadDisponible"),
-                resultSet.getDouble("precio"),
-                resultSet.getString("proveedor")
-            );
+    String sql = "{CALL buscarProductoPorCodigo(?)}";
+        try (CallableStatement stmt = connection.prepareCall(sql)) {
+            stmt.setInt(1, codigo);  
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return new ProductoDTO(
+                    resultSet.getInt("codigo"),
+                    resultSet.getString("nombre"),
+                    resultSet.getString("categoria"),
+                    resultSet.getInt("cantidadDisponible"),
+                    resultSet.getDouble("precio"),
+                    resultSet.getString("proveedor")
+                );
+            }
         }
-    }
-    return null;  
+        return null;  
 }
     @Override
     public ProductoDTO read(Object id) throws SQLException {
@@ -103,9 +102,9 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     @Override
     public List<ProductoDTO> readAll() throws SQLException {
         List<ProductoDTO> productos = new ArrayList<>();
-        String sql = "SELECT * FROM Producto";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statement.executeQuery();
+        String sql = "{CALL obtenerTodosLosProductos()}";
+        try (CallableStatement stmt = connection.prepareCall(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 ProductoDTO producto = new ProductoDTO(
                     resultSet.getInt("codigo"),
@@ -123,24 +122,24 @@ public class ProductoDAO extends Dao<ProductoDTO> {
 
     @Override
     public boolean actualizar(ProductoDTO dto) throws SQLException {
-      String sql = "UPDATE productos SET nombre = ?, categoria = ?, precio = ?, cantidad_disponible = ?, proveedor = ? WHERE codigo = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, dto.getNombre());
-            statement.setString(2, dto.getCategoria());
-            statement.setInt(3, dto.getCantidadDisponible());
-            statement.setDouble(4, dto.getPrecio());
-            statement.setString(5, dto.getProveedor());
-            statement.setInt(6, dto.getCodigo());
-            return statement.executeUpdate() > 0;
+      String sql = "{CALL actualizarProducto(?, ?, ?, ?, ?, ?)}";
+        try (CallableStatement stmt = connection.prepareCall(sql)) {
+            stmt.setInt(1, dto.getCodigo());
+            stmt.setString(2, dto.getNombre());
+            stmt.setString(3, dto.getCategoria());
+            stmt.setInt(4, dto.getCantidadDisponible());
+            stmt.setDouble(5, dto.getPrecio());
+            stmt.setString(6, dto.getProveedor());
+            return stmt.executeUpdate() > 0;
         }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "DELETE FROM Producto WHERE codigo = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, (int) id);
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL eliminarProducto(?)}";
+        try (CallableStatement stmt = connection.prepareCall(sql)) {
+            stmt.setInt(1, (int) id);
+            return stmt.executeUpdate() > 0;
         }
     }
 

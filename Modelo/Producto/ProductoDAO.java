@@ -25,6 +25,8 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     
     private Connection connection;
 
+   
+
     public ProductoDAO(Connection connection) {
         super(connection);
     }

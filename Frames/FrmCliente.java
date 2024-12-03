@@ -104,6 +104,8 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         btnSearch = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Clientes");
@@ -406,6 +408,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         controller.readAll();
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCedulaFocusLost

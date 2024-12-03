@@ -58,15 +58,8 @@ public class Producto {
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
     }
-    
-    
-
 
     public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
-        this(codigo);
-    }
-
-    public Producto(FrmProductos codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -74,5 +67,11 @@ public class Producto {
         this.cantidadDisponible = cantidadDisponible;
         this.proveedor = proveedor;
     }
+    
+    
+   
+
+    
+   
 
 }

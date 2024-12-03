@@ -4,8 +4,10 @@
  */
 package Modelo.Ventas;
 
+import Conexion.Conexion;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,14 +27,35 @@ public class VentasDAO extends Dao<VentasDTO> {
 
  
     public boolean agregar(VentasDTO dto) throws SQLException {
-        String sql = "INSERT INTO Ventas (fecha, clienteId, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setDate(1, new java.sql.Date(dto.getFecha().getTime()));
-            statement.setInt(2, dto.getClienteId());
-            statement.setDouble(3, dto.getSubtotal());
-            statement.setDouble(4, dto.getImpuesto());
-            statement.setDouble(5, dto.getTotal());
-            return statement.executeUpdate() > 0;
+        String sql = "{CALL insertar_venta(?, ?, ?, ?, ?)}";  
+        Connection con = Conexion.getInstancia().getConexion();
+
+        if (con == null) {
+            System.err.println("Error: La conexión es nula.");
+            return false;
+        }
+
+        CallableStatement stmt = null;
+        try {
+            if (con.isValid(2)) {
+                stmt = (CallableStatement) con.prepareCall(sql);
+                stmt.setDate(1, new java.sql.Date(dto.getFecha().getTime()));
+                stmt.setInt(2, dto.getClienteId());
+                stmt.setDouble(3, dto.getSubtotal());
+                stmt.setDouble(4, dto.getImpuesto());
+                stmt.setDouble(5, dto.getTotal());
+                return stmt.executeUpdate() > 0;  
+            } else {
+                System.err.println("Error: La conexión no es válida.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  
+            return false;         
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 

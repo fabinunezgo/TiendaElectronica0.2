@@ -4,6 +4,7 @@
  */
 package Modelo.Cliente;
 
+import Conexion.Conexion;
 import Modelo.Dao.Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author thyfa
  */
 import Modelo.Dao.Dao;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,17 +31,28 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     public ClienteDAO(Connection connection) {
         super(connection);
     }
-
+    
     @Override
     public boolean agregar(ClienteDTO dto) throws SQLException {
-        String sql = "INSERT INTO Cliente (cedula, nombreCompleto, direccion, telefono, correo) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, dto.getCedula());
-            statement.setString(2, dto.getNombreCompleto());
-            statement.setString(3, dto.getDireccion());
-            statement.setString(4, dto.getTelefono());
-            statement.setString(5, dto.getCorreo());
-            return statement.executeUpdate() > 0; // Devuelve true si se insertó al menos un registro
+        Connection con = Conexion.getInstancia().getConexion();
+         CallableStatement stmt = null;
+
+        try {
+            String sql = "{CALL insertar_cliente(?, ?, ?, ?, ?)}";
+            stmt = (CallableStatement) con.prepareCall(sql);
+            stmt.setString(1, dto.getCedula());
+            stmt.setString(2, dto.getNombreCompleto());
+            stmt.setString(3, dto.getDireccion());
+            stmt.setString(4, dto.getTelefono());
+            stmt.setString(5, dto.getCorreo());
+            return stmt.executeUpdate() > 0; 
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (con != null) con.close();
         }
     }
 

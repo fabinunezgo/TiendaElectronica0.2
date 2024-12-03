@@ -4,8 +4,10 @@
  */
 package Modelo.Producto;
 
+import Conexion.Conexion;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,15 +28,35 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     private Connection connection;
 
     public boolean agregar(ProductoDTO dto) throws SQLException {
-        String sql = "INSERT INTO Producto (codigo, nombre, categoria, cantidadDisponible, precio, proveedor) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, dto.getCodigo());
-            statement.setString(2, dto.getNombre());
-            statement.setString(3, dto.getCategoria());
-            statement.setInt(4, dto.getCantidadDisponible());
-            statement.setDouble(5, dto.getPrecio());
-            statement.setString(6, dto.getProveedor());
-            return statement.executeUpdate() > 0;
+       String sql = "{CALL insertar_producto(?, ?, ?, ?, ?, ?)}";  // Procedimiento almacenado
+        Connection con = Conexion.getInstancia().getConexion();
+        if (con == null) {
+            System.err.println("Error: La conexión es nula.");
+            return false;
+        }
+        CallableStatement stmt = null;
+        try {
+            if (con.isValid(2)) {
+                stmt = (CallableStatement) con.prepareCall(sql);
+                stmt.setInt(1, dto.getCodigo());
+                stmt.setString(2, dto.getNombre());
+                stmt.setString(3, dto.getCategoria());
+                stmt.setInt(4, dto.getCantidadDisponible());
+                stmt.setDouble(5, dto.getPrecio());
+                stmt.setString(6, dto.getProveedor());
+
+                return stmt.executeUpdate() > 0; 
+            } else {
+                System.err.println("Error: La conexión no es válida.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  
+            return false;         
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
     public ProductoDTO buscarPorCodigo(int codigo) throws SQLException {

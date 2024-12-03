@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexion {
     private static Conexion instancia; 
     private Connection conexion;
-    private final String URL = "jdbc:mysql://localhost:3306/TiendaElectronica"; 
+    private final String URL = "jdbc:mysql://localhost:3306/tiendaelectronica2"; 
     private final String USUARIO = "root"; 
     private final String CONTRASENA = ""; 
 
@@ -31,7 +31,6 @@ public class Conexion {
     }
 
     public static Conexion getInstancia() throws SQLException {
-        
         if (instancia == null) {
             instancia = new Conexion();
         }

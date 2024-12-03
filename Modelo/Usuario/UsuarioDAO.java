@@ -4,8 +4,10 @@
  */
 package Modelo.Usuario;
 
+import Conexion.Conexion;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,13 +27,34 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
 
     
     public boolean agregar(UsuarioDTO dto) throws SQLException {
-        String sql = "INSERT INTO Usuario (nombre, username, password, rol) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, dto.getNombre());
-            statement.setString(2, dto.getUsername());
-            statement.setString(3, dto.getPassword());
-            statement.setString(4, dto.getRol());
-            return statement.executeUpdate() > 0;
+       String sql = "{CALL insertar_usuario(?, ?, ?, ?)}";  
+        Connection con = Conexion.getInstancia().getConexion();
+        if (con == null) {
+            System.err.println("Error: La conexión es nula.");
+            return false;
+        }
+
+        CallableStatement stmt = null;
+        try {
+            if (con.isValid(2)) {
+                stmt = (CallableStatement) con.prepareCall(sql);
+                stmt.setString(1, dto.getNombre());
+                stmt.setString(2, dto.getUsername());
+                stmt.setString(3, dto.getPassword());
+                stmt.setString(4, dto.getRol());
+
+                return stmt.executeUpdate() > 0; 
+            } else {
+                System.err.println("Error: La conexión no es válida.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  
+            return false;         
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 

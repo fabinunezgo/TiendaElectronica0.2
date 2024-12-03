@@ -4,41 +4,22 @@
  */
 package Conexion;
 
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  *
- * @author fabia
+ * @author ASUS
  */
 public class Conexion {
-    private static Conexion instancia; 
-    private Connection conexion;
-    private final String URL = "jdbc:mysql://localhost:3306/tiendaelectronica2"; 
-    private final String USUARIO = "root"; 
-    private final String CONTRASENA = ""; 
-
-
-    private Conexion() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-            System.out.println("Conexión exitosa a la base de datos");
-        } catch (SQLException | ClassNotFoundException e) {
-            System.err.println("Error al conectar a la base de datos: " + e.getMessage());
-        }
-    }
-
-    public static Conexion getInstancia() throws SQLException {
-        if (instancia == null) {
-            instancia = new Conexion();
-        }
-        return instancia;
-    }
-
-    public Connection getConexion() {
-        return conexion;
+    private static final String URL ="jdbc:mysql://localhost:3306/tiendaelectronica2";
+    private static final String USER ="root";
+    private static final String PASSWORD ="";
+    
+    public static Connection getConnection() throws SQLException{
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
-

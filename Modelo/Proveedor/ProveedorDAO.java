@@ -29,7 +29,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
     
     public boolean agregar(ProveedorDTO dto) throws SQLException {
         String sql = "{CALL insertarProveedor(?, ?, ?)}";  
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         if (con == null) {
             System.err.println("Error: La conexión es nula.");
             return false;

@@ -33,10 +33,11 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     public ClienteDAO(Connection connection) {
         super(connection);
     }
+
     
     @Override
     public boolean agregar(ClienteDTO dto) throws SQLException {
-        Connection con = Conexion.getInstancia().getConexion();
+         Connection con = Conexion.getConnection();
          CallableStatement stmt = null;
 
         try {

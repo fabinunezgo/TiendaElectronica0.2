@@ -9,7 +9,7 @@ import View.View;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-import Modelo.Proveedor.Proveedor;
+import Modelo.Ventas.Venta;
 import Utilis.UtilGui;
 
 
@@ -17,7 +17,7 @@ import Utilis.UtilGui;
  *
  * @author fabia
  */
-public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
+public class FrmVentas extends javax.swing.JPanel implements View<Venta> {
 
     /**
      * Creates new form FrmProveedor
@@ -44,10 +44,10 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        txtIdCliente = new javax.swing.JTextField();
         txtContacto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtDireccion = new javax.swing.JTextArea();
+        txtProductosVendidos = new javax.swing.JTextArea();
         BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
@@ -55,16 +55,16 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtSubtotal = new javax.swing.JTextField();
+        txtImpuestos = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 0, 24)); // NOI18N
         jLabel1.setText("                          Ventas");
 
         jLabel2.setText("ID");
 
-        jLabel3.setText("Nombre");
+        jLabel3.setText("IdCliente");
 
         jLabel4.setText("Fecha");
 
@@ -82,9 +82,9 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
             }
         });
 
-        txtDireccion.setColumns(20);
-        txtDireccion.setRows(5);
-        jScrollPane1.setViewportView(txtDireccion);
+        txtProductosVendidos.setColumns(20);
+        txtProductosVendidos.setRows(5);
+        jScrollPane1.setViewportView(txtProductosVendidos);
 
         BtnAgregar.setText("Agregar");
         BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,21 +113,21 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
 
         jLabel8.setText("Total");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtSubtotalActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtImpuestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtImpuestosActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
@@ -146,9 +146,9 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtImpuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -165,7 +165,7 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(txtId)
-                                        .addComponent(txtNombre)
+                                        .addComponent(txtIdCliente)
                                         .addComponent(txtContacto)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,7 +188,7 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,15 +215,15 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jLabel7)
                         .addGap(13, 13, 13)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtImpuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(BtnActualizar))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -238,8 +238,8 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
     }//GEN-LAST:event_txtContactoActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || 
-        txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty() || 
+        txtContacto.getText().isEmpty() || txtProductosVendidos.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
         return;
         }
@@ -247,8 +247,8 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || 
-        txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty() || 
+        txtContacto.getText().isEmpty() || txtProductosVendidos.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
         return;
         }
@@ -261,17 +261,17 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
         }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtSubtotalActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtImpuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtImpuestosActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtTotalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -288,35 +288,34 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtContacto;
-    private javax.swing.JTextArea txtDireccion;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtIdCliente;
+    private javax.swing.JTextField txtImpuestos;
+    private javax.swing.JTextArea txtProductosVendidos;
+    private javax.swing.JTextField txtSubtotal;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
-    private Proveedor proveedor;
+    private Venta venta;
     
     @Override
-    public void show(Proveedor ent) {
-        proveedor = ent;
+    public void show(Venta ent) {
+        venta = ent;
         if (ent == null) {
             clear();   
             return;
         }
         txtId.setText(String.valueOf(ent.getId()));  
-        txtNombre.setText(ent.getNombre());  
-        txtContacto.setText(ent.getContacto());  
-        txtDireccion.setText(ent.getDireccion());  
+        txtIdCliente.setText(String.valueOf(ent.getClienteId()));   
+        txtProductosVendidos.setText(String.valueOf(ent.getProductosVendidos()));  
     }
 
     @Override
-    public void showAll(List<Proveedor> ents) {
-    for (Proveedor p : ents) {
-        System.out.println("ID: " + p.getId() + ", Nombre: " + p.getNombre() + 
-                           ", Contacto: " + p.getContacto() + ", Dirección: " + p.getDireccion());
+    public void showAll(List<Venta> ents) {
+    for (Venta p : ents) {
+        System.out.println("ID: " + p.getId() + ", Client3: " + p.getClienteId()+ 
+                           ", Contacto: " + p.getProductosVendidos());
     }
 }
 
@@ -332,14 +331,14 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
 
     @Override
     public boolean validateRequired() {
-        return UtilGui.validateFields(txtId, txtNombre, txtContacto, txtDireccion);
+        return UtilGui.validateFields(txtId, txtIdCliente, txtContacto, txtProductosVendidos);
     }
     
     private void clear() {
         txtId.setText("");
-        txtNombre.setText("");
+        txtIdCliente.setText("");
         txtContacto.setText("");
-        txtDireccion.setText("");
+        txtProductosVendidos.setText("");
     }
 
 }

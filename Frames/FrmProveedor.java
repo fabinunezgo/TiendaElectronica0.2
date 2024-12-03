@@ -18,6 +18,8 @@ import Utilis.UtilGui;
  * @author fabia
  */
 public class FrmProveedor extends javax.swing.JPanel implements View<Proveedor> {
+    
+    
 
     /**
      * Creates new form FrmProveedor
@@ -206,7 +208,7 @@ public class FrmProveedor extends javax.swing.JPanel implements View<Proveedor> 
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    private Proveedor proveedor;
+    Proveedor proveedor;
     
     @Override
     public void show(Proveedor ent) {

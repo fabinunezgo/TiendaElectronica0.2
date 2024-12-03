@@ -4,6 +4,8 @@
  */
 package Frames;
 
+import Modelo.Producto.Producto;
+import Modelo.Proveedor.Proveedor;
 import javax.swing.JFrame;
 
 /**
@@ -32,9 +34,10 @@ public class FrmMenu extends javax.swing.JFrame {
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,14 +55,6 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu1.setText("Administrar");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem1.setText("Proveedor");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
         jMenuItem2.setText("Productos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +70,22 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+
+        jMenuItem1.setText("Proveedor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setText("Ventas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -94,23 +105,37 @@ public class FrmMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       FrmProveedor frm = new FrmProveedor();
-        jDesktopPane.add(frm);
-        frm.show();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    FrmCliente frm = new FrmCliente();
+    jDesktopPane.add(frm);
+    frm.show();
+    }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-          FrmProductos frm = new FrmProductos();
-        jDesktopPane.add(frm);
-      
+    FrmProductos frm = new FrmProductos();
+    jDesktopPane.add(frm);
+    frm.show();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-         FrmCliente frm = new FrmCliente();
-        jDesktopPane.add(frm);
-        frm.show();
+    FrmProductos frm = new FrmProductos();
+    jDesktopPane.add(frm);
+    frm.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    FrmProveedor frm = new FrmProveedor();
+    jDesktopPane.add(frm); // Agrega el formulario al DesktopPane
+    frm.setVisible(true);  // Muestra el formulario
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        FrmVentas frm = new FrmVentas();
+        jDesktopPane.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,5 +179,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

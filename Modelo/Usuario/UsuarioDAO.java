@@ -61,7 +61,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
     @Override
     public UsuarioDTO read(Object id) throws SQLException {
         String sql = "{CALL leerUsuarioPorID(?)}";
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
     try {
         stmt = con.prepareCall(sql);
@@ -88,7 +88,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
     public List<UsuarioDTO> readAll() throws SQLException {
         String sql = "{CALL obtenerTodosLosUsuarios()}";
         List<UsuarioDTO> usuarios = new ArrayList<>();
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
         stmt = con.prepareCall(sql);
@@ -113,7 +113,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
     @Override
     public boolean actualizar(UsuarioDTO dto) throws SQLException {
         String sql = "{CALL actualizarUsuario(?, ?, ?, ?, ?)}";
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
         stmt = con.prepareCall(sql);
@@ -133,7 +133,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
     @Override
     public boolean eliminar(Object id) throws SQLException {
         String sql = "{CALL eliminarUsuario(?)}";
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
         stmt = con.prepareCall(sql);

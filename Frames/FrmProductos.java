@@ -411,7 +411,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     @Override
     public void showAll(List<Producto> ents) {
-
+           
     }
 
     @Override

@@ -59,7 +59,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
     @Override
     public ProveedorDTO read(Object id) throws SQLException {
         String sql = "{CALL leerProveedorPorID(?)}"; 
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
             stmt = con.prepareCall(sql);

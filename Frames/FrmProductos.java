@@ -25,10 +25,11 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
      */
     public FrmProductos() {
         initComponents();
-        producto = new Producto(this);
     }
 
-  
+    private void initComponents() {
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -253,7 +254,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
         }
 
         try {
-            int codigo = Integer.getInteger(codigoStr);
+            int codigo = Integer.parseInt(codigoStr);
             ProductoDAO productoDAO = new ProductoDAO();
             Producto productoBuscado = productoDAO.buscarPorCodigo(codigo);
 

@@ -28,6 +28,10 @@ public class ProductoDAO extends Dao<ProductoDTO> {
    
 
     public ProductoDAO(Connection connection) {
+        this(connection);
+    }
+
+    public ProductoDAO(Connection connection) {
         super(connection);
     }
 

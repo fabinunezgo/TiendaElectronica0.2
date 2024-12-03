@@ -93,14 +93,14 @@ public class FrmVentas extends javax.swing.JPanel implements View<Proveedor> {
             }
         });
 
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Edit.png"))); // NOI18N
         BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnActualizarActionPerformed(evt);
             }
         });
 
-        BtnEliminar.setText("Eliminar");
+        BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Delete.png"))); // NOI18N
         BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnEliminarActionPerformed(evt);

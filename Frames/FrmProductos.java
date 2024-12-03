@@ -246,26 +246,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String codigoStr = txtCodigo.getText().trim();
-
-        if (codigoStr.isEmpty()) {
-            showError("Por favor ingrese un código de producto.");
-            return;
-        }
-
-        try {
-            int codigo = Integer.parseInt(codigoStr);
-            ProductoDAO productoDAO = new ProductoDAO();
-            Producto productoBuscado = productoDAO.buscarPorCodigo(codigo);
-
-            if (productoBuscado != null) {
-                show(productoBuscado);
-            } else {
-                showError("Producto no encontrado.");
-            }
-        } catch (NumberFormatException e) {
-            showError("El código debe ser un número válido.");
-        }
+  
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed

@@ -253,4 +253,8 @@ public class FrmProveedor extends javax.swing.JPanel implements View<Proveedor> 
         txtDireccion.setText("");
     }
 
+    void setSelected(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

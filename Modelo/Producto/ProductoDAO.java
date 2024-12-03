@@ -21,11 +21,13 @@ import java.util.List;
  */
 public class ProductoDAO extends Dao<ProductoDTO> {
 
+    
+    
+    private Connection connection;
+
     public ProductoDAO(Connection connection) {
         super(connection);
     }
-    
-    private Connection connection;
 
     public boolean agregar(ProductoDTO dto) throws SQLException {
        String sql = "{CALL insertar_producto(?, ?, ?, ?, ?, ?)}";  // Procedimiento almacenado

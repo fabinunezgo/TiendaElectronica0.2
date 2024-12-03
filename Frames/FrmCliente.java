@@ -117,7 +117,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel2.setText("Cedula");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Direccion");
+        jLabel3.setText("Fecha");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 

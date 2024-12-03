@@ -120,7 +120,17 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    // Crear una instancia del FrmProveedor como un JInternalFrame
+        FrmProveedor1 frmProveedor = new FrmProveedor1();
 
+// Configurar el tamaño del frame interno
+        frmProveedor.setSize(600, 500); // Tamaño que desees para el frame interno
+
+// Agregar el frame al JDesktopPane
+        jDesktopPane.add(frmProveedor);
+
+// Hacerlo visible
+        frmProveedor.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

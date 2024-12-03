@@ -85,7 +85,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
     public List<ProveedorDTO> readAll() throws SQLException {
         String sql = "{CALL obtenerTodosLosProveedores()}";  
         List<ProveedorDTO> proveedores = new ArrayList<>();
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
             stmt = con.prepareCall(sql);
@@ -110,7 +110,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
     @Override
     public boolean actualizar(ProveedorDTO dto) throws SQLException {
         String sql = "{CALL actualizarProveedor(?, ?, ?, ?)}";  
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
             stmt = con.prepareCall(sql);
@@ -129,7 +129,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
     @Override
     public boolean eliminar(Object id) throws SQLException {
         String sql = "{CALL eliminarProveedor(?)}"; 
-        Connection con = Conexion.getInstancia().getConexion();
+        Connection con = Conexion.getConnection();
         CallableStatement stmt = null;
         try {
             stmt = con.prepareCall(sql);

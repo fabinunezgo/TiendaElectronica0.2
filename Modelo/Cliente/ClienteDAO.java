@@ -38,7 +38,7 @@ public class ClienteDAO extends Dao<ClienteDTO> {
          CallableStatement stmt = null;
 
         try {
-            String sql = "{CALL insertar_cliente(?, ?, ?, ?, ?)}";
+            String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}";
             stmt = (CallableStatement) con.prepareCall(sql);
             stmt.setString(1, dto.getCedula());
             stmt.setString(2, dto.getNombreCompleto());
@@ -79,7 +79,7 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     @Override
     public List<ClienteDTO> readAll() throws SQLException {
         List<ClienteDTO> clientes = new ArrayList<>();
-        String query = "SELECT * FROM cliente"; // Cambia "cliente" al nombre de tu tabla.
+        String query = "SELECT * FROM cliente"; 
         try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 ClienteDTO cliente = new ClienteDTO(

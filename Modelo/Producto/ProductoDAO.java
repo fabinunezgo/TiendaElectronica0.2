@@ -28,7 +28,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     private Connection connection;
 
     public boolean agregar(ProductoDTO dto) throws SQLException {
-       String sql = "{CALL insertar_producto(?, ?, ?, ?, ?, ?)}";  // Procedimiento almacenado
+       String sql = "{CALL insertarProducto(?, ?, ?, ?, ?, ?)}";  
         Connection con = Conexion.getInstancia().getConexion();
         if (con == null) {
             System.err.println("Error: La conexión es nula.");
@@ -62,7 +62,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     public ProductoDTO buscarPorCodigo(int codigo) throws SQLException {
     String sql = "SELECT * FROM Producto WHERE codigo = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setInt(1, codigo);  // Establecer el código del producto
+        statement.setInt(1, codigo);  
         ResultSet resultSet = statement.executeQuery();
         
         if (resultSet.next()) {

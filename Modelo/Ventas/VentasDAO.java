@@ -27,7 +27,7 @@ public class VentasDAO extends Dao<VentasDTO> {
 
  
     public boolean agregar(VentasDTO dto) throws SQLException {
-        String sql = "{CALL insertar_venta(?, ?, ?, ?, ?)}";  
+        String sql = "{CALL insertarVenta(?, ?, ?, ?, ?)}";  
         Connection con = Conexion.getInstancia().getConexion();
 
         if (con == null) {

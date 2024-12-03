@@ -27,7 +27,7 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
 
     
     public boolean agregar(UsuarioDTO dto) throws SQLException {
-       String sql = "{CALL insertar_usuario(?, ?, ?, ?)}";  
+       String sql = "{CALL insertarUsuario(?, ?, ?, ?)}";  
         Connection con = Conexion.getInstancia().getConexion();
         if (con == null) {
             System.err.println("Error: La conexión es nula.");

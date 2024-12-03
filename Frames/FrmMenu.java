@@ -105,22 +105,29 @@ public class FrmMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    FrmCliente frm = new FrmCliente();
+    jDesktopPane.add(frm);
+    frm.show();
+    }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-      
+    FrmProductos frm = new FrmProductos();
+    jDesktopPane.add(frm);
+    frm.show();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        FrmCliente frm = new FrmCliente();
-        jDesktopPane.add(frm);
-<<<<<<< HEAD
-        frm.show();
-
+    FrmProductos frm = new FrmProductos();
+    jDesktopPane.add(frm);
+    frm.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        FrmProveedor frm = new FrmProveedor();
-        jDesktopPane.add(frm); // Agrega el formulario al DesktopPane
-        frm.setVisible(true);  // Muestra el formulario
+    FrmProveedor frm = new FrmProveedor();
+    jDesktopPane.add(frm); // Agrega el formulario al DesktopPane
+    frm.setVisible(true);  // Muestra el formulario
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

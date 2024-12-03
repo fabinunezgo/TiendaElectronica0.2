@@ -123,7 +123,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
 
     @Override
     public boolean actualizar(ProductoDTO dto) throws SQLException {
-        String sql = "UPDATE Producto SET nombre = ?, categoria = ?, cantidadDisponible = ?, precio = ?, proveedor = ? WHERE codigo = ?";
+      String sql = "UPDATE productos SET nombre = ?, categoria = ?, precio = ?, cantidad_disponible = ?, proveedor = ? WHERE codigo = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, dto.getNombre());
             statement.setString(2, dto.getCategoria());

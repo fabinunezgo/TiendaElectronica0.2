@@ -274,7 +274,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
         }
         boolean datosEliminadosExitosamente = true;
         if (datosEliminadosExitosamente) {
-            JOptionPane.showMessageDialog(this, "Los datos se han agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Los datos se han eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
 
 

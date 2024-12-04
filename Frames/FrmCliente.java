@@ -352,15 +352,22 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             showError("Faltan datos requeridos");
             return;
         }
+
         cliente = new Cliente(
                 txtCedula.getText(),
                 TxtNombre.getText(),
                 txtTelefono.getText(),
                 txtCorreo.getText()
         );
-        controller.agregar(cliente);
+
+// Aquí puedes realizar alguna acción con los datos, como mostrar un mensaje o realizar alguna otra operación.
+// Por ejemplo, puedes mostrar los datos ingresados:
+        showMessage("Cliente registrado: " + cliente.getNombreCompleto());
+
+// Deshabilitar los campos de texto y cambiar los botones
         this.SetEditableStateTxts(false);
         changeStateBtns();
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -417,6 +424,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         if (!txtCedula.isEditable()) {
             return;
         }
+
         String id = txtCedula.getText().trim();
 
         if (id.isEmpty()) {
@@ -429,23 +437,19 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             return;
         }
 
-        if (!controller.validatePK(id)) {
-            showError("La cédula ingresada ya se encuentra registrada");
-            txtCedula.setText("");
-        }
+
     }//GEN-LAST:event_txtCedulaFocusLost
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-      String direccion = txtDireccion.getText().trim();
+        String direccion = txtDireccion.getText().trim();
 
-  
-    if (direccion.isEmpty() || !direccion.matches(".*[a-zA-Z].*") || !direccion.matches(".*\\d.*")) {
-        JOptionPane.showMessageDialog(this, "La dirección debe contener al menos una letra y un número.", "Error", JOptionPane.ERROR_MESSAGE);
-        txtDireccion.setText(""); 
-        return;
-    }
+        if (direccion.isEmpty() || !direccion.matches(".*[a-zA-Z].*") || !direccion.matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(this, "La dirección debe contener al menos una letra y un número.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtDireccion.setText("");
+            return;
+        }
 
-    JOptionPane.showMessageDialog(this, "Dirección válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Dirección válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_txtDireccionActionPerformed
 

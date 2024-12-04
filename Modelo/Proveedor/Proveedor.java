@@ -24,6 +24,22 @@ public class Proveedor {
         return direccion;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+ 
     
     
 

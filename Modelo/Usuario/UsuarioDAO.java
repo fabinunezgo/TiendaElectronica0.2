@@ -146,8 +146,4 @@ public class UsuarioDAO extends Dao<UsuarioDTO> {
         }
     }
 
-    @Override
-    public boolean agregar(ClienteDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

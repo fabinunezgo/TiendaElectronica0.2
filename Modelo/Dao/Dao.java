@@ -20,7 +20,7 @@ public abstract class Dao<Dto> {
         this.connection = connection;
     }
     
-    public abstract boolean agregar (   ClienteDTO dto)throws SQLException;
+    public abstract boolean agregar (Dto dto)throws SQLException;
     public abstract Dto read (Object id)throws SQLException;
     public abstract List<Dto> readAll ()throws SQLException;
     public abstract boolean actualizar (Dto dto)throws SQLException;

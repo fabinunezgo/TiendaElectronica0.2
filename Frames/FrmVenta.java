@@ -283,7 +283,6 @@ public class FrmVenta extends javax.swing.JInternalFrame {
             return;
         }
 
-// Guardando los datos en variables
         String id = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
         String Fecha = txtFecha.getText().trim();
@@ -291,21 +290,16 @@ public class FrmVenta extends javax.swing.JInternalFrame {
         String Subtotal = txtSubtotal.getText().trim();
         String Impuestos = txtImpuestos.getText().trim();
         String total = txtTotal.getText().trim();
-        
 
-// Aquí puedes realizar alguna operación, como guardar en una lista, base de datos o archivo
-// Por ejemplo, guardarlos en una lista
         List<String> datosGuardados = new ArrayList<>();
         datosGuardados.add("ID: " + id);
         datosGuardados.add("ID Cliente: " + idCliente);
-          datosGuardados.add("Fecha:" + Fecha);
+        datosGuardados.add("Fecha:" + Fecha);
         datosGuardados.add("Productos Vendidos: " + productosVendidos);
         datosGuardados.add("Subtotal:" + Subtotal);
         datosGuardados.add("Impuestos:" + Impuestos);
-             datosGuardados.add(" total:" +  total);
-        
+        datosGuardados.add(" total:" + total);
 
-// Puedes mostrar los datos guardados o realizar otras acciones
         JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_BtnAgregar1ActionPerformed

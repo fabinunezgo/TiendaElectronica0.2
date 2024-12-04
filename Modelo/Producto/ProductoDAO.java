@@ -148,8 +148,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
         }
     }
 
-    @Override
-    public boolean agregar(ClienteDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+   
+
+   
 }

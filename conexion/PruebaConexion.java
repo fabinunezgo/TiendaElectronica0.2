@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class PruebaConexion {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/tiendaelectronica2";
+        String url = "jdbc:mysql://localhost:3306/tiendaelectronica";
         String usuario = "root";
         String contrasena = "";
 

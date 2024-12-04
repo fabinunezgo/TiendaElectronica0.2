@@ -364,7 +364,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     cliente = new Cliente(cedula, nombre, telefono, correo);
     boolean success = controller.agregar(cliente);
 
-<<<<<<< HEAD
+
     if (success) {
         showMessage("Cliente registrado correctamente.");
     } else {
@@ -373,7 +373,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     
     this.SetEditableStateTxts(false);
     changeStateBtns();
-=======
+
 // Aquí puedes realizar alguna acción con los datos, como mostrar un mensaje o realizar alguna otra operación.
 // Por ejemplo, puedes mostrar los datos ingresados:
         showMessage("Cliente registrado: " + cliente.getNombreCompleto());
@@ -381,7 +381,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 // Deshabilitar los campos de texto y cambiar los botones
         this.SetEditableStateTxts(true);
         changeStateBtns();
->>>>>>> e2565ea (cambios)
+
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

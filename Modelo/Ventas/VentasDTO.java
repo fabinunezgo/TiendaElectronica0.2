@@ -14,7 +14,7 @@ import java.util.List;
 public class VentasDTO {
     private final int id;
     private final Date fecha;
-    private final int clienteId;
+    private final String idCliente;
     private final List<productovendido> productosVendidos;
     private final double subtotal;
     private final double impuesto;
@@ -28,8 +28,8 @@ public class VentasDTO {
         return fecha;
     }
 
-    public int getClienteId() {
-        return clienteId;
+    public String getClienteId() {
+        return idCliente;
     }
 
     public List<productovendido> getProductosVendidos() {
@@ -48,15 +48,15 @@ public class VentasDTO {
         return impuesto;
     }
 
-    public VentasDTO(int id, Date fecha, int clienteId, List<productovendido> productosVendidos, double subtotal, double impuesto, double total) {
-        this.id = id;
-        this.fecha = fecha;
-        this.clienteId = clienteId;
-        this.productosVendidos = productosVendidos;
-        this.subtotal = subtotal;
-        this.impuesto = impuesto;
-        this.total = total;
-    }
+    public VentasDTO(int id, Date fecha, String idCliente, List<productovendido> productosVendidos, double subtotal, double impuesto, double total) {
+    this.id = id;
+    this.fecha = fecha;
+    this.idCliente = idCliente;
+    this.productosVendidos = productosVendidos;
+    this.subtotal = subtotal;
+    this.impuesto = impuesto;
+    this.total = total;
+}
     
     
     

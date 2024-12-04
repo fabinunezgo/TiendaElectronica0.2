@@ -2,11 +2,10 @@ package Modelo.Ventas;
 
 import Conexion.Conexion;
 import Modelo.Cliente.ClienteDAO;
-import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
+import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,21 +17,24 @@ public class VentasDAO extends Dao<VentasDTO> {
         super(connection);
     }
 
-
     @Override
-    public boolean agregar (VentasDTO dto) throws SQLException {
+    public boolean agregar(VentasDTO dto) throws SQLException {
         if (dto == null || !validateFKClient(dto.getClienteId())) {
-            return false;
-        }
-        String sql = "{CALL insertarVenta(?, ?, ?, ?, ?)}";
-        try (CallableStatement stmt = connection.prepareCall(sql)) {
-            stmt.setDate(1, new java.sql.Date(dto.getFecha().getTime()));
-            stmt.setInt(2, dto.getClienteId());
-            stmt.setDouble(3, dto.getSubtotal());
-            stmt.setDouble(4, dto.getImpuesto());
-            stmt.setDouble(5, dto.getTotal());
-            return stmt.executeUpdate() > 0;
-        }
+        return false;
+    }
+    String sql = "{CALL insertarVenta(?, ?, ?, ?, ?, ?)}";
+    try (CallableStatement stmt = connection.prepareCall(sql)) {
+        stmt.setTimestamp(1, new java.sql.Timestamp(dto.getFecha().getTime())); 
+        stmt.setString(2, dto.getClienteId()); 
+        stmt.setInt(3, dto.getProductosVendidos().size()); 
+        
+        
+        stmt.setBigDecimal(4, BigDecimal.valueOf(dto.getSubtotal())); 
+        stmt.setBigDecimal(5, BigDecimal.valueOf(dto.getImpuesto())); 
+        stmt.setBigDecimal(6, BigDecimal.valueOf(dto.getTotal())); 
+        
+        return stmt.executeUpdate() > 0; 
+    }
     }
 
     @Override
@@ -49,7 +51,7 @@ public class VentasDAO extends Dao<VentasDTO> {
                     return new VentasDTO(
                         rs.getInt("id"),
                         rs.getDate("fecha"),
-                        rs.getInt("clienteId"),
+                        rs.getString("clienteId"), 
                         productosVendidos,
                         rs.getDouble("subtotal"),
                         rs.getDouble("impuesto"),
@@ -72,7 +74,7 @@ public class VentasDAO extends Dao<VentasDTO> {
                     ventas.add(new VentasDTO(
                         rs.getInt("id"),
                         rs.getDate("fecha"),
-                        rs.getInt("clienteId"),
+                        rs.getString("clienteId"), 
                         productosVendidos,
                         rs.getDouble("subtotal"),
                         rs.getDouble("impuesto"),
@@ -85,12 +87,12 @@ public class VentasDAO extends Dao<VentasDTO> {
     }
 
     @Override
-    public boolean actualizar (VentasDTO dto) throws SQLException {
+    public boolean actualizar(VentasDTO dto) throws SQLException {
         String sql = "{CALL actualizarVenta(?, ?, ?, ?, ?, ?)}";
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             stmt.setInt(1, dto.getId());
             stmt.setDate(2, new java.sql.Date(dto.getFecha().getTime()));
-            stmt.setInt(3, dto.getClienteId());
+            stmt.setString(3, dto.getClienteId()); 
             stmt.setDouble(4, dto.getSubtotal());
             stmt.setDouble(5, dto.getImpuesto());
             stmt.setDouble(6, dto.getTotal());
@@ -111,11 +113,7 @@ public class VentasDAO extends Dao<VentasDTO> {
     }
 
     public boolean validateFKClient(Object id) throws SQLException {
-        // Aquí puede validar si el cliente existe. Esto depende de la lógica que se tenga para validar un cliente
-        // Este ejemplo asume que read de ClienteDTO debe ser utilizado para validar.
         ClienteDAO clienteDAO = new ClienteDAO(connection);
         return clienteDAO.read(id) != null;
     }
-
-  
 }

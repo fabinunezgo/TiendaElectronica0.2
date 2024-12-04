@@ -29,7 +29,8 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
      */
     public FrmCliente() {
     initComponents();  
-    controller = new ControllerCliente(this);  
+    controller = new ControllerCliente(this);
+    controller.readAll();
 }
 
     @Override
@@ -388,13 +389,10 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         if (cliente == null) {
         cliente = new Cliente();  
     }
-
     if (!validateRequired()) {
         showError("Faltan datos requeridos");
         return;
     }
-
-
     String cedula = txtCedula.getText().trim();
     String nombre = TxtNombre.getText().trim();
     String telefono = txtTelefono.getText().trim();
@@ -404,24 +402,22 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         showError("Todos los campos deben ser completados.");
         return;
     }
-
     cliente.setCedula(cedula);
     cliente.setNombreCompleto(nombre);
     cliente.setTelefono(telefono);
     cliente.setCorreo(correo);
-
     boolean success = controller.agregar(cliente);
-
-
     if (success) {
         showMessage("Cliente registrado correctamente.");
     } else {
         showError("Hubo un error al registrar el cliente.");
-    }
-    
+    }   
     SetEditableStateTxts(false);
     changeStateBtns();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         showMessage("Cliente registrado: " + cliente.getNombreCompleto());
         this.SetEditableStateTxts(true);
         changeStateBtns();

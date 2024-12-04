@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author thyfa
  */
-public class FrmProducto extends javax.swing.JInternalFrame implements View {
+public class FrmProducto extends javax.swing.JInternalFrame implements View<Producto> {
 
     Producto producto;
 
@@ -23,6 +23,8 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View {
      */
     public FrmProducto() {
         initComponents();
+        
+        
     }
 
     /**
@@ -391,11 +393,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View {
     private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void show(Object ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     @Override
     public void showAll(List ents) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -424,6 +422,11 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View {
         txtCantidad.setText("");
         txtProveedor.setText("");
 
+    }
+
+    @Override
+    public void show(Producto ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

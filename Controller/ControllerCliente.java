@@ -42,7 +42,7 @@ public class ControllerCliente {
 
     public boolean agregar(Cliente cliente) {
     if (cliente == null || !validateRequired(cliente)) {
-        view.showError("Faltan datos requeridos");
+     
         return false;  
     }
     try {
@@ -54,7 +54,8 @@ public class ControllerCliente {
         view.showMessage("Cliente registrado correctamente");
         return true;  
     } catch (SQLException ex) {
-        view.showError("Ocurrió un error al guardar los datos: " + ex.getMessage());
+        System.out.println();
+      
         return false;  
     }
 }

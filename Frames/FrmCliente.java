@@ -422,11 +422,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     SetEditableStateTxts(false);
     changeStateBtns();
 
-// Aquí puedes realizar alguna acción con los datos, como mostrar un mensaje o realizar alguna otra operación.
-// Por ejemplo, puedes mostrar los datos ingresados:
         showMessage("Cliente registrado: " + cliente.getNombreCompleto());
-
-// Deshabilitar los campos de texto y cambiar los botones
         this.SetEditableStateTxts(true);
         changeStateBtns();
 

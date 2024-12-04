@@ -32,19 +32,19 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     public boolean agregar(ClienteDTO dto) throws SQLException {
         CallableStatement stmt = null;
         try {
-            String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}";
+            String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}"; 
             stmt = connection.prepareCall(sql);
             stmt.setString(1, dto.getCedula());
             stmt.setString(2, dto.getNombreCompleto());
             stmt.setString(3, dto.getDireccion());
             stmt.setString(4, dto.getTelefono());
             stmt.setString(5, dto.getCorreo());
-            return stmt.executeUpdate() > 0;
+            return stmt.executeUpdate() > 0; 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
             return false;
         } finally {
-            if (stmt != null) stmt.close();
+            if (stmt != null) stmt.close(); 
         }
     }
 
@@ -74,6 +74,7 @@ public class ClienteDAO extends Dao<ClienteDTO> {
         String query = "SELECT * FROM Cliente"; 
         try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
+
                 ClienteDTO cliente = new ClienteDTO(
                         rs.getString("cedula"),
                         rs.getString("nombreCompleto"), 
@@ -89,23 +90,37 @@ public class ClienteDAO extends Dao<ClienteDTO> {
 
     @Override
     public boolean actualizar(ClienteDTO dto) throws SQLException {
-        String sql = "{CALL actualizarCliente(?, ?, ?, ?, ?)}";
-        try (CallableStatement statement = connection.prepareCall(sql)) {
-            statement.setString(1, dto.getCedula());
-            statement.setString(2, dto.getNombreCompleto());
-            statement.setString(3, dto.getDireccion());
-            statement.setString(4, dto.getTelefono());
-            statement.setString(5, dto.getCorreo());
-            return statement.executeUpdate() > 0;
+        CallableStatement stmt = null;
+        try {
+            String sql = "{CALL actualizarCliente(?, ?, ?, ?, ?)}"; 
+            stmt = connection.prepareCall(sql);
+            stmt.setString(1, dto.getCedula());
+            stmt.setString(2, dto.getNombreCompleto());
+            stmt.setString(3, dto.getDireccion());
+            stmt.setString(4, dto.getTelefono());
+            stmt.setString(5, dto.getCorreo());
+            return stmt.executeUpdate() > 0; 
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+            return false;
+        } finally {
+            if (stmt != null) stmt.close(); 
         }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "{CALL eliminarCliente(?)}";
-        try (CallableStatement statement = connection.prepareCall(sql)) {
-            statement.setString(1, (String) id);
-            return statement.executeUpdate() > 0;
+        CallableStatement stmt = null;
+        try {
+            String sql = "{CALL eliminarCliente(?)}"; 
+            stmt = connection.prepareCall(sql);
+            stmt.setString(1, (String) id); 
+            return stmt.executeUpdate() > 0; 
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+            return false;
+        } finally {
+            if (stmt != null) stmt.close(); 
         }
     }
 

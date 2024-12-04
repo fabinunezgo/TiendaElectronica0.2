@@ -12,7 +12,6 @@ import Modelo.Cliente.ClienteDAO;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Cliente.ClienteMapper;
 import View.View;
-import com.sun.jdi.connect.spi.Connection;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
@@ -26,45 +25,46 @@ import java.util.stream.Collectors;
  */
 public class ControllerCliente {
 
-      private ClienteDAO dao;
+    private ClienteDAO dao;
     private final View view;
     private final ClienteMapper mapper;
-    
+
     public ControllerCliente(View view) {
         this.view = view;
-        mapper=new ClienteMapper();
+        this.mapper = new ClienteMapper();
         try {
-            dao=new ClienteDAO(Conexion.getConnection());
+            this.dao = new ClienteDAO(Conexion.getConnection());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             view.showError("Error al conectar con la Base de Datos");
-            
         }
     }
 
-    public void agregar(Cliente cliente) {
-        if (cliente == null || !validateRequired(cliente)) {
-            view.showError("Faltan datos requeridos");
-            return;
-        }
-        try {
-            if (validatePK(cliente.getCedula())) {
-                view.showError("La cédula ingresada ya se encuentra registrada");
-                return;
-            }
-            dao.agregar(mapper.toDTO(cliente));
-            view.showMessage("Datos guardados correctamente");
-        } catch (SQLException ex) {
-            view.showError("Ocurrió un error al guardar los datos: " + ex.getMessage());
-        }
+    public boolean agregar(Cliente cliente) {
+    if (cliente == null || !validateRequired(cliente)) {
+        view.showError("Faltan datos requeridos");
+        return false;  
     }
+    try {
+        if (validatePK(cliente.getCedula())) {
+            view.showError("La cédula ingresada ya se encuentra registrada");
+            return false;  
+        }
+        dao.agregar(mapper.toDTO(cliente));
+        view.showMessage("Cliente registrado correctamente");
+        return true;  
+    } catch (SQLException ex) {
+        view.showError("Ocurrió un error al guardar los datos: " + ex.getMessage());
+        return false;  
+    }
+}
 
     public void readAll() {
         try {
             List<ClienteDTO> dtoList = dao.readAll();
             List<Cliente> customerList = dtoList.stream()
                     .map(mapper::toEnt) 
-                    .filter(Objects::nonNull) 
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
             view.showAll(customerList);
         } catch (SQLException ex) {
@@ -115,25 +115,13 @@ public class ControllerCliente {
                 && !cliente.getCorreo().trim().isEmpty();
     }
 
-    public boolean validatePK(String id) {
+    public boolean validatePK(String cedula) {
         try {
-            return dao.read(id) != null;
+            return dao.read(cedula) != null;
         } catch (SQLException ex) {
             view.showError("Error al validar la cédula: " + ex.getMessage());
             return false;
         }
-    }
-  // Simula una base de datos de cédulas registradas
-    private static Set<String> cedulasRegistradas = new HashSet<>();
-
-    // Método para registrar una cédula (simulando la base de datos)
-    public static void registrarCedula(String cedula) {
-        cedulasRegistradas.add(cedula);
-    }
-
-    // Método para verificar si la cédula ya está registrada
-    public static boolean isCedulaRegistered(int cedula) {
-        return cedulasRegistradas.contains(cedula);
     }
 }
 

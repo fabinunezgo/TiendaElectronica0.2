@@ -28,9 +28,9 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
      * Creates new form FrmCustomer
      */
     public FrmCliente() {
-        initComponents();
-
-    }
+    initComponents();  
+    controller = new ControllerCliente(this);  
+}
 
     @Override
     public void show(Cliente ent) {
@@ -349,24 +349,29 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (!validateRequired()) {
-            showError("Faltan datos requeridos");
-            return;
-        }
+        showError("Faltan datos requeridos");
+        return;
+    }
+    String cedula = txtCedula.getText().trim();
+    String nombre = TxtNombre.getText().trim();
+    String telefono = txtTelefono.getText().trim();
+    String correo = txtCorreo.getText().trim();
 
-        cliente = new Cliente(
-                txtCedula.getText(),
-                TxtNombre.getText(),
-                txtTelefono.getText(),
-                txtCorreo.getText()
-        );
+    if (cedula.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
+        showError("Todos los campos deben ser completados.");
+        return;
+    }
+    cliente = new Cliente(cedula, nombre, telefono, correo);
+    boolean success = controller.agregar(cliente);
 
-// Aquí puedes realizar alguna acción con los datos, como mostrar un mensaje o realizar alguna otra operación.
-// Por ejemplo, puedes mostrar los datos ingresados:
-        showMessage("Cliente registrado: " + cliente.getNombreCompleto());
-
-// Deshabilitar los campos de texto y cambiar los botones
-        this.SetEditableStateTxts(false);
-        changeStateBtns();
+    if (success) {
+        showMessage("Cliente registrado correctamente.");
+    } else {
+        showError("Hubo un error al registrar el cliente.");
+    }
+    
+    this.SetEditableStateTxts(false);
+    changeStateBtns();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

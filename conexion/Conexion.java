@@ -15,11 +15,23 @@ import java.sql.SQLException;
  * @author ASUS
  */
 public class Conexion {
-    private static final String URL ="jdbc:mysql://localhost:3306/tiendaelectronica2";
-    private static final String USER ="root";
-    private static final String PASSWORD ="";
-    
-    public static Connection getConnection() throws SQLException{
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    private static final String URL = "jdbc:mysql://localhost:3306/tiendaelectronica2";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+
+    private static Connection connection = null;
+
+    public static Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        }
+        return connection;
     }
+
+    public static void closeConnection() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
+    }
+    
 }

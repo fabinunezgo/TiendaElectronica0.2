@@ -5,14 +5,18 @@
 package Frames;
 
 import Modelo.Producto.Producto;
+import View.View;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author thyfa
  */
-public class FrmProducto extends javax.swing.JInternalFrame {
-      Producto producto;
+public class FrmProducto extends javax.swing.JInternalFrame implements View {
+
+    Producto producto;
+
     /**
      * Creates new form FrmProducto
      */
@@ -270,7 +274,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
         if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()
-            || txtCategoria.getText().isEmpty() || txtProveedor.getText().isEmpty()) {
+                || txtCategoria.getText().isEmpty() || txtProveedor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -282,10 +286,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             return;
         }
         int option = JOptionPane.showConfirmDialog(
-            this,
-            "¿Está seguro que desea eliminar el producto actual?",
-            "Confirmar Eliminación",
-            JOptionPane.YES_NO_OPTION
+                this,
+                "¿Está seguro que desea eliminar el producto actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
         );
         if (option == JOptionPane.NO_OPTION) {
             return;
@@ -300,10 +304,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             return;
         }
         int option = JOptionPane.showConfirmDialog(
-            this,
-            "¿Está seguro que desea actualizar la información del producto?",
-            "Confirmar Actualización",
-            JOptionPane.YES_NO_OPTION
+                this,
+                "¿Está seguro que desea actualizar la información del producto?",
+                "Confirmar Actualización",
+                JOptionPane.YES_NO_OPTION
         );
         if (option == JOptionPane.NO_OPTION) {
             return;
@@ -358,4 +362,40 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Object ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showAll(List ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showError(String err) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean validateRequired() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void clear() {
+        txtNombre.setText("");
+        txtCategoria.setText("");
+        txtCodigo.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        txtProveedor.setText("");
+
+    }
+
 }

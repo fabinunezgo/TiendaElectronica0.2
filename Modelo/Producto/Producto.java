@@ -1,6 +1,6 @@
 package Modelo.Producto;
 
-import Frames.FrmProductos;
+import Frames.FrmProducto;
 
 public class Producto {
 

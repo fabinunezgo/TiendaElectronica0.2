@@ -118,7 +118,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-     FrmProductos frmProductos = new FrmProductos();
+     FrmProducto frmProductos = new FrmProducto();
          frmProductos.setSize(500, 600); // Tamaño que desees para el frame interno
         jDesktopPane.add( frmProductos);
         frmProductos.setVisible(true);

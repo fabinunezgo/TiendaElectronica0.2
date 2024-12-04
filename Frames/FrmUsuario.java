@@ -37,7 +37,6 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         TxtNombre = new javax.swing.JTextField();
-        TxtId = new javax.swing.JTextField();
         TxtNombreU = new javax.swing.JTextField();
         TxtContraseña = new javax.swing.JTextField();
         TxtRol = new javax.swing.JTextField();
@@ -46,6 +45,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        TxtId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -102,9 +102,6 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
             }
         });
 
-        TxtId.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtId.setText("Id");
-
         TxtNombreU.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
         TxtNombreU.setText("Nombre de Usuario");
 
@@ -122,6 +119,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
             }
         });
 
+        TxtId.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtId.setText("Id");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -133,8 +133,8 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TxtNombreU)
                             .addComponent(TxtNombre)
-                            .addComponent(TxtId)
-                            .addComponent(TxtContraseña))
+                            .addComponent(TxtContraseña)
+                            .addComponent(TxtId))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField2)
@@ -145,15 +145,15 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
                         .addComponent(TxtRol, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, 0, 171, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TxtId)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField4)
+                    .addComponent(TxtId))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)

@@ -10,22 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.CallableStatement;
 
 
 /**
  *
  * @author thyfa
  */
-import Modelo.Dao.Dao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class ClienteDAO extends Dao<ClienteDTO> {
@@ -34,28 +28,23 @@ public class ClienteDAO extends Dao<ClienteDTO> {
         super(connection);
     }
 
-    
     @Override
     public boolean agregar(ClienteDTO dto) throws SQLException {
-         Connection con = Conexion.getConnection();
-         CallableStatement stmt = null;
-
+        CallableStatement stmt = null;
         try {
             String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}";
-            stmt = (CallableStatement) con.prepareCall(sql);
+            stmt = connection.prepareCall(sql);
             stmt.setString(1, dto.getCedula());
             stmt.setString(2, dto.getNombreCompleto());
             stmt.setString(3, dto.getDireccion());
             stmt.setString(4, dto.getTelefono());
             stmt.setString(5, dto.getCorreo());
-            return stmt.executeUpdate() > 0; 
-
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
             if (stmt != null) stmt.close();
-            if (con != null) con.close();
         }
     }
 
@@ -82,12 +71,12 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     @Override
     public List<ClienteDTO> readAll() throws SQLException {
         List<ClienteDTO> clientes = new ArrayList<>();
-        String query = "SELECT * FROM cliente"; 
+        String query = "SELECT * FROM Cliente"; 
         try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 ClienteDTO cliente = new ClienteDTO(
                         rs.getString("cedula"),
-                        rs.getString("nombre"),
+                        rs.getString("nombreCompleto"), 
                         rs.getString("direccion"),
                         rs.getString("telefono"),
                         rs.getString("correo")
@@ -100,27 +89,27 @@ public class ClienteDAO extends Dao<ClienteDTO> {
 
     @Override
     public boolean actualizar(ClienteDTO dto) throws SQLException {
-         String sql = "{CALL actualizarCliente(?, ?, ?, ?, ?)}"; 
-    try (CallableStatement statement = connection.prepareCall(sql)) {
-        statement.setString(1, dto.getCedula()); 
-        statement.setString(2, dto.getNombreCompleto());
-        statement.setString(3, dto.getDireccion());
-        statement.setString(4, dto.getTelefono());
-        statement.setString(5, dto.getCorreo());
-        return statement.executeUpdate() > 0; 
-    }
+        String sql = "{CALL actualizarCliente(?, ?, ?, ?, ?)}";
+        try (CallableStatement statement = connection.prepareCall(sql)) {
+            statement.setString(1, dto.getCedula());
+            statement.setString(2, dto.getNombreCompleto());
+            statement.setString(3, dto.getDireccion());
+            statement.setString(4, dto.getTelefono());
+            statement.setString(5, dto.getCorreo());
+            return statement.executeUpdate() > 0;
+        }
     }
 
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "{CALL eliminarCliente(?)}"; 
+        String sql = "{CALL eliminarCliente(?)}";
         try (CallableStatement statement = connection.prepareCall(sql)) {
-        statement.setString(1, (String) id); 
-        return statement.executeUpdate() > 0; 
-    }
+            statement.setString(1, (String) id);
+            return statement.executeUpdate() > 0;
+        }
     }
 
     public boolean validatePK(String id) throws SQLException {
-       return read(id) == null;
+        return read(id) == null;
     }
 }

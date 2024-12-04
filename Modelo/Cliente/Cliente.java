@@ -9,7 +9,22 @@ public class Cliente {
     private String telefono;
     private String correo;
 
-  
+    public Cliente() {
+        this.cedula = "";
+        this.nombreCompleto = "";
+        this.direccion = "";
+        this.telefono = "";
+        this.correo = "";
+    }
+
+    public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
+        this.cedula = cedula;
+        this.nombreCompleto = nombreCompleto;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+
     public String getCedula() {
         return cedula;
     }
@@ -49,22 +64,4 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-    public Cliente(String cedula, String nombreCompleto, String direccion, String telefono, String correo) {
-        this(cedula, nombreCompleto, direccion, telefono);
-    }
-
-    public Cliente(String cedula, String nombreCompleto, String direccion, String telefono) {
-        this(cedula);
-    }
-
-    public Cliente(String cedula) {
-        this.cedula = cedula;
-        this.nombreCompleto = nombreCompleto;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.correo = correo;
-    }
-    
-   
 }

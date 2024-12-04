@@ -68,7 +68,44 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     @Override
     public boolean validateRequired() {
-        return UtilGui.validateFields(txtCedula, TxtNombre, txtDireccion, txtTelefono, txtCorreo);
+        if (cliente == null) {
+        showError("No se ha cargado un cliente.");
+        return false;
+    }
+
+    if (cliente.getNombreCompleto() == null || cliente.getNombreCompleto().trim().isEmpty()) {
+        showError("El nombre completo es obligatorio.");
+        return false;
+    }
+
+    String[] nombreParts = cliente.getNombreCompleto().trim().split("\\s+");
+
+    if (nombreParts.length != 2) {
+        showError("El nombre completo debe contener un nombre y un apellido.");
+        return false;
+    }
+
+    if (nombreParts[0].isEmpty() || nombreParts[1].isEmpty()) {
+        showError("El nombre y apellido no pueden estar vacíos.");
+        return false;
+    }
+
+    if (cliente.getTelefono() == null || cliente.getTelefono().trim().isEmpty()) {
+        showError("El teléfono es obligatorio.");
+        return false;
+    }
+
+    if (cliente.getCorreo() == null || cliente.getCorreo().trim().isEmpty()) {
+        showError("El correo electrónico es obligatorio.");
+        return false;
+    }
+
+    if (!cliente.getCorreo().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+        showError("El correo electrónico no es válido.");
+        return false;
+    }
+
+    return true;
     }
 
     public void changeStateBtns() {
@@ -348,10 +385,16 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (!validateRequired()) {
+        if (cliente == null) {
+        cliente = new Cliente();  
+    }
+
+    if (!validateRequired()) {
         showError("Faltan datos requeridos");
         return;
     }
+
+
     String cedula = txtCedula.getText().trim();
     String nombre = TxtNombre.getText().trim();
     String telefono = txtTelefono.getText().trim();
@@ -361,27 +404,22 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         showError("Todos los campos deben ser completados.");
         return;
     }
-    cliente = new Cliente(cedula, nombre, telefono, correo);
+
+    cliente.setCedula(cedula);
+    cliente.setNombreCompleto(nombre);
+    cliente.setTelefono(telefono);
+    cliente.setCorreo(correo);
+
     boolean success = controller.agregar(cliente);
 
-<<<<<<< HEAD
     if (success) {
         showMessage("Cliente registrado correctamente.");
     } else {
         showError("Hubo un error al registrar el cliente.");
     }
     
-    this.SetEditableStateTxts(false);
+    SetEditableStateTxts(false);
     changeStateBtns();
-=======
-// Aquí puedes realizar alguna acción con los datos, como mostrar un mensaje o realizar alguna otra operación.
-// Por ejemplo, puedes mostrar los datos ingresados:
-        showMessage("Cliente registrado: " + cliente.getNombreCompleto());
-
-// Deshabilitar los campos de texto y cambiar los botones
-        this.SetEditableStateTxts(true);
-        changeStateBtns();
->>>>>>> e2565ea (cambios)
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -393,41 +431,44 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (cliente == null) {
-            showError("No hay ningun cliente cargado actualmente");
-            return;
-        }
-        if (!validateRequired()) {
-            showError("Faltan datos requeridos");
-            return;
-        }
-        String newPhone = txtTelefono.getText().trim();
-        String newEmail = txtCorreo.getText().trim();
-        if (!newPhone.equals(cliente.getTelefono()) || !newEmail.equals(cliente.getCorreo())) {
-            cliente.setTelefono(newPhone);
-            cliente.setCorreo(title);
-            controller.update(cliente);
-            showMessage("Datos actualizados correctamente");
-        } else {
-            showMessage("No se realizaron cambios");
-        }
+        showError("No hay ningún cliente cargado actualmente");
+        return;
+    }
+    if (!validateRequired()) {
+        showError("Faltan datos requeridos");
+        return;
+    }
+    String newPhone = txtTelefono.getText().trim();
+    String newEmail = txtCorreo.getText().trim();
+
+    if (!newPhone.equals(cliente.getTelefono()) || !newEmail.equals(cliente.getCorreo())) {
+        cliente.setTelefono(newPhone);
+        cliente.setCorreo(newEmail);
+
+        controller.update(cliente);
+        showMessage("Datos actualizados correctamente");
+    } else {
+        showMessage("No se realizaron cambios");
+    }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (cliente == null) {
-            showError("No hay ningun cliente cargado actualmente");
-            return;
-        }
-        int option = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea eliminar el cliente actual?",
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
-        controller.delete(cliente);
-        clear();
+        showError("No hay ningún cliente cargado actualmente");
+        return;
+    }
+    int option = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea eliminar el cliente actual?",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION
+    );
+    
+    if (option == JOptionPane.NO_OPTION) {
+        return;  
+    }
+    controller.delete(cliente);
+    clear();  
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -437,20 +478,20 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     private void txtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCedulaFocusLost
         if (!txtCedula.isEditable()) {
-            return;
-        }
+        return;
+    }
 
-        String id = txtCedula.getText().trim();
+    String id = txtCedula.getText().trim();
 
-        if (id.isEmpty()) {
-            return;
-        }
+    if (id.isEmpty()) {
+        return;
+    }
 
-        if (!id.matches("[0-9]+")) {
-            showError("La cédula solo puede contener números");
-            txtCedula.setText("");
-            return;
-        }
+    if (!id.matches("[0-9]+")) {  
+        showError("La cédula solo puede contener números");
+        txtCedula.setText("");  
+        return;
+    }
 
 
     }//GEN-LAST:event_txtCedulaFocusLost
@@ -482,6 +523,8 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         TxtNombre.setEditable(value);
         txtDireccion.setEditable(value);
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtNombre;

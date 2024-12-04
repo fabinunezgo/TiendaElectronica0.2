@@ -414,10 +414,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }   
     SetEditableStateTxts(false);
     changeStateBtns();
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         showMessage("Cliente registrado: " + cliente.getNombreCompleto());
         this.SetEditableStateTxts(true);
         changeStateBtns();

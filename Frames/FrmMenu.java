@@ -38,6 +38,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +90,14 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem5.setText("Usuario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -107,18 +116,12 @@ public class FrmMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                           
-    FrmCliente frm = new FrmCliente();
-    jDesktopPane.add(frm);
-    frm.show();
-    }
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        FrmProductos frmProductos = new FrmProductos();
-
-        frmProductos.setSize(400, 600); // Tamaño que desees para el frame interno
-        jDesktopPane.add(frmProductos);
-        frmProductos.setVisible(rootPaneCheckingEnabled);
+     FrmProductos frmProductos = new FrmProductos();
+         frmProductos.setSize(500, 600); // Tamaño que desees para el frame interno
+        jDesktopPane.add( frmProductos);
+        frmProductos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -128,16 +131,10 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    // Crear una instancia del FrmProveedor como un JInternalFrame
+
         FrmProveedor1 frmProveedor = new FrmProveedor1();
-
-// Configurar el tamaño del frame interno
         frmProveedor.setSize(600, 500); // Tamaño que desees para el frame interno
-
-// Agregar el frame al JDesktopPane
         jDesktopPane.add(frmProveedor);
-
-// Hacerlo visible
         frmProveedor.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -149,6 +146,14 @@ public class FrmMenu extends javax.swing.JFrame {
         frmVentas.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+         FrmUsuario frmUsuario = new FrmUsuario();
+         frmUsuario.setSize(500, 600); // Tamaño que desees para el frame interno
+        jDesktopPane.add( frmUsuario);
+        frmUsuario.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,5 +198,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,6 +42,24 @@ public class Usuario {
         return rol;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    
+
  
     public Usuario(int id, String nombre, String username, String password, String rol) {
         this.id = id;

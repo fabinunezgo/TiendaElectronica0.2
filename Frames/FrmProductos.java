@@ -393,12 +393,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     @Override
     public void showAll(List<Producto> ents) {
-       if(frm==null){
-            frm = new  FrmBuscarProducto(null,true);
-            frm.setObserver(this);
-        }
-        frm.setEnts(ents);
-        frm.setVisible(true);   
+    
     }
 
     @Override

@@ -295,8 +295,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         
         
 
-// Aquí puedes realizar alguna operación, como guardar en una lista, base de datos o archivo
-// Por ejemplo, guardarlos en una lista
+
         List<String> datosGuardados = new ArrayList<>();
         datosGuardados.add(" Nombre" +  Nombre);
         datosGuardados.add("ID Cliente: " + idCliente);

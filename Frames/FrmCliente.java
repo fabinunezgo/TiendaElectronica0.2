@@ -354,22 +354,16 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // Inicializa el cliente siempre con un nuevo objeto
-        Cliente cliente = new Cliente();
 
-// Obtiene los datos de los campos
+        Cliente cliente = new Cliente();
         String cedula = txtCedula.getText().trim();
         String nombre = TxtNombre.getText().trim();
         String telefono = txtTelefono.getText().trim();
         String correo = txtCorreo.getText().trim();
-
-// Validación de campos vacíos
         if (cedula.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
             showError("Todos los campos deben ser completados.");
             return;
         }
-
-// Validación de formato de correo y teléfono
         if (!correo.matches("^[\\w-.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
             showError("El correo no tiene un formato válido.");
             return;
@@ -378,19 +372,15 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             showError("El teléfono debe contener entre 8 y 10 dígitos.");
             return;
         }
-
-// Asigna los valores al cliente
         cliente.setCedula(cedula);
         cliente.setNombreCompleto(nombre);
         cliente.setTelefono(telefono);
         cliente.setCorreo(correo);
-
-// Intenta registrar el cliente
         boolean success = controller.agregar(cliente);
         if (success) {
             showMessage("Cliente registrado correctamente: " + cliente.getNombreCompleto());
-            SetEditableStateTxts(false); // Desactiva los campos
-            changeStateBtns();          // Cambia el estado de los botones
+            SetEditableStateTxts(false);
+            changeStateBtns();          
         } else {
             showError("No se pudo registrar el cliente.");
         }

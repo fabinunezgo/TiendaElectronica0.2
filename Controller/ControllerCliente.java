@@ -42,6 +42,7 @@ public class ControllerCliente {
     }
 
     public boolean agregar(Cliente cliente) {
+<<<<<<< HEAD
         if (cliente == null || !validateRequired(cliente)) {
             view.showError("Faltan datos requeridos");
             return false;  
@@ -59,6 +60,23 @@ public class ControllerCliente {
             ex.printStackTrace(); // Imprime el seguimiento completo del error
             return false;  
         }
+=======
+   System.out.println("Intentando agregar cliente: " + cliente.getNombreCompleto());
+    // Aquí verifica si el cliente está siendo correctamente recibido y qué sucede al intentar agregarlo.
+    // Si usas base de datos, verifica la consulta.
+    // Ejemplo:
+    try {
+        // Si es una base de datos, asegúrate de que la conexión esté funcionando correctamente.
+        // Aquí se debería agregar el cliente a la base de datos.
+        String query = "INSERT INTO clientes (cedula, nombre,direccion, telefono, correo) VALUES (?, ?, ?, ?, ?)";
+        // Código para ejecutar la consulta con los parámetros del cliente.
+
+        // Si se llegó hasta aquí, el cliente fue registrado correctamente.
+        return true;
+    } catch (Exception e) {
+        System.out.println("Error al agregar cliente: " + e.getMessage());
+        return false;  // Si hay un error, se captura y se retorna false
+>>>>>>> 3099e1c (cambios)
     }
 
     public void readAll() {
@@ -76,10 +94,19 @@ public class ControllerCliente {
     }
 
     public void update(Cliente cliente) {
-        if (cliente == null || !validateRequired(cliente)) {
-            view.showError("Faltan datos requeridos");
+       
+    if (cliente == null || !validateRequired(cliente)) {
+        view.showError("Faltan datos requeridos");
+        System.out.println("Error: Datos requeridos faltantes.");
+        return;
+    }
+    try {
+        System.out.println("Validando la cédula...");
+        if (!validatePK(cliente.getCedula())) {
+            view.showError("La cédula ingresada no se encuentra registrada");
             return;
         }
+<<<<<<< HEAD
         try {
             if (!validatePK(cliente.getCedula())) {
                 view.showError("La cédula ingresada no se encuentra registrada");
@@ -91,7 +118,18 @@ public class ControllerCliente {
             view.showError("Ocurrió un error al actualizar los datos: " + ex.getMessage());
             ex.printStackTrace(); // Imprime el seguimiento completo del error
         }
+=======
+        
+        System.out.println("Actualizando en la base de datos...");
+        dao.actualizar(mapper.toDTO(cliente));
+        view.showMessage("Datos actualizados correctamente");
+    } catch (SQLException ex) {
+        view.showError("Ocurrió un error al actualizar los datos: " + ex.getMessage());
+        ex.printStackTrace();  // Agrega más información sobre la excepción
+>>>>>>> 3099e1c (cambios)
     }
+}
+
 
     public void delete(Cliente cliente) {
         if (cliente == null || !validateRequired(cliente)) {

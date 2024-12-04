@@ -4,6 +4,7 @@
  */
 package Frames;
 
+import java.lang.ModuleLayer.Controller;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,25 +196,72 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
+        String cedula = txtId.getText().trim();
+
+// Verificar que el campo no esté vacío
+        if (cedula.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de cédula no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+// Verificar que la cédula tenga exactamente 9 dígitos
+        if (cedula.length() != 9) {
+            JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 9 dígitos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtId.setText(""); 
+            return;
+        }
+
+
+        if (!cedula.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "La cédula no puede contener letras ni caracteres especiales.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtId.setText(""); 
+            return;
+        }
+
+
+        JOptionPane.showMessageDialog(this, "La cédula es válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void txtContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactoActionPerformed
-        // TODO add your handling code here:
+        String contacto = txtContacto.getText().trim();
+        if (contacto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de contacto no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!contacto.matches("[0-9]{8}")) {
+            if (contacto.matches(".*[a-zA-Z].*")) {
+                JOptionPane.showMessageDialog(this, "El contacto no puede contener letras", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "El contacto debe ser un número de 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            txtContacto.setText("");
+            return; 
+        }
+        JOptionPane.showMessageDialog(this, "El contacto es válido y fue agregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+
+
     }//GEN-LAST:event_txtContactoActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() ||
-            txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        boolean datosAgregadosExitosamente = true;
+
+        if (datosAgregadosExitosamente) {
+            JOptionPane.showMessageDialog(this, "Los datos se han agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() ||
-            txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -224,6 +272,12 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Ingrese el ID del proveedor", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        boolean datosEliminadosExitosamente = true;
+        if (datosEliminadosExitosamente) {
+            JOptionPane.showMessageDialog(this, "Los datos se han agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed

@@ -43,7 +43,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         TxtNombre.setText(ent.getNombreCompleto());
         txtTelefono.setText(ent.getTelefono());
         txtCorreo.setText(ent.getCorreo());
-        txtFecha.setText(ent.getDireccion());
+        txtDireccion.setText(ent.getDireccion());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     @Override
     public boolean validateRequired() {
-        return UtilGui.validateFields(txtCedula, TxtNombre, txtFecha, txtTelefono, txtCorreo);
+        return UtilGui.validateFields(txtCedula, TxtNombre, txtDireccion, txtTelefono, txtCorreo);
     }
 
     public void changeStateBtns() {
@@ -94,7 +94,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel7 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JFormattedTextField();
         TxtNombre = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JFormattedTextField();
+        txtDireccion = new javax.swing.JFormattedTextField();
         txtCorreo = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -119,7 +119,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel2.setText("Cedula");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel3.setText("Fecha");
+        jLabel3.setText("Direccion");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -144,12 +144,17 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         TxtNombre.setEditable(false);
         TxtNombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        txtFecha.setEditable(false);
-        txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        txtFecha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        txtFecha.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDireccion.setEditable(false);
+        txtDireccion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtDireccion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFechaFocusLost(evt);
+                txtDireccionFocusLost(evt);
+            }
+        });
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
             }
         });
 
@@ -175,7 +180,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,7 +211,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -437,23 +442,29 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         }
     }//GEN-LAST:event_txtCedulaFocusLost
 
-    private void txtFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaFocusLost
-        String date = txtFecha.getText();
-        if (date.trim().isEmpty()) {
-            return;
-        }
-        if (!UtilDate.validate(date)) {
-            showError("La fecha ingresada no tiene el formato correcto");
-            txtFecha.setText("");
-            return;
-        }
-        ;
-    }//GEN-LAST:event_txtFechaFocusLost
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+     
+    }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+                                          
+    String direccion = txtDireccion.getText().trim();
+
+    // Validar que no esté vacía y que contenga letras y números
+    if (direccion.isEmpty() || !direccion.matches(".*[a-zA-Z].*") || !direccion.matches(".*\\d.*")) {
+        JOptionPane.showMessageDialog(this, "La dirección debe contener al menos una letra y un número.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtDireccion.setText(""); // Limpiar el campo
+        return;
+    }
+
+    JOptionPane.showMessageDialog(this, "Dirección válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void clear() {
         UtilGui.clearTxts(txtCedula,
                 TxtNombre,
-                txtFecha,
+                txtDireccion,
                 txtTelefono,
                 txtCorreo
         );
@@ -462,7 +473,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     private void SetEditableStateTxts(boolean value) {
         txtCedula.setEditable(value);
         TxtNombre.setEditable(value);
-        txtFecha.setEditable(value);
+        txtDireccion.setEditable(value);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -485,7 +496,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     private javax.swing.JPanel jPanel2;
     private javax.swing.JFormattedTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JFormattedTextField txtFecha;
+    private javax.swing.JFormattedTextField txtDireccion;
     private javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

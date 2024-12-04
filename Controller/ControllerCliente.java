@@ -14,8 +14,10 @@ import Modelo.Cliente.ClienteMapper;
 import View.View;
 import com.sun.jdi.connect.spi.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -121,5 +123,17 @@ public class ControllerCliente {
             return false;
         }
     }
+  // Simula una base de datos de cédulas registradas
+    private static Set<String> cedulasRegistradas = new HashSet<>();
 
+    // Método para registrar una cédula (simulando la base de datos)
+    public static void registrarCedula(String cedula) {
+        cedulasRegistradas.add(cedula);
+    }
+
+    // Método para verificar si la cédula ya está registrada
+    public static boolean isCedulaRegistered(int cedula) {
+        return cedulasRegistradas.contains(cedula);
+    }
 }
+

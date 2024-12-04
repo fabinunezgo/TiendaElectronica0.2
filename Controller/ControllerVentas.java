@@ -30,7 +30,7 @@ public class ControllerVentas {
             return false;
         }
         try {
-            if (!validateFKCliente(venta.getClienteId())) {
+            if (!validateFKCliente(venta.getId())) {
                 view.showError("El cliente no está registrado");
                 return false;
             }
@@ -58,7 +58,7 @@ public class ControllerVentas {
             return;
         }
         try {
-            if (!validateFKCliente(venta.getClienteId())) {
+            if (!validateFKCliente(venta.getId())) {
                 view.showError("El cliente no está registrado");
                 return;
             }
@@ -83,7 +83,7 @@ public class ControllerVentas {
     }
 
     private boolean validateRequired(VentasDTO venta) {
-        return venta != null && venta.getClienteId() > 0 && venta.getFecha() != null;
+        return venta != null && venta.getId() > 0 && venta.getFecha() != null;
     }
 
     private boolean validateFKCliente(int clienteId) {

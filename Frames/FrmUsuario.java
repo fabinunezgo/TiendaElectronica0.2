@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Frames;
 
@@ -12,21 +12,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @author thyfa
  */
-public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
-         Usuario usuario;
-         
-         
+public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuario>  {
+    Usuario usuario;
     /**
-     * Creates new form FrmUsuario
+     * Creates new form FrmLogin
      */
     public FrmUsuario() {
         initComponents();
-      
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +50,8 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
 
+        setClosable(true);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel4.setBackground(new java.awt.Color(102, 204, 255));
@@ -69,7 +66,7 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(173, 173, 173))
         );
@@ -118,6 +115,12 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
         TxtRol.setText("Rol");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -213,8 +216,8 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
                 .addGap(21, 21, 21))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -231,6 +234,8 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
@@ -238,32 +243,32 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
     }//GEN-LAST:event_TxtNombreActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-          if (usuario == null) {
-        showError("No hay ningún usuario cargado actualmente");
-        return;
-    }
+        if (usuario == null) {
+            showError("No hay ningún usuario cargado actualmente");
+            return;
+        }
 
         int option = JOptionPane.showConfirmDialog(
-        this,
-        "¿Está seguro que desea eliminar el usuario actual?",
-        "Confirmar Eliminación",
-        JOptionPane.YES_NO_OPTION
-     );
+            this,
+            "¿Está seguro que desea eliminar el usuario actual?",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION
+        );
 
-       if (option == JOptionPane.NO_OPTION) return;
-       showMessage("El usuario ha sido eliminado correctamente");
-       clear();
+        if (option == JOptionPane.NO_OPTION) return;
+        showMessage("El usuario ha sido eliminado correctamente");
+        clear();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (usuario == null) {
-        showError("No hay ningún usuario cargado actualmente");
-        return;
-    }
+            showError("No hay ningún usuario cargado actualmente");
+            return;
+        }
         if (!validateRequired()) {
-        showError("Faltan datos requeridos");
-        return;
-    }
+            showError("Faltan datos requeridos");
+            return;
+        }
 
         String newId = TxtId.getText().trim();
         String newNombre = TxtNombre.getText().trim();
@@ -271,23 +276,27 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
         String newContraseña = TxtContraseña.getText().trim();
         String newRol = TxtRol.getText().trim();
 
-       if (!newId.equals(String.valueOf(usuario.getId())) ||
-       !newNombre.equals(usuario.getNombre()) ||
-       !newNombreUsuario.equals(usuario.getUsername()) ||
-       !newContraseña.equals(usuario.getPassword()) ||
-       !newRol.equals(usuario.getRol())) {
-    
-       usuario.setId(Integer.parseInt(newId));
-       usuario.setNombre(newNombre);
-       usuario.setUsername(newNombreUsuario);
-       usuario.setPassword(newContraseña);
-       usuario.setRol(newRol);
-    
-       showMessage("Los datos se actualizaron correctamente ");
-       } else {
-       showMessage("No se realizó ningún cambio");
-}
+        if (!newId.equals(String.valueOf(usuario.getId())) ||
+            !newNombre.equals(usuario.getNombre()) ||
+            !newNombreUsuario.equals(usuario.getUsername()) ||
+            !newContraseña.equals(usuario.getPassword()) ||
+            !newRol.equals(usuario.getRol())) {
+
+            usuario.setId(Integer.parseInt(newId));
+            usuario.setNombre(newNombre);
+            usuario.setUsername(newNombreUsuario);
+            usuario.setPassword(newContraseña);
+            usuario.setRol(newRol);
+
+            showMessage("Los datos se actualizaron correctamente ");
+        } else {
+            showMessage("No se realizó ningún cambio");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -312,7 +321,7 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
 
     @Override
     public void show(Usuario ent) {
-         usuario = ent;
+        usuario = ent;
         if (ent == null) {
             clear();
             return;
@@ -327,25 +336,24 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
 
     @Override
     public void showAll(List<Usuario> ents) {
-         
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void showMessage(String msg) {
-      JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-          JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+       JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public boolean validateRequired() {
-     return UtilGui.validateFields(TxtId,TxtNombre,TxtNombreU,TxtContraseña,TxtRol);
+        return UtilGui.validateFields(TxtId,TxtNombre,TxtNombreU,TxtContraseña,TxtRol);
     }
-    
-     private void clear(){
+    private void clear(){
       UtilGui.clearTxts(
             TxtId,
             TxtNombre,
@@ -354,4 +362,5 @@ public class FrmUsuario extends javax.swing.JPanel implements View<Usuario> {
             TxtRol
     );
      }
+
 }

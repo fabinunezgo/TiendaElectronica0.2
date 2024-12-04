@@ -37,7 +37,7 @@
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                   <Component id="txtProductosVendidos" alignment="1" min="-2" pref="320" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="txtImpuestps" alignment="1" min="-2" pref="320" max="-2" attributes="0"/>
+                                      <Component id="txtImpuestos" alignment="1" min="-2" pref="320" max="-2" attributes="0"/>
                                       <Component id="txtSubtotal" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -111,7 +111,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="txtImpuestps" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtImpuestos" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="BtnActualizar1" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -260,7 +260,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductosVendidosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtImpuestps">
+    <Component class="javax.swing.JTextField" name="txtImpuestos">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -269,7 +269,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImpuestpsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImpuestosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTotal">

@@ -4,6 +4,8 @@
  */
 package Frames;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,7 +43,7 @@ public class FrmVenta extends javax.swing.JInternalFrame {
         txtIdCliente = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
         txtProductosVendidos = new javax.swing.JTextField();
-        txtImpuestps = new javax.swing.JTextField();
+        txtImpuestos = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
         BtnAgregar1 = new javax.swing.JButton();
@@ -115,10 +117,10 @@ public class FrmVenta extends javax.swing.JInternalFrame {
             }
         });
 
-        txtImpuestps.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtImpuestps.addActionListener(new java.awt.event.ActionListener() {
+        txtImpuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtImpuestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtImpuestpsActionPerformed(evt);
+                txtImpuestosActionPerformed(evt);
             }
         });
 
@@ -175,7 +177,7 @@ public class FrmVenta extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtProductosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtImpuestps, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtImpuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
@@ -234,7 +236,7 @@ public class FrmVenta extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(1, 1, 1)
-                        .addComponent(txtImpuestps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtImpuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(BtnActualizar1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
@@ -262,9 +264,9 @@ public class FrmVenta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProductosVendidosActionPerformed
 
-    private void txtImpuestpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestpsActionPerformed
+    private void txtImpuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtImpuestpsActionPerformed
+    }//GEN-LAST:event_txtImpuestosActionPerformed
 
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
@@ -275,11 +277,36 @@ public class FrmVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSubtotalActionPerformed
 
     private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
-        if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty()
-                || txtProductosVendidos.getText().isEmpty()) {
+        if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
+                || txtProductosVendidos.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+// Guardando los datos en variables
+        String id = txtId.getText().trim();
+        String idCliente = txtIdCliente.getText().trim();
+        String Fecha = txtFecha.getText().trim();
+        String productosVendidos = txtProductosVendidos.getText().trim();
+        String Subtotal = txtSubtotal.getText().trim();
+        String Impuestos = txtImpuestos.getText().trim();
+        String total = txtTotal.getText().trim();
+        
+
+// Aquí puedes realizar alguna operación, como guardar en una lista, base de datos o archivo
+// Por ejemplo, guardarlos en una lista
+        List<String> datosGuardados = new ArrayList<>();
+        datosGuardados.add("ID: " + id);
+        datosGuardados.add("ID Cliente: " + idCliente);
+          datosGuardados.add("Fecha:" + Fecha);
+        datosGuardados.add("Productos Vendidos: " + productosVendidos);
+        datosGuardados.add("Subtotal:" + Subtotal);
+        datosGuardados.add("Impuestos:" + Impuestos);
+             datosGuardados.add(" total:" +  total);
+        
+
+// Puedes mostrar los datos guardados o realizar otras acciones
+        JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_BtnAgregar1ActionPerformed
 
@@ -293,8 +320,8 @@ public class FrmVenta extends javax.swing.JInternalFrame {
 
     private void BtnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminar1ActionPerformed
         if (txtId.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Ingrese el ID del proveedor", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+            JOptionPane.showMessageDialog(this, "Ingrese el ID del proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }//GEN-LAST:event_BtnEliminar1ActionPerformed
 
@@ -315,7 +342,7 @@ public class FrmVenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdCliente;
-    private javax.swing.JTextField txtImpuestps;
+    private javax.swing.JTextField txtImpuestos;
     private javax.swing.JTextField txtProductosVendidos;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTotal;

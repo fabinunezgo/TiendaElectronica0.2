@@ -247,11 +247,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 8d0fa37 (Se realizan correciones)
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -365,11 +361,7 @@ public class FrmProductos extends javax.swing.JPanel implements View<Producto> {
 
     @Override
     public void showAll(List<Producto> ents) {
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 8d0fa37 (Se realizan correciones)
     }
 
     @Override

@@ -47,6 +47,30 @@ public class Venta {
         this.impuesto = impuesto;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public void setProductosVendidos(List<productovendido> productosVendidos) {
+        this.productosVendidos = productosVendidos;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public Venta(int id, Date fecha, int clienteId, List<productovendido> productosVendidos, double subtotal, double impuesto, double total) {
         this.id = id;
         this.fecha = fecha;

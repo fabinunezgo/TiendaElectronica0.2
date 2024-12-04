@@ -142,42 +142,8 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
         }
     }
 
-    @Override
-    public boolean agregar(ClienteDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 }
 
-//public class ProveedorDAO extends Dao<ProveedorDTO>{
-//
-//    public ProveedorDAO(Connection connection) {
-//        super(connection);
-//    }
-//
-//    @Override
-//    public boolean agregar(ProveedorDTO dto) throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public ProveedorDTO read(Object id) throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public List<ProveedorDTO> readAll() throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public boolean actualizar(ProveedorDTO dto) throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    @Override
-//    public boolean eliminar(Object id) throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//    
-//}
+
 

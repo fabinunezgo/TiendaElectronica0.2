@@ -6,6 +6,7 @@ package Frames;
 
 import Modelo.Producto.Producto;
 import View.View;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -273,11 +274,23 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()
-                || txtCategoria.getText().isEmpty() || txtProveedor.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        String Nombre = txtNombre.getText().trim();
+        String idCliente = txtCategoria.getText().trim();
+        String Fecha = txtPrecio.getText().trim();
+        String productosVendidos = txtCantidad.getText().trim();
+        String Subtotal = txtProveedor.getText().trim();
+        
+        
+
+// Aquí puedes realizar alguna operación, como guardar en una lista, base de datos o archivo
+// Por ejemplo, guardarlos en una lista
+        List<String> datosGuardados = new ArrayList<>();
+        datosGuardados.add(" Nombre" +  Nombre);
+        datosGuardados.add("ID Cliente: " + idCliente);
+          datosGuardados.add("Fecha:" + Fecha);
+        datosGuardados.add("Productos Vendidos: " + productosVendidos);
+        datosGuardados.add("Subtotal:" + Subtotal);
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed

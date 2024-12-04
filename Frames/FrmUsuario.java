@@ -36,16 +36,16 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        TxtNombre = new javax.swing.JTextField();
-        TxtNombreU = new javax.swing.JTextField();
-        TxtContraseña = new javax.swing.JTextField();
-        TxtRol = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        TxtId = new javax.swing.JTextField();
+        TxtId = new javax.swing.JLabel();
+        TxtNombre = new javax.swing.JLabel();
+        TxtNombreU = new javax.swing.JLabel();
+        TxtContraseña = new javax.swing.JLabel();
+        TxtRol = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -94,23 +94,6 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        TxtNombre.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtNombre.setText("Nombre");
-        TxtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtNombreActionPerformed(evt);
-            }
-        });
-
-        TxtNombreU.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtNombreU.setText("Nombre de Usuario");
-
-        TxtContraseña.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtContraseña.setText("Contraseña");
-
-        TxtRol.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtRol.setText("Rol");
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +105,18 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         TxtId.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
         TxtId.setText("Id");
 
+        TxtNombre.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtNombre.setText("Nombre");
+
+        TxtNombreU.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtNombreU.setText("Nombre Usuario");
+
+        TxtContraseña.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtContraseña.setText("Contraseña");
+
+        TxtRol.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtRol.setText("Rol");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,54 +124,49 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TxtRol, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtNombreU, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                        .addComponent(TxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtNombreU)
-                            .addComponent(TxtNombre)
-                            .addComponent(TxtContraseña)
-                            .addComponent(TxtId))
-                        .addGap(18, 18, 18)
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField2)
                             .addComponent(jTextField1)
                             .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(TxtRol, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(36, 36, 36)
                         .addComponent(jComboBox1, 0, 171, Short.MAX_VALUE)))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4)
-                    .addComponent(TxtId))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TxtNombre)
-                                .addGap(32, 32, 32))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(TxtNombreU))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtId))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtContraseña)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtNombre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtNombreU))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtContraseña))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtRol))
+                .addGap(24, 24, 24))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -238,10 +228,6 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtNombreActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if (usuario == null) {
             showError("No hay ningún usuario cargado actualmente");
@@ -300,11 +286,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TxtContraseña;
-    private javax.swing.JTextField TxtId;
-    private javax.swing.JTextField TxtNombre;
-    private javax.swing.JTextField TxtNombreU;
-    private javax.swing.JTextField TxtRol;
+    private javax.swing.JLabel TxtContraseña;
+    private javax.swing.JLabel TxtId;
+    private javax.swing.JLabel TxtNombre;
+    private javax.swing.JLabel TxtNombreU;
+    private javax.swing.JLabel TxtRol;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> jComboBox1;

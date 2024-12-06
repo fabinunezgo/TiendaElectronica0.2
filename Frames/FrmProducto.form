@@ -134,31 +134,26 @@
                               <Component id="TxtCategoria" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="TxtProveedor" alignment="1" min="-2" pref="86" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="TxtCantidad" min="-2" pref="86" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="TxtPrecio" min="-2" pref="86" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="TxtProveedor" alignment="1" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="TxtPrecio" min="-2" pref="86" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="TxtCantidadDisponible" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="txtCategoria" alignment="1" pref="436" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtCantidad" alignment="1" pref="377" max="32767" attributes="0"/>
                       <Component id="txtPrecio" alignment="1" max="32767" attributes="0"/>
-                      <Component id="txtCantidad" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtNombre" alignment="1" max="32767" attributes="0"/>
+                      <Component id="txtCategoria" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtCodigo" alignment="1" max="32767" attributes="0"/>
-                      <Component id="txtProveedor" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtNombre" alignment="1" max="32767" attributes="0"/>
+                      <Component id="txtProveedor" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
@@ -190,7 +185,7 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtCantidad" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="TxtCantidad" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtCantidadDisponible" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -255,12 +250,12 @@
             <Property name="text" type="java.lang.String" value="Precio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="TxtCantidad">
+        <Component class="javax.swing.JLabel" name="TxtCantidadDisponible">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Sylfaen" size="17" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cantidad"/>
+            <Property name="text" type="java.lang.String" value="Cantidad Disponible"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="TxtProveedor">

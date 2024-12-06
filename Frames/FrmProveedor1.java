@@ -197,28 +197,20 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         String cedula = txtId.getText().trim();
-
-// Verificar que el campo no esté vacío
         if (cedula.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo de cédula no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-// Verificar que la cédula tenga exactamente 9 dígitos
         if (cedula.length() != 9) {
             JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 9 dígitos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             txtId.setText(""); 
             return;
         }
-
-
         if (!cedula.matches("[0-9]+")) {
             JOptionPane.showMessageDialog(this, "La cédula no puede contener letras ni caracteres especiales.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             txtId.setText(""); 
             return;
         }
-
-
         JOptionPane.showMessageDialog(this, "La cédula es válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
 

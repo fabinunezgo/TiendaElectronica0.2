@@ -50,7 +50,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         TxtNombre = new javax.swing.JLabel();
         TxtCategoria = new javax.swing.JLabel();
         TxtPrecio = new javax.swing.JLabel();
-        TxtCantidad = new javax.swing.JLabel();
+        TxtCantidadDisponible = new javax.swing.JLabel();
         TxtProveedor = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
@@ -120,8 +120,8 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         TxtPrecio.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
         TxtPrecio.setText("Precio");
 
-        TxtCantidad.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
-        TxtCantidad.setText("Cantidad");
+        TxtCantidadDisponible.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
+        TxtCantidadDisponible.setText("Cantidad Disponible");
 
         TxtProveedor.setFont(new java.awt.Font("Sylfaen", 0, 17)); // NOI18N
         TxtProveedor.setText("Proveedor");
@@ -138,25 +138,22 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
                             .addComponent(TxtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TxtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(TxtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TxtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(TxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                    .addComponent(txtPrecio)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre)
-                    .addComponent(txtCodigo)
-                    .addComponent(txtProveedor, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap()
+                        .addComponent(TxtCantidadDisponible)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtProveedor))
                 .addGap(10, 10, 10))
         );
         jPanel2Layout.setVerticalGroup(
@@ -181,7 +178,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtCantidad))
+                    .addComponent(TxtCantidadDisponible))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -287,22 +284,30 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        String Nombre = txtNombre.getText().trim();
-        String idCliente = txtCategoria.getText().trim();
-        String Fecha = txtPrecio.getText().trim();
-        String productosVendidos = txtCantidad.getText().trim();
-        String Subtotal = txtProveedor.getText().trim();
-        
-        
+ if (txtCodigo.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
+        || txtCategoria.getText().trim().isEmpty() || TxtCantidadDisponible.getText().trim().isEmpty()
+        || txtPrecio.getText().trim().isEmpty() || txtProveedor.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-// Aquí puedes realizar alguna operación, como guardar en una lista, base de datos o archivo
-// Por ejemplo, guardarlos en una lista
-        List<String> datosGuardados = new ArrayList<>();
-        datosGuardados.add(" Nombre" +  Nombre);
-        datosGuardados.add("ID Cliente: " + idCliente);
-          datosGuardados.add("Fecha:" + Fecha);
-        datosGuardados.add("Productos Vendidos: " + productosVendidos);
-        datosGuardados.add("Subtotal:" + Subtotal);
+    String codigo = txtCodigo.getText().trim();
+    String nombre = txtNombre.getText().trim();
+    String categoria = txtCategoria.getText().trim();
+    String cantidadDisponible = TxtCantidadDisponible.getText().trim();
+    String precio = txtPrecio.getText().trim();
+    String proveedor = txtProveedor.getText().trim();
+
+    List<String> datosGuardados = new ArrayList<>();
+    datosGuardados.add("Código: " + codigo);
+    datosGuardados.add("Nombre: " + nombre);
+    datosGuardados.add("Categoría: " + categoria);
+    datosGuardados.add("Cantidad Disponible: " + cantidadDisponible);
+    datosGuardados.add("Precio: " + precio);
+    datosGuardados.add("Proveedor: " + proveedor);
+
+JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -366,7 +371,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel TxtCantidad;
+    private javax.swing.JLabel TxtCantidadDisponible;
     private javax.swing.JLabel TxtCategoria;
     private javax.swing.JLabel TxtId;
     private javax.swing.JLabel TxtNombre;

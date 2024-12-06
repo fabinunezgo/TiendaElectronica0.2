@@ -13,12 +13,13 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class FrmVenta1 extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form FrmVenta1
      */
     public FrmVenta1() {
         initComponents();
+        
     }
 
     /**

@@ -4,6 +4,8 @@
  */
 package Frames;
 
+import Modelo.Ventas.VentasDAO;
+import conexion.PruebaConexion;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -13,7 +15,11 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class FrmVenta1 extends javax.swing.JPanel {
+<<<<<<< HEAD
     
+=======
+    private VentasDAO dao;
+>>>>>>> e22e99f (se realizan algunos cambios)
     /**
      * Creates new form FrmVenta1
      */
@@ -360,6 +366,7 @@ public class FrmVenta1 extends javax.swing.JPanel {
         datosGuardados.add("Subtotal:" + Subtotal);
         datosGuardados.add("Impuestos:" + Impuestos);
         datosGuardados.add(" total:" + total);
+       
 
         JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BtnAgregar1ActionPerformed

@@ -381,10 +381,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             showMessage("Cliente registrado correctamente: " + cliente.getNombreCompleto());
             SetEditableStateTxts(false);
             changeStateBtns();          
-        } else {
-            showError("No se pudo registrar el cliente.");
         }
-
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class FrmVenta1 extends javax.swing.JPanel {
-<<<<<<< HEAD
+
     
-=======
+
     private VentasDAO dao;
->>>>>>> e22e99f (se realizan algunos cambios)
+
     /**
      * Creates new form FrmVenta1
      */

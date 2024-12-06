@@ -42,7 +42,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jDesktopPane.setBackground(new java.awt.Color(102, 204, 255));
+        jDesktopPane.setBackground(new java.awt.Color(204, 255, 255));
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
@@ -54,6 +54,8 @@ public class FrmMenu extends javax.swing.JFrame {
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 388, Short.MAX_VALUE)
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 204, 204));
 
         jMenu1.setText("Administrar");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

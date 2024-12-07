@@ -4,7 +4,9 @@
  */
 package Frames;
 
+import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
+import Utilis.UtilGui;
 import View.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,12 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         initComponents();
         
         
+    
     }
+     public void changeStateBtns() {
+        UtilGui.changeStateButtons( btnAgregar,   btnEliminar, btnBuscar);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,31 +291,60 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
- if (txtCodigo.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
-        || txtCategoria.getText().trim().isEmpty() || TxtCantidadDisponible.getText().trim().isEmpty()
-        || txtPrecio.getText().trim().isEmpty() || txtProveedor.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        Producto producto = new Producto();
+        String idStr = TxtId.getText().trim();
+        String nombre = TxtNombre.getText().trim();
+        String categoria = TxtCategoria.getText().trim();
+        String precioStr = TxtPrecio.getText().trim();
+        String cantidadDisponibleStr = TxtCantidadDisponible.getText().trim();
+        String proveedor = TxtProveedor.getText().trim();
 
-    String codigo = txtCodigo.getText().trim();
-    String nombre = txtNombre.getText().trim();
-    String categoria = txtCategoria.getText().trim();
-    String cantidadDisponible = TxtCantidadDisponible.getText().trim();
-    String precio = txtPrecio.getText().trim();
-    String proveedor = txtProveedor.getText().trim();
+        if (idStr.isEmpty() || nombre.isEmpty() || categoria.isEmpty() || 
+        precioStr.isEmpty() || cantidadDisponibleStr.isEmpty() || proveedor.isEmpty()) {
+        showError("Todos los campos deben ser completados.");
+        return;
+    }
 
-    List<String> datosGuardados = new ArrayList<>();
-    datosGuardados.add("Código: " + codigo);
-    datosGuardados.add("Nombre: " + nombre);
-    datosGuardados.add("Categoría: " + categoria);
-    datosGuardados.add("Cantidad Disponible: " + cantidadDisponible);
-    datosGuardados.add("Precio: " + precio);
-    datosGuardados.add("Proveedor: " + proveedor);
+        if (!idStr.matches("^\\d+$")) {
+        showError("El ID debe ser un número entero.");
+        return;
+    }
 
-JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (!precioStr.matches("^\\d+(\\.\\d{1,2})?$")) {
+        showError("El precio debe ser un número válido con hasta dos decimales.");
+        return;
+    }
 
-        
+        if (!cantidadDisponibleStr.matches("^\\d+$")) {
+        showError("La cantidad disponible debe ser un número entero.");
+        return;
+    }
+
+        int id = Integer.parseInt(idStr);
+        double precio = Double.parseDouble(precioStr);
+        int cantidadDisponible = Integer.parseInt(cantidadDisponibleStr);
+
+        boolean productoExiste = controller.existeProducto(id);
+        if (productoExiste) {
+        showError("Ya existe un producto con ese ID.");
+        return;
+    }
+
+       producto.setCodigo(id);
+       producto.setNombre(nombre);
+       producto.setCategoria(categoria);
+       producto.setPrecio(precio);
+       producto.setCantidadDisponible(cantidadDisponible);
+       producto.setProveedor(proveedor);
+
+       boolean success = controller.agregar(producto);
+       if (success) {
+       showMessage("Producto registrado correctamente: " + producto.getNombre());
+       SetEditableStateTxts(false);
+       changeStateBtns();
+       } else {
+       showError("Error al registrar producto.");
+    }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -424,6 +460,15 @@ JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", J
         txtProveedor.setText("");
 
     }
+       private void SetEditableStateTxts(boolean value) {
+        txtCodigo.setEditable(value);
+        TxtNombre.setEditable(value);
+        txtCodigo.setEditable(value);
+        txtPrecio.setEditable(value);
+        txtCantidad.setEditable(value);
+        txtProveedor.setEditable(value);
+    }
+
 
     @Override
     public void show(Producto ent) {

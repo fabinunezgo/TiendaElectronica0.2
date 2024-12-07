@@ -91,9 +91,12 @@ public class ControllerProveedor {
     }
 
     private boolean validateRequired(ProveedorDTO proveedor) {
-        return proveedor != null && proveedor.getNombre() != null && !proveedor.getNombre().isEmpty()
-                && proveedor.getContacto() != null && !proveedor.getContacto().isEmpty()
-                && proveedor.getDireccion() != null && !proveedor.getDireccion().isEmpty();
+        return proveedor != null && proveedor.getNombre() != null 
+                && !proveedor.getNombre().isEmpty()
+                && proveedor.getContacto() != null 
+                && !proveedor.getContacto().isEmpty()
+                && proveedor.getDireccion() != null 
+                && !proveedor.getDireccion().isEmpty();
     }
     
 }

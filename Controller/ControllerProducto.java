@@ -48,15 +48,15 @@ public class ControllerProducto {
             List<ProductoDTO> productos = dao.readAll();
             view.showAll(productos);
         } catch (SQLException ex) {
+            // Manejo de errores al cargar los productos
             view.showError("Error al cargar los productos: " + ex.getMessage());
         }
     }
-
     public void update(ProductoDTO producto) {
         if (producto == null || !validateRequired(producto)) {
             view.showError("Faltan datos requeridos");
             return;
-        }
+        }  
         try {
             if (dao.actualizar(producto)) {
                 view.showMessage("Producto actualizado correctamente");
@@ -84,7 +84,11 @@ public class ControllerProducto {
         }
     }
 
-    private boolean validateRequired(ProductoDTO producto) {
-        return producto != null && producto.getCodigo() > 0 && producto.getNombre() != null && producto.getPrecio() > 0;
+      private boolean validateRequired(ProductoDTO producto) {
+        return producto != null 
+            && producto.getCodigo() > 0 
+            && producto.getNombre() != null 
+            && !producto.getNombre().isEmpty()
+            && producto.getPrecio() > 0;
     }
 }

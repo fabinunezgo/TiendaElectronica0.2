@@ -5,7 +5,6 @@
 package Modelo.Producto;
 
 import Conexion.Conexion;
-import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.Dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -21,30 +20,21 @@ import java.util.List;
  */
 public class ProductoDAO extends Dao<ProductoDTO> {
 
-    
-    
     private Connection connection;
 
-   
-
-   
     public ProductoDAO(Connection connection) {
         super(connection);
+        this.connection = connection;
     }
 
-   
-
+    @Override
     public boolean agregar(ProductoDTO dto) throws SQLException {
-       String sql = "{CALL insertarProducto(?, ?, ?, ?, ?, ?)}";  
-         Connection con = Conexion.getConnection();
-        if (con == null) {
-            System.err.println("Error: La conexión es nula.");
-            return false;
-        }
+        String sql = "{CALL insertarProducto(?, ?, ?, ?, ?, ?)}";  
         CallableStatement stmt = null;
+
         try {
-            if (con.isValid(2)) {
-                stmt = (CallableStatement) con.prepareCall(sql);
+            if (connection != null && connection.isValid(2)) {
+                stmt = connection.prepareCall(sql);
                 stmt.setInt(1, dto.getCodigo());
                 stmt.setString(2, dto.getNombre());
                 stmt.setString(3, dto.getCategoria());
@@ -52,13 +42,20 @@ public class ProductoDAO extends Dao<ProductoDTO> {
                 stmt.setDouble(5, dto.getPrecio());
                 stmt.setString(6, dto.getProveedor());
 
-                return stmt.executeUpdate() > 0; 
+                int rowsAffected = stmt.executeUpdate(); 
+                if (rowsAffected > 0) {
+                    System.out.println("Producto agregado correctamente");
+                    return true;
+                } else {
+                    System.err.println("No se pudo agregar el producto");
+                    return false;
+                }
             } else {
                 System.err.println("Error: La conexión no es válida.");
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();  
+            e.printStackTrace();
             return false;         
         } finally {
             if (stmt != null) {
@@ -67,7 +64,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
         }
     }
     public ProductoDTO buscarPorCodigo(int codigo) throws SQLException {
-    String sql = "{CALL buscarProductoPorCodigo(?)}";
+        String sql = "{CALL buscarProductoPorCodigo(?)}";
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             stmt.setInt(1, codigo);  
             ResultSet resultSet = stmt.executeQuery();
@@ -83,7 +80,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
             }
         }
         return null;  
-}
+    }
     @Override
     public ProductoDTO read(Object id) throws SQLException {
         String sql = "SELECT * FROM Producto WHERE codigo = ?";
@@ -107,7 +104,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     @Override
     public List<ProductoDTO> readAll() throws SQLException {
         List<ProductoDTO> productos = new ArrayList<>();
-        String sql = "{CALL obtenerTodosLosProductos()}";
+        String sql = "{CALL obtenerTodosLosProductos()}";  // Procedimiento almacenado
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -126,8 +123,8 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     }
 
     @Override
-    public boolean actualizar(ProductoDTO dto) throws SQLException {
-      String sql = "{CALL actualizarProducto(?, ?, ?, ?, ?, ?)}";
+     public boolean actualizar(ProductoDTO dto) throws SQLException {
+        String sql = "{CALL actualizarProducto(?, ?, ?, ?, ?, ?)}";  
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             stmt.setInt(1, dto.getCodigo());
             stmt.setString(2, dto.getNombre());
@@ -138,17 +135,13 @@ public class ProductoDAO extends Dao<ProductoDTO> {
             return stmt.executeUpdate() > 0;
         }
     }
-
+     
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "{CALL eliminarProducto(?)}";
+        String sql = "{CALL eliminarProducto(?)}";  // Procedimiento almacenado
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             stmt.setInt(1, (int) id);
             return stmt.executeUpdate() > 0;
         }
-    }
-
-   
-
-   
+    } 
 }

@@ -285,11 +285,11 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
  if (txtCodigo.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
-        || txtCategoria.getText().trim().isEmpty() || TxtCantidadDisponible.getText().trim().isEmpty()
-        || txtPrecio.getText().trim().isEmpty() || txtProveedor.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+            || txtCategoria.getText().trim().isEmpty() || TxtCantidadDisponible.getText().trim().isEmpty()
+            || txtPrecio.getText().trim().isEmpty() || txtProveedor.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
     String codigo = txtCodigo.getText().trim();
     String nombre = txtNombre.getText().trim();

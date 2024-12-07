@@ -42,27 +42,25 @@ public class ControllerCliente {
     }
 
     public boolean agregar(Cliente cliente) {
-
-        if (cliente == null || !validateRequired(cliente)) {
-            view.showError("Faltan datos requeridos");
-            return false;  
+    if (cliente == null || !validateRequired(cliente)) {
+        view.showError("Faltan datos requeridos");
+        return false; 
+    }
+    try {
+        if (existeCliente(cliente.getCedula())) {  
+            view.showError("La cédula ingresada ya se encuentra registrada");
+            return false; 
         }
-        try {
-            if (validatePK(cliente.getCedula())) {
-                view.showError("La cédula ingresada ya se encuentra registrada");
-                return false;  
-            }
-            dao.agregar(mapper.toDTO(cliente));
-            view.showMessage("Cliente registrado correctamente");
-            return true;  
-        } catch (SQLException ex) {
-            view.showError("Ocurrió un error al guardar los datos: " + ex.getMessage());
-            ex.printStackTrace(); // Imprime el seguimiento completo del error
-            return false;  
-}
 
-  
-
+        dao.agregar(mapper.toDTO(cliente));  
+        view.showMessage("Cliente registrado correctamente");
+        return true;
+        
+    } catch (SQLException ex) {
+        view.showError("Ocurrió un error al guardar los datos: " + ex.getMessage());
+        ex.printStackTrace();
+        return false; 
+    }
 }
 
     
@@ -135,7 +133,7 @@ public class ControllerCliente {
             ex.printStackTrace(); // Imprime el seguimiento completo del error
         }
     }
-
+    
     public boolean validateRequired(Cliente cliente) {
         return cliente != null
                 && !cliente.getCedula().trim().isEmpty()
@@ -152,6 +150,17 @@ public class ControllerCliente {
             view.showError("Error al validar la cédula: " + ex.getMessage());
             ex.printStackTrace(); // Imprime el seguimiento completo del error
             return false;
+        }
+    }
+
+public boolean existeCliente(String cedula) {
+    try {
+        ClienteDTO clienteDTO = dao.read(cedula);
+        return clienteDTO != null;  
+    } catch (SQLException ex) {
+        view.showError("Error al verificar la existencia del cliente: " + ex.getMessage());
+        ex.printStackTrace();
+        return false;
         }
     }
 }

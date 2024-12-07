@@ -30,23 +30,27 @@ public class ClienteDAO extends Dao<ClienteDTO> {
 
     @Override
     public boolean agregar(ClienteDTO dto) throws SQLException {
-        CallableStatement stmt = null;
-        try {
-            String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}"; 
-            stmt = connection.prepareCall(sql);
-            stmt.setString(1, dto.getCedula());
-            stmt.setString(2, dto.getNombreCompleto());
-            stmt.setString(3, dto.getDireccion());
-            stmt.setString(4, dto.getTelefono());
-            stmt.setString(5, dto.getCorreo());
-            return stmt.executeUpdate() > 0; 
-        } catch (SQLException e) {
-            e.printStackTrace(); 
-            return false;
-        } finally {
-            if (stmt != null) stmt.close(); 
+    CallableStatement stmt = null;
+    try {
+        String sql = "{CALL insertarCliente(?, ?, ?, ?, ?)}"; 
+        stmt = connection.prepareCall(sql);
+        stmt.setString(1, dto.getCedula());
+        stmt.setString(2, dto.getNombreCompleto());
+        stmt.setString(3, dto.getDireccion());
+        stmt.setString(4, dto.getTelefono());
+        stmt.setString(5, dto.getCorreo());
+
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0; 
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new SQLException("Error al agregar el cliente: " + e.getMessage(), e);
+    } finally {
+        if (stmt != null) {
+            stmt.close();
         }
     }
+}
 
     @Override
     public ClienteDTO read(Object id) throws SQLException {
@@ -127,4 +131,9 @@ public class ClienteDAO extends Dao<ClienteDTO> {
     public boolean validatePK(String id) throws SQLException {
         return read(id) == null;
     }
+    
+    public boolean existeCliente(String cedula) throws SQLException {
+    ClienteDTO cliente = read(cedula);
+    return cliente != null;  
+}
 }

@@ -1,22 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Frames;
-
-<<<<<<< HEAD
-
 
 import Controller.ControllerProveedor;
 import Modelo.Proveedor.Proveedor;
 import Utilis.UtilGui;
 import View.View;
-=======
 import Modelo.Proveedor.Proveedor;
 import Utilis.UtilGui;
 import View.View;
 import java.lang.ModuleLayer.Controller;
->>>>>>> 1d0d66c (se realizan cambios)
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -24,17 +15,16 @@ import javax.swing.JOptionPane;
  *
  * @author thyfa
  */
-<<<<<<< HEAD
+import javax.swing.JOptionPane;
+
+import javax.swing.JOptionPane;
+
 public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor> {
+
     Proveedor proveedor;
     ControllerProveedor controller;
     FrmProveedor1 frm;
 
-=======
-public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor>{
- Proveedor proveedor;
- Controller controller;
->>>>>>> 1d0d66c (se realizan cambios)
     /**
      * Creates new form FrmProveedor1
      */
@@ -285,7 +275,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     }//GEN-LAST:event_txtContactoActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-       
+
         String id = txtId.getText().trim();
         String nombre = txtNombre.getText().trim();
         String contacto = txtContacto.getText().trim();
@@ -317,7 +307,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         proveedor.setDireccion(direccion);
 
 // Agregar el proveedor
-       boolean success = controller.agregar(proveedor);
+        boolean success = controller.agregar(proveedor);
         if (success) {
             showMessage("Proveedor registrado correctamente: " + proveedor.getNombre());
             SetEditableStateTxts(false);
@@ -338,16 +328,16 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-      int option = JOptionPane.showConfirmDialog(
-        this,
-        "¿Está seguro que desea eliminar el proveedor actual?",
-        "Confirmar Eliminación",
-        JOptionPane.YES_NO_OPTION
-    );
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea eliminar el proveedor actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
 
-      if (option == JOptionPane.NO_OPTION) {
-        return;
-    }
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
         controller.delete(proveedor);
         clear();
 
@@ -357,7 +347,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
- private void SetEditableStateTxts(boolean value) {
+    private void SetEditableStateTxts(boolean value) {
         txtId.setEditable(value);
         txtNombre.setEditable(value);
         txtContacto.setEditable(value);
@@ -369,19 +359,10 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
                 txtNombre,
                 txtContacto,
                 txtDireccion
-               
         );
     }
-    
-    private void SetEditableStateTxts(boolean value) {
-        txtId.setEditable(value);
-        txtNombre.setEditable(value);
-        txtContacto.setEditable(value);
-        txtDireccion.setEditable(value);
-    
-}
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnAgregar;
@@ -400,74 +381,48 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-<<<<<<< HEAD
-
-
     @Override
     public void showAll(List<Proveedor> ents) {
-    if (frm == null) {
-        frm = new FrmProveedor1(); 
-        frm.setObserver(this);
-    }
-        frm.setEnts(ents); 
+        if (frm == null) {
+            frm = new FrmProveedor1();
+            frm.setObserver(this);
+        }
+        frm.setEnts(ents);
         frm.setVisible(true);
-   }
-    
-
-    @Override
-    public void showMessage(String msg) {
-         JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
-=======
-    @Override
-    public void show(Proveedor ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void showAll(List<Proveedor> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void showMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
->>>>>>> 1d0d66c (se realizan cambios)
-    }
 
-    @Override
-    public void showError(String err) {
-<<<<<<< HEAD
-        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
-=======
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
->>>>>>> 1d0d66c (se realizan cambios)
     }
 
     @Override
     public boolean validateRequired() {
-<<<<<<< HEAD
-      if (proveedor == null) {
-        showError("No se ha cargado un proveedor");
-        return false;
-    }
-    if (txtId.getText().trim().isEmpty() || 
-        txtNombre.getText().trim().isEmpty() ||
-        txtContacto.getText().trim().isEmpty() || 
-        txtDireccion.getText().trim().isEmpty()) {
-        showError("Todos los campos deben ser completados");
-        return false;
-    }
+        if (proveedor == null) {
+            showError("No se ha cargado un proveedor");
+            return false;
+        }
+        if (txtId.getText().trim().isEmpty()
+                || txtNombre.getText().trim().isEmpty()
+                || txtContacto.getText().trim().isEmpty()
+                || txtDireccion.getText().trim().isEmpty()) {
+            showError("Todos los campos deben ser completados");
+            return false;
+        }
 
-    return true; 
+        return true;
     }
 
     public void changeStateBtns() {
-        UtilGui.changeStateButtons( BtnAgregar, BtnActualizar, BtnEliminar);
+        UtilGui.changeStateButtons(BtnAgregar, BtnActualizar, BtnEliminar);
     }
 
     @Override
     public void show(Proveedor ent) {
-           proveedor = ent;
+        proveedor = ent;
         if (ent == null) {
             clear();
             return;
@@ -476,14 +431,12 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         txtNombre.setText(ent.getNombre());
         txtContacto.setText(ent.getContacto());
         txtDireccion.setText(ent.getDireccion());
-         
-    }
-=======
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-     public void changeStateBtns() {
-        UtilGui.changeStateButtons(BtnAgregar, BtnActualizar, BtnEliminar);
+
     }
 
->>>>>>> 1d0d66c (se realizan cambios)
+    @Override
+    public void showError(String err) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

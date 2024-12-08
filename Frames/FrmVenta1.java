@@ -1,8 +1,13 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Frames;
+
+//package Frames;
+
+
+
 
 import Controller.ControllerVentas;
 import Modelo.Ventas.Venta;
@@ -12,10 +17,7 @@ import Utilis.UtilGui;
 import View.View;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -526,7 +528,6 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
     private javax.swing.JButton BtnActualizar1;
     private javax.swing.JButton BtnAgregar1;
     private javax.swing.JButton BtnEliminar1;
-    private javax.swing.JTextField TxtProductosVendidos;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -559,12 +560,12 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             return;
         }
 
-        txtId.setText(String.valueOf(ent.getCodigo()));
-        txtIdCliente.setText(ent.getClienteId());
-        txtProductoVendidos.setText(ent.getProductosVendidos());
-        txtSubtotal.setText(String.valueOf(ent.getSubtotal());
-        txtImpuestos.setText(ent.getImpuesto());
-        txtTotal.setText(ent.getTotal());  
+        txtId.setText(String.valueOf(ent.getId()));
+        txtIdCliente.setText(String.valueOf(ent.getClienteId()));
+         txtProductoVendidos.setText(ent.getProductosVendidos().toString());
+        txtSubtotal.setText(String.valueOf(ent.getSubtotal()));
+        txtImpuestos.setText(String.valueOf(ent.getImpuesto()));
+       txtTotal.setText(String.valueOf(ent.getTotal()));
 
 
         txtId.setText(String.valueOf(ent.getId()));
@@ -589,8 +590,6 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
 
         frm.setEnt(ents);
-
-
         frm.setVisible(true);
     }
 

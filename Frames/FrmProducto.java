@@ -2,7 +2,6 @@
 package Frames;
 
 
-import Controller.ControllerCliente;
 import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
 import Modelo.Producto.ProductoDTO;
@@ -21,13 +20,14 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     Producto producto;
     ControllerProducto controller;
+    FrmProducto frm;
 
     /**
      * Creates new form FrmProducto
      */
     public FrmProducto() {
         initComponents();
-           controller = new ControllerProducto(this);
+        controller = new ControllerProducto(this);
         
         
     
@@ -396,24 +396,40 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     @Override
     public void show(Producto ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        producto = ent;
+        if (ent == null) {
+            clear();
+            return;
+        }
+        TxtId.setText(ent.getId());
+        TxtNombre.setText(ent.getNombre());
+        TxtCategoria.setText(ent.getCategoria());
+        TxtPrecio.setText(ent.getPrecio());
+        TxtCantidadDisponible.setText(ent.getCantidadDisponible());
+        TxtProveedor.setText(ent.getProveedor());  
     }
 
     @Override
     public void showAll(List<Producto> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          if (frm == null) {
+        frm = new FrmProducto(); 
+        frm.setObserver(this);
     }
-
+        frm.setEnts(ents); 
+        frm.setVisible(true);
+   }
+    
     @Override
     public void showMessage(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    
+    
     @Override
     public boolean validateRequired() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

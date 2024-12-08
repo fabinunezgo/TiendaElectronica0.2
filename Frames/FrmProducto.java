@@ -4,6 +4,7 @@
  */
 package Frames;
 
+import Controller.ControllerCliente;
 import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
 import Utilis.UtilGui;
@@ -16,15 +17,18 @@ import javax.swing.JOptionPane;
  *
  * @author thyfa
  */
+
 public class FrmProducto extends javax.swing.JInternalFrame implements View<Producto> {
 
     Producto producto;
+    ControllerProducto controller;
 
     /**
      * Creates new form FrmProducto
      */
     public FrmProducto() {
         initComponents();
+           controller = new ControllerProducto(this);
         
         
     
@@ -315,6 +319,77 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        Producto producto = new Producto();
+        String codigo = txtCodigo.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String categoria = txtCategoria.getText().trim();
+        String cantidad = txtCantidad.getText().trim();
+        String precio = txtPrecio.getText().trim();
+        String proveedor = txtProveedor.getText().trim();
+
+        if (codigo.isEmpty() || nombre.isEmpty() || categoria.isEmpty() || cantidad.isEmpty() || precio.isEmpty() || proveedor.isEmpty()) {
+            showError("Todos los campos deben ser completados.");
+            return;
+        }
+
+        if (!cantidad.matches("\\d+")) {
+            showError("La cantidad debe ser un número entero.");
+            return;
+        }
+
+        if (!precio.matches("\\d+(\\.\\d{1,2})?")) {
+            showError("El precio debe ser un número válido con hasta dos decimales.");
+            return;
+        }
+
+        boolean productoExiste = controller.existeProducto(codigo);
+        if (productoExiste) {
+            showError("Ya existe un producto con ese código.");
+            return;
+        }
+
+        producto.setCodigo(Integer.parseInt(codigo));
+        producto.setNombre(nombre);
+        producto.setCategoria(categoria);
+        producto.setCantidadDisponible(Integer.parseInt(cantidad));
+        producto.setPrecio(Double.parseDouble(precio));
+        producto.setProveedor(proveedor);
+
+        boolean success = controller.agregar(producto);
+        if (success) {
+            showMessage("Producto registrado correctamente: " + producto.getNombre());
+            SetEditableStateTxts(false);
+            changeStateBtns();
+        } else {
+            showError("Error al registrar producto.");
+        }
+    }
+
+    @Override
+    public void show(Producto ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showAll(List<Producto> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showError(String err) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean validateRequired() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -404,25 +479,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     // End of variables declaration//GEN-END:variables
 
    
-    @Override
-    public void showAll(List ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void showMessage(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void showError(String err) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean validateRequired() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+ 
 
     private void clear() {
         txtNombre.setText("");
@@ -442,9 +499,5 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }
 
 
-    @Override
-    public void show(Producto ent) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
 
-}

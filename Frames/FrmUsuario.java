@@ -6,6 +6,7 @@ package Frames;
 
 import Controller.ControllerUsuario;
 import Modelo.Usuario.Usuario;
+import Modelo.Usuario.UsuarioDTO;
 import View.View;
 import javax.swing.JOptionPane;
 import Utilis.UtilGui;
@@ -306,7 +307,36 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-       
+
+String nombre = txtNombre.getText().trim();
+    String nombreUsuario = txtNombreUsuario.getText().trim();
+    String contraseña = new String(txtContraseña.getPassword()).trim();
+    String rol = jComboBox1.getSelectedItem().toString().trim();
+
+    if (nombre.isEmpty() || nombreUsuario.isEmpty() || contraseña.isEmpty() || rol.isEmpty()) {
+        showError("Todos los campos deben ser completados.");
+        return;
+    }
+
+    boolean usuarioExiste = controller.existeUsuario(nombreUsuario);
+    if (usuarioExiste) {
+        showError("Ya existe un usuario con ese nombre de usuario.");
+        return;
+    }
+
+    int id = 0; 
+    UsuarioDTO usuario = new UsuarioDTO(id, nombre, nombreUsuario, contraseña, rol);
+
+    boolean success = controller.agregar(usuario);
+
+    if (success) {
+        showMessage("Usuario registrado correctamente: " + usuario.getNombre());
+
+        SetEditableStateTxts(false);
+        changeStateBtns();
+    } else {
+        showError("Error al registrar el usuario.");
+    }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
 

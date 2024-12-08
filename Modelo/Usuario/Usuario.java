@@ -57,10 +57,7 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
-    
 
- 
     public Usuario(int id, String nombre, String username, String password, String rol) {
         this.id = id;
         this.nombre = nombre;

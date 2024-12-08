@@ -4,14 +4,19 @@
  */
 package Controller;
 
+import java.util.List;
 import Conexion.Conexion;
 import Modelo.Usuario.UsuarioDAO;
 import Modelo.Usuario.UsuarioDTO;
 import View.View;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement; 
+import java.sql.ResultSet;         
 import java.sql.SQLException;
-import java.util.List;
+import java.sql.Types;
+
+
 
 /**
  *
@@ -37,7 +42,7 @@ public class ControllerUsuario {
             return false;
         }
         try (Connection connection = Conexion.getConnection()) {
-            String query = "{CALL añadirUsuario(?, ?, ?, ?)}";
+            String query = "{CALL añadirUsuario(?, ?, ?, ?)}"; 
             try (CallableStatement stmt = connection.prepareCall(query)) {
                 stmt.setString(1, usuario.getNombre());
                 stmt.setString(2, usuario.getUsername());
@@ -68,7 +73,7 @@ public class ControllerUsuario {
             return;
         }
         try (Connection connection = Conexion.getConnection()) {
-            String query = "{CALL actualizarUsuario(?, ?, ?, ?, ?)}";
+            String query = "{CALL actualizarUsuario(?, ?, ?, ?, ?)}"; 
             try (CallableStatement stmt = connection.prepareCall(query)) {
                 stmt.setInt(1, usuario.getId());
                 stmt.setString(2, usuario.getNombre());
@@ -89,7 +94,7 @@ public class ControllerUsuario {
             return;
         }
         try (Connection connection = Conexion.getConnection()) {
-            String query = "{CALL eliminarUsuario(?)}";
+            String query = "{CALL eliminarUsuario(?)}"; 
             try (CallableStatement stmt = connection.prepareCall(query)) {
                 stmt.setInt(1, usuario.getId());
                 stmt.executeUpdate();
@@ -100,11 +105,37 @@ public class ControllerUsuario {
         }
     }
 
+    public boolean existeUsuario(String nombreUsuario) {
+    if (nombreUsuario == null || nombreUsuario.isEmpty()) {
+        view.showError("El nombre de usuario no puede estar vacío.");
+        return false;
+    }
+    
+    try (Connection connection = Conexion.getConnection()) {
+        String query = "SELECT existeUsuario(?) AS existe"; 
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, nombreUsuario);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("existe") == 1;
+                }
+            }
+        }
+    } catch (SQLException ex) {
+        view.showError("Error al verificar si el usuario existe: " + ex.getMessage());
+    }
+    
+    return false; 
+}
+
+
+
     private boolean validateRequired(UsuarioDTO usuario) {
         return usuario != null &&
                usuario.getNombre() != null && !usuario.getNombre().isEmpty() &&
                usuario.getUsername() != null && !usuario.getUsername().isEmpty() &&
                usuario.getPassword() != null && !usuario.getPassword().isEmpty() &&
                usuario.getRol() != null && !usuario.getRol().isEmpty();
-    }
+    } 
 }

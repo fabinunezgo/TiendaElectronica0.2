@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Frames;
 
+import *;
 import Controller.ControllerCliente;
 import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
+import Modelo.Producto.ProductoDTO;
 import Utilis.UtilGui;
 import View.View;
 import java.util.ArrayList;
@@ -320,46 +319,76 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         Producto producto = new Producto();
-        String codigo = txtCodigo.getText().trim();
+        String codigoStr = txtCodigo.getText().trim();
         String nombre = txtNombre.getText().trim();
         String categoria = txtCategoria.getText().trim();
-        String cantidad = txtCantidad.getText().trim();
-        String precio = txtPrecio.getText().trim();
+        String precioStr = txtPrecio.getText().trim();
+        String cantidadStr = txtCantidad.getText().trim();
         String proveedor = txtProveedor.getText().trim();
 
-        if (codigo.isEmpty() || nombre.isEmpty() || categoria.isEmpty() || cantidad.isEmpty() || precio.isEmpty() || proveedor.isEmpty()) {
+        // Validar campos vacíos
+        if (codigoStr.isEmpty() || nombre.isEmpty() || categoria.isEmpty()
+                || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
             showError("Todos los campos deben ser completados.");
             return;
         }
 
-        if (!cantidad.matches("\\d+")) {
-            showError("La cantidad debe ser un número entero.");
+        // Validar que el código sea numérico
+        int codigo;
+        try {
+            codigo = Integer.parseInt(codigoStr);
+        } catch (NumberFormatException e) {
+            showError("El código debe ser un número entero.");
             return;
         }
 
-        if (!precio.matches("\\d+(\\.\\d{1,2})?")) {
-            showError("El precio debe ser un número válido con hasta dos decimales.");
+        // Validar que el precio sea numérico y mayor que cero
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio <= 0) {
+                showError("El precio debe ser mayor que cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showError("El precio debe ser un valor numérico.");
             return;
         }
 
-        boolean productoExiste = controller.existeProducto(codigo);
-        if (productoExiste) {
-            showError("Ya existe un producto con ese código.");
+        // Validar que la cantidad sea numérica y mayor o igual a cero
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(cantidadStr);
+            if (cantidad < 0) {
+                showError("La cantidad debe ser un número mayor o igual a cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showError("La cantidad debe ser un valor numérico.");
             return;
         }
 
-        producto.setCodigo(Integer.parseInt(codigo));
+        // Validar que el producto no exista ya (simulado con controlador)
+        if (controller.existeProducto(codigo)) {
+            showError("Ya existe un producto con este código.");
+            return;
+        }
+
+        // Asignar valores al objeto producto
+        producto.setCodigo(codigo);
         producto.setNombre(nombre);
         producto.setCategoria(categoria);
-        producto.setCantidadDisponible(Integer.parseInt(cantidad));
-        producto.setPrecio(Double.parseDouble(precio));
+        producto.setPrecio(precio);
+        producto.setCantidadDisponible(cantidad);
         producto.setProveedor(proveedor);
 
-        boolean success = controller.agregar(producto);
+        // Agregar producto
+        boolean success;
+        ProductoDTO Producto = null;
+        success = controller.agregar(Producto);
         if (success) {
             showMessage("Producto registrado correctamente: " + producto.getNombre());
-            SetEditableStateTxts(false);
-            changeStateBtns();
+            clear(); // Limpiar campos del formulario
         } else {
             showError("Error al registrar producto.");
         }
@@ -388,8 +417,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     @Override
     public boolean validateRequired() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -497,7 +525,4 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         txtCantidad.setEditable(value);
         txtProveedor.setEditable(value);
     }
-
-
-  
-
+}

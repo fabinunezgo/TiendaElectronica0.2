@@ -121,7 +121,7 @@ public class ControllerProducto {
         }
     }
 
-    private boolean existeProducto(int codigo) {
+    public boolean existeProducto(int codigo) {
         try {
             ProductoDTO productoDTO = dao.read(codigo);
             return productoDTO != null;

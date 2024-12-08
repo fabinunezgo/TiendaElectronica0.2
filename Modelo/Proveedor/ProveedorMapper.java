@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author thyfa
  */
 public class ProveedorMapper implements Mapper<Proveedor, ProveedorDTO> {
-
+ 
     @Override
     public ProveedorDTO toDTO(Proveedor ent) {
         return new ProveedorDTO(

@@ -4,8 +4,7 @@
  */
 package Frames;
 
-import Modelo.Producto.Producto;
-import Modelo.Proveedor.Proveedor;
+
 import javax.swing.JFrame;
 
 /**

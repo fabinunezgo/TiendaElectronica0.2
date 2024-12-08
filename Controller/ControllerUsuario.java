@@ -37,25 +37,25 @@ public class ControllerUsuario {
     }
 
     public boolean agregar(UsuarioDTO usuario) {
-        if (usuario == null || !validateRequired(usuario)) {
-            view.showError("Faltan datos requeridos");
-            return false;
+    if (usuario == null || !validateRequired(usuario)) {
+        view.showError("Faltan datos requeridos");
+        return false;
+    }
+    try (Connection connection = Conexion.getConnection()) {
+        
+        String query = "{CALL añadirUsuario(?, ?, ?)}"; 
+        try (CallableStatement stmt = connection.prepareCall(query)) {
+            stmt.setString(1, usuario.getUsername());  
+            stmt.setString(2, usuario.getPassword());  
+            stmt.setString(3, usuario.getRol());    
+            stmt.executeUpdate();
+            view.showMessage("Usuario registrado correctamente");
+            return true;
         }
-        try (Connection connection = Conexion.getConnection()) {
-            String query = "{CALL añadirUsuario(?, ?, ?, ?)}"; 
-            try (CallableStatement stmt = connection.prepareCall(query)) {
-                stmt.setString(1, usuario.getNombre());
-                stmt.setString(2, usuario.getUsername());
-                stmt.setString(3, usuario.getPassword());
-                stmt.setString(4, usuario.getRol());
-                stmt.executeUpdate();
-                view.showMessage("Usuario registrado correctamente");
-                return true;
-            }
-        } catch (SQLException ex) {
-            view.showError("Ocurrió un error al agregar el usuario: " + ex.getMessage());
-            return false;
-        }
+    } catch (SQLException ex) {
+        view.showError("Ocurrió un error al agregar el usuario: " + ex.getMessage());
+        return false;
+    }
     }
 
     public void readAll() {

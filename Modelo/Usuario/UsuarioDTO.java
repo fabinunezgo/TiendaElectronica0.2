@@ -13,7 +13,7 @@ public class UsuarioDTO {
     private final String nombre;
     private final String username;
     private final String password;
-    private final String rol; // Puede ser "Administrador" o "Vendedor"
+    private final String rol; 
 
     public int getId() {
         return id;

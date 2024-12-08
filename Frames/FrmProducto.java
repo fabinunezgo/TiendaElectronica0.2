@@ -8,6 +8,7 @@ import Utilis.UtilGui;
 import View.View;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -109,6 +110,12 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
 
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,80 +324,77 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       
-        String codigoStr = txtCodigo.getText().trim();
-        String nombre = txtNombre.getText().trim();
-        String categoria = txtCategoria.getText().trim();
-        String precioStr = txtPrecio.getText().trim();
-        String cantidadStr = txtCantidad.getText().trim();
-        String proveedor = txtProveedor.getText().trim();
+    String codigoStr = txtCodigo.getText().trim();  
+    System.out.println("Código ingresado: '" + codigoStr + "'");  
 
-        // Validar campos vacíos
-        if (codigoStr.isEmpty() || nombre.isEmpty() || categoria.isEmpty()
-                || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
-            showError("Todos los campos deben ser completados.");
+    if (codigoStr.isEmpty()) {
+        showError("El código no puede estar vacío.");
+        return;
+    }
+
+    int codigo;
+    try {
+        codigo = Integer.parseInt(codigoStr); 
+        System.out.println("Código numérico válido: " + codigo); 
+    } catch (NumberFormatException e) {
+        showError("El código debe ser un número entero.");
+        return;
+    }
+
+    String nombre = txtNombre.getText().trim();
+    String categoria = txtCategoria.getText().trim();
+    String precioStr = txtPrecio.getText().trim();
+    String cantidadStr = txtCantidad.getText().trim();
+    String proveedor = txtProveedor.getText().trim();
+
+    if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
+        showError("Todos los campos deben ser completados.");
+        return;
+    }
+
+    double precio;
+    try {
+        precio = Double.parseDouble(precioStr);
+        if (precio <= 0) {
+            showError("El precio debe ser mayor que cero.");
             return;
         }
+    } catch (NumberFormatException e) {
+        showError("El precio debe ser un valor numérico.");
+        return;
+    }
 
-        // Validar que el código sea numérico
-        int codigo;
-        try {
-            codigo = Integer.parseInt(codigoStr);
-        } catch (NumberFormatException e) {
-            showError("El código debe ser un número entero.");
+    int cantidad;
+    try {
+        cantidad = Integer.parseInt(cantidadStr);
+        if (cantidad < 0) {
+            showError("La cantidad debe ser un número mayor o igual a cero.");
             return;
         }
+    } catch (NumberFormatException e) {
+        showError("La cantidad debe ser un valor numérico.");
+        return;
+    }
 
-        // Validar que el precio sea numérico y mayor que cero
-        double precio;
-        try {
-            precio = Double.parseDouble(precioStr);
-            if (precio <= 0) {
-                showError("El precio debe ser mayor que cero.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            showError("El precio debe ser un valor numérico.");
-            return;
-        }
+    if (controller.existeProducto(codigo)) {
+        showError("Ya existe un producto con este código.");
+        return;
+    }
 
-        // Validar que la cantidad sea numérica y mayor o igual a cero
-        int cantidad;
-        try {
-            cantidad = Integer.parseInt(cantidadStr);
-            if (cantidad < 0) {
-                showError("La cantidad debe ser un número mayor o igual a cero.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            showError("La cantidad debe ser un valor numérico.");
-            return;
-        }
+    producto.setCodigo(codigo);
+    producto.setNombre(nombre);
+    producto.setCategoria(categoria);
+    producto.setPrecio(precio);
+    producto.setCantidadDisponible(cantidad);
+    producto.setProveedor(proveedor);
 
-        // Validar que el producto no exista ya (simulado con controlador)
-        if (controller.existeProducto(codigo)) {
-            showError("Ya existe un producto con este código.");
-            return;
-        }
-
-        // Asignar valores al objeto producto
-        producto.setCodigo(codigo);
-        producto.setNombre(nombre);
-        producto.setCategoria(categoria);
-        producto.setPrecio(precio);
-        producto.setCantidadDisponible(cantidad);
-        producto.setProveedor(proveedor);
-
-        // Agregar producto
-        boolean success;
-        ProductoDTO Producto = null;
-        success = controller.agregar(producto);
-        if (success) {
-            showMessage("Producto registrado correctamente: " + producto.getNombre());
-            clear(); // Limpiar campos del formulario
-        } else {
-            showError("Error al registrar producto.");
-        }
+    boolean success = controller.agregar(producto);
+    if (success) {
+        showMessage("Producto registrado correctamente: " + producto.getNombre());
+        clear(); 
+    } else {
+        showError("Error al registrar producto.");
+    }
     }
 
     @Override
@@ -512,6 +516,10 @@ if (producto == null) {
         showMessage("Producto actualizado correctamente.");
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TxtCantidadDisponible;
@@ -552,20 +560,21 @@ if (producto == null) {
 
     }
        private void SetEditableStateTxts(boolean value) {
-        txtCodigo.setEditable(value);
-        txtCodigo.setEditable(value);
-        txtPrecio.setEditable(value);
-        txtCantidad.setEditable(value);
-        txtProveedor.setEditable(value);
-    }
-
+    txtCodigo.setEditable(value);
+    txtPrecio.setEditable(value);
+    txtCantidad.setEditable(value);
+    txtProveedor.setEditable(value);
+}
     private void setObserver(View observer) {
         this.observer = observer;
 
     }
 
     private void setEnts(List<Producto> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
+    DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+    for (Producto p : ents) {
+        model.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getCantidadDisponible(), p.getProveedor()});
+    }
     }
 }

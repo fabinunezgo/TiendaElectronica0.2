@@ -53,8 +53,8 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             frm = new FrmBuscarCliente(null, true);
             frm.setObserver(this);
         }
-        frm.setEnts(ents);
-        frm.setVisible(true);
+            frm.setEnts(ents);
+            frm.setVisible(true);
     }
 
     @Override

@@ -4,20 +4,30 @@
  */
 package Frames;
 
-import java.lang.ModuleLayer.Controller;
+
+
+import Controller.ControllerProveedor;
+import Modelo.Proveedor.Proveedor;
+import Utilis.UtilGui;
+import View.View;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author thyfa
  */
-public class FrmProveedor1 extends javax.swing.JInternalFrame {
+public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor> {
+    Proveedor proveedor;
+    ControllerProveedor controller;
+    FrmProveedor1 frm;
 
     /**
      * Creates new form FrmProveedor1
      */
     public FrmProveedor1() {
         initComponents();
+        controller = new ControllerProveedor(this);
     }
 
     /**
@@ -285,14 +295,18 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        if (txtId.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el ID del proveedor", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        boolean datosEliminadosExitosamente = true;
-        if (datosEliminadosExitosamente) {
-            JOptionPane.showMessageDialog(this, "Los datos se han eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        }
+      int option = JOptionPane.showConfirmDialog(
+        this,
+        "¿Está seguro que desea eliminar el proveedor actual?",
+        "Confirmar Eliminación",
+        JOptionPane.YES_NO_OPTION
+    );
+
+      if (option == JOptionPane.NO_OPTION) {
+        return;
+    }
+        controller.delete(proveedor);
+        clear();
 
 
     }//GEN-LAST:event_BtnEliminarActionPerformed
@@ -302,6 +316,24 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
 
+    private void clear() {
+        UtilGui.clearTxts(txtId,
+                txtNombre,
+                txtContacto,
+                txtDireccion
+               
+        );
+    }
+    
+    private void SetEditableStateTxts(boolean value) {
+        txtId.setEditable(value);
+        txtNombre.setEditable(value);
+        txtContacto.setEditable(value);
+        txtDireccion.setEditable(value);
+    
+}
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnAgregar;
@@ -319,4 +351,62 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+
+    @Override
+    public void showAll(List<Proveedor> ents) {
+    if (frm == null) {
+        frm = new FrmProveedor1(); 
+        frm.setObserver(this);
+    }
+        frm.setEnts(ents); 
+        frm.setVisible(true);
+   }
+    
+
+    @Override
+    public void showMessage(String msg) {
+         JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showError(String err) {
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public boolean validateRequired() {
+      if (proveedor == null) {
+        showError("No se ha cargado un proveedor");
+        return false;
+    }
+    if (txtId.getText().trim().isEmpty() || 
+        txtNombre.getText().trim().isEmpty() ||
+        txtContacto.getText().trim().isEmpty() || 
+        txtDireccion.getText().trim().isEmpty()) {
+        showError("Todos los campos deben ser completados");
+        return false;
+    }
+
+    return true; 
+    }
+
+    public void changeStateBtns() {
+        UtilGui.changeStateButtons( BtnAgregar, BtnActualizar, BtnEliminar);
+    }
+
+    @Override
+    public void show(Proveedor ent) {
+           proveedor = ent;
+        if (ent == null) {
+            clear();
+            return;
+        }
+        txtId.setText(ent.getId());
+        txtNombre.setText(ent.getNombre());
+        txtContacto.setText(ent.getContacto());
+        txtDireccion.setText(ent.getDireccion());
+         
+    }
 }

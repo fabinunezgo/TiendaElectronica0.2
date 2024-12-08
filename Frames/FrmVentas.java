@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author user
+/**
+ *
+ * @author user
  */
 public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
@@ -35,7 +38,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
    
 
     /**
-     * Creates new form FrmVenta1
+     * Creates new form FrmVentas
      */
     public FrmVenta1() {
         initComponents();
@@ -58,6 +61,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             txtTotal.setText("");
         }
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

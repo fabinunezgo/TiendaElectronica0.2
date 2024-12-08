@@ -121,7 +121,7 @@ public class FrmMenu extends javax.swing.JFrame {
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
      FrmProducto frmProductos = new FrmProducto();
-         frmProductos.setSize(500, 600); // Tamaño que desees para el frame interno
+         frmProductos.setSize(600, 800); // Tamaño que desees para el frame interno
         jDesktopPane.add( frmProductos);
         frmProductos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -135,7 +135,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
         FrmProveedor1 frmProveedor = new FrmProveedor1();
-        frmProveedor.setSize(600, 500); // Tamaño que desees para el frame interno
+        frmProveedor.setSize(600, 800); // Tamaño que desees para el frame interno
         jDesktopPane.add(frmProveedor);
         frmProveedor.setVisible(true);
 
@@ -144,7 +144,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         FrmVenta1 frmVentas = new FrmVenta1();
         
-        frmVentas.setSize(500, 600); // Tamaño que desees para el frame interno
+        frmVentas.setSize(600, 800); // Tamaño que desees para el frame interno
         jDesktopPane.add(frmVentas);
         frmVentas.setVisible(true);
 

@@ -30,6 +30,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
     
 
     private VentasDAO dao;
+    private View observer;
    
     /**
      * Creates new form FrmVenta1
@@ -602,11 +603,11 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
         UtilGui.changeStateButtons( BtnAgregar1, BtnActualizar1, BtnEliminar1);
     }
 
-    public void changeStateBtns() {
-        UtilGui.changeStateButtons(BtnActualizar1, BtnAgregar1, BtnEliminar1);
-    }
-
     private List<productovendido> ProductoVendido() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+     private void setObserver(View observer) {
+        this.observer = observer;
     }
 }

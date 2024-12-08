@@ -6,7 +6,6 @@ import Modelo.Producto.Producto;
 import Modelo.Producto.ProductoDTO;
 import Utilis.UtilGui;
 import View.View;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -20,6 +19,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     Producto producto;
     ControllerProducto controller;
     FrmProducto frm;
+    private View observer;
 
     /**
      * Creates new form FrmProducto
@@ -447,9 +447,10 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
       if (option == JOptionPane.NO_OPTION) {
         return;
-    }
+      }
       controller.delete(producto);
       clear();
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -537,5 +538,9 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         txtPrecio.setEditable(value);
         txtCantidad.setEditable(value);
         txtProveedor.setEditable(value);
+    }
+
+    private void setObserver(View observer) {
+        this.observer = observer;
     }
 }

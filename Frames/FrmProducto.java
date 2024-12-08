@@ -395,6 +395,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     @Override
     public void show(Producto ent) {
+<<<<<<< HEAD
         producto = ent;
         if (ent == null) {
             clear();
@@ -406,7 +407,22 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         TxtPrecio.setText(String.valueOf(ent.getPrecio()));
         TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));
         TxtProveedor.setText(ent.getProveedor());  
+=======
+      producto = ent;
+    if (ent == null) {
+        clear();  // 
+        return;
+>>>>>>> 722ec65 (se realizan algunas correciones)
     }
+
+   
+    TxtId.setText(String.valueOf(ent.getId()));  
+    TxtNombre.setText(ent.getNombre());  
+    TxtCategoria.setText(ent.getCategoria());  // Categoría es un String, no necesita conversión
+    TxtPrecio.setText(String.valueOf(ent.getPrecio()));  
+    TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));  
+    TxtProveedor.setText(ent.getProveedor());  
+}
 
     @Override
     public void showAll(List<Producto> ents) {
@@ -540,7 +556,16 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         txtProveedor.setEditable(value);
     }
 
+<<<<<<< HEAD
     private void setObserver(View observer) {
         this.observer = observer;
+=======
+    private void setObserver(FrmProducto aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void setEnts(List<Producto> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+>>>>>>> 722ec65 (se realizan algunas correciones)
     }
 }

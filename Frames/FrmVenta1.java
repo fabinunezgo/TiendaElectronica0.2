@@ -4,7 +4,6 @@
  */
 package Frames;
 
-
 import Controller.ControllerVentas;
 import Modelo.Ventas.Venta;
 import Modelo.Ventas.VentasDAO;
@@ -23,22 +22,26 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
+public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
+
     Venta venta;
     ControllerVentas controller;
     FrmVenta1 frm;
-    
 
     private VentasDAO dao;
+<<<<<<< HEAD
     private View observer;
    
+=======
+
+>>>>>>> 722ec65 (se realizan algunas correciones)
     /**
      * Creates new form FrmVenta1
      */
     public FrmVenta1() {
         initComponents();
-         controller = new ControllerVentas(this);
-        
+        controller = new ControllerVentas(this);
+
     }
 
     private void calcularTotal() {
@@ -419,30 +422,26 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
+        // Verificar si los campos están vacíos
         if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
-            || txtFecha.getText().trim().isEmpty()) {
+                || txtFecha.getText().trim().isEmpty() || txtProductoVendidos.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty() || txtImpuestos.getText().trim().isEmpty()
+                || txtTotal.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+// Obtener los datos de los campos de texto
         String id = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
-        String Fecha = txtProductoVendidos.getText().trim();
-        String productosVendidos = txtFecha.getText().trim();
-        String Subtotal = txtSubtotal.getText().trim();
-        String Impuestos = txtImpuestos.getText().trim();
-        String total = txtTotal.getText().trim();
+        String fechaStr = txtFecha.getText().trim();
+        String productosVendidosStr = txtProductoVendidos.getText().trim(); // Debes obtener los productos vendidos correctamente
+        String subtotalStr = txtSubtotal.getText().trim();
+        String impuestosStr = txtImpuestos.getText().trim();
+        String totalStr = txtTotal.getText().trim();
 
-        if (id.isEmpty() || idCliente.isEmpty() || productosVendidos.isEmpty()
-                || Fecha.isEmpty() || subtotalStr.isEmpty() || impuestosStr.isEmpty() || totalStr.isEmpty()) {
-            showError("Todos los campos deben ser completados.");
-            return;
-        }
-
-        double subtotal;
-        double impuestos;
-        double total;
-
+// Validación de los valores numéricos
+        double subtotal, impuestos, total;
         try {
             subtotal = Double.parseDouble(subtotalStr);
             impuestos = Double.parseDouble(impuestosStr);
@@ -451,38 +450,50 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
             showError("Los valores numéricos no son válidos.");
             return;
         }
-        venta.setId(Integer.parseInt(txtId.getText().trim())); 
-        venta.setClienteId(Integer.parseInt(txtIdCliente.getText().trim()));
-        try {
-            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(txtFecha.getText().trim())); 
-        } catch (ParseException ex) {
-            Logger.getLogger(FrmVenta1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        venta.setProductosVendidos(ProductoVendido()); // Asigna correctamente la lista de productos vendidos
-        venta.setSubtotal(Double.parseDouble(txtSubtotal.getText().trim())); // Asegúrate de que subtotal sea double
-        venta.setImpuesto(Double.parseDouble(txtImpuestos.getText().trim())); // Asegúrate de que impuestos sea double
-        venta.setTotal(Double.parseDouble(txtTotal.getText().trim())); // Asegúrate de que total sea double
 
-        boolean success = controller.agregar(venta); 
+// Crear un objeto Venta y asignar sus valores
+        venta.setId(Integer.parseInt(id));
+        venta.setClienteId(Integer.parseInt(idCliente));
+
+        try {
+            // Asignar la fecha usando el formato adecuado
+            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr));
+        } catch (ParseException ex) {
+            showError("La fecha tiene un formato incorrecto.");
+            return;
+        }
+
+// Aquí debes agregar la lógica para obtener los productos vendidos (el ejemplo asume que tienes un método para ello)
+        List<productovendido> productosVendidos = getProductosVendidos(); // Define este método para obtener la lista de productos vendidos
+        venta.setProductosVendidos(productosVendidos);
+
+// Asignar los valores numéricos de subtotal, impuestos y total
+        venta.setSubtotal(subtotal);
+        venta.setImpuesto(impuestos);
+        venta.setTotal(total);
+
+// Intentar guardar la venta en el sistema
+        boolean success = controller.agregar(venta);
         if (success) {
             showMessage("Datos guardados correctamente.");
             clear(); // Limpiar los campos
         } else {
             showError("Error al guardar los datos de la venta.");
         }
+
     }//GEN-LAST:event_BtnAgregar1ActionPerformed
 
     private void BtnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminar1ActionPerformed
         int option = JOptionPane.showConfirmDialog(
-        this,
-        "¿Está seguro que desea eliminar la venta actual?",
-        "Confirmar Eliminación",
-        JOptionPane.YES_NO_OPTION
-    );
+                this,
+                "¿Está seguro que desea eliminar la venta actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
 
-      if (option == JOptionPane.NO_OPTION) {
-        return;
-    }
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
         controller.delete(venta);
         clear();
 
@@ -490,22 +501,21 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
 
     private void BtnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizar1ActionPerformed
         if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty()
-            || txtFecha.getText().isEmpty()) {
+                || txtFecha.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_BtnActualizar1ActionPerformed
-          private void clear() {
+    private void clear() {
         UtilGui.clearTxts(txtId,
                 txtIdCliente,
                 txtProductoVendidos,
                 txtSubtotal,
                 txtImpuestos,
                 txtTotal
-               
         );
     }
-    
+
     private void SetEditableStateTxts(boolean value) {
         txtId.setEditable(value);
         txtIdCliente.setEditable(value);
@@ -513,7 +523,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
         txtSubtotal.setEditable(value);
         txtImpuestos.setEditable(value);
         txtTotal.setEditable(value);
-}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar1;
@@ -551,29 +561,46 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
             clear();
             return;
         }
+<<<<<<< HEAD
         txtId.setText(String.valueOf(ent.getCodigo()));
         txtIdCliente.setText(ent.getClienteId());
         txtProductoVendidos.setText(ent.getProductosVendidos());
         txtSubtotal.setText(String.valueOf(ent.getSubtotal());
         txtImpuestos.setText(ent.getImpuesto());
         txtTotal.setText(ent.getTotal());  
+=======
+
+        txtId.setText(String.valueOf(ent.getId()));
+        txtIdCliente.setText(String.valueOf(ent.getClienteId()));
+
+        String productosVendidos = convertProductosToString(ent.getProductosVendidos());
+        txtProductoVendidos.setText(productosVendidos);
+
+        // Convertir los valores numéricos a String
+        txtSubtotal.setText(String.valueOf(ent.getSubtotal()));
+        txtImpuestos.setText(String.valueOf(ent.getImpuesto()));
+        txtTotal.setText(String.valueOf(ent.getTotal()));
+>>>>>>> 722ec65 (se realizan algunas correciones)
     }
 
     @Override
     public void showAll(List<Venta> ents) {
         if (frm == null) {
-        frm = new FrmVenta1(); 
-        frm.setObserver(this);
-    }
-        frm.setEnts(ents); 
+            frm = new FrmVenta1(); 
+            frm.setObserver(this); 
+        }
+
+
+        frm.setEnt(ents);
+
+
         frm.setVisible(true);
-   }
+    }
 
     @Override
     public void showMessage(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
-
 
     @Override
     public void showError(String err) {
@@ -583,31 +610,53 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
     @Override
     public boolean validateRequired() {
         if (venta == null) {
-        showError("No se ha cargado una venta");
-        return false;
-    }
-    if (txtId.getText().trim().isEmpty() || 
-        txtIdCliente.getText().trim().isEmpty() ||
-        txtProductoVendidos.getText().trim().isEmpty() || 
-        txtSubtotal.getText().trim().isEmpty() || 
-        txtImpuestos.getText().trim().isEmpty() || 
-        txtTotal.getText().trim().isEmpty()) {
-        showError("Todos los campos deben ser completados");
-        return false;
-    }
+            showError("No se ha cargado una venta");
+            return false;
+        }
+        if (txtId.getText().trim().isEmpty()
+                || txtIdCliente.getText().trim().isEmpty()
+                || txtProductoVendidos.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty()
+                || txtImpuestos.getText().trim().isEmpty()
+                || txtTotal.getText().trim().isEmpty()) {
+            showError("Todos los campos deben ser completados");
+            return false;
+        }
 
-    return true; 
+        return true;
     }
 
     public void changeStateBtns() {
+<<<<<<< HEAD
         UtilGui.changeStateButtons( BtnAgregar1, BtnActualizar1, BtnEliminar1);
+=======
+        UtilGui.changeStateButtons(BtnAgregar1, BtnActualizar1, BtnEliminar1);
+>>>>>>> 722ec65 (se realizan algunas correciones)
     }
 
     private List<productovendido> ProductoVendido() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+<<<<<<< HEAD
     
      private void setObserver(View observer) {
         this.observer = observer;
+=======
+
+    private List<productovendido> getProductosVendidos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private String convertProductosToString(List<productovendido> productosVendidos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void setObserver(FrmVenta1 aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void setEnt(List<Venta> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+>>>>>>> 722ec65 (se realizan algunas correciones)
     }
 }

@@ -12,8 +12,7 @@ import Modelo.Proveedor.ProveedorMapper;
 import View.View;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+
 
 /**
  *
@@ -73,7 +72,7 @@ public class ControllerProveedor {
             return;
         }
         try {
-            if (validatePK(proveedor.getId())) {
+           if (proveedor == null || proveedor.getId() == null || proveedor.getId().trim().isEmpty()) {
             } else {
                 view.showError("El ID del proveedor no está registrado");
                 return;
@@ -88,25 +87,28 @@ public class ControllerProveedor {
         }
     }
 
-    public void delete(Proveedor proveedor) {
-        if (proveedor == null || proveedor.getId() <= 0) {
-            view.showError("No se ha seleccionado ningún proveedor para eliminar");
+   
+    
+       public void delete(Proveedor proveedor) {
+
+    if (proveedor == null || proveedor.getId() == null || proveedor.getId().trim().isEmpty()) {
+        view.showError("No se ha seleccionado ningún proveedor válido para eliminar");
+        return;
+    }
+
+    try {
+    
+       if (proveedor == null || proveedor.getId() == null || proveedor.getId().trim().isEmpty()) {
+            view.showError("El ID del proveedor no está registrado");
             return;
         }
-        try {
-            if (!validatePK(proveedor.getId()))) {
-                view.showError("El ID del proveedor no está registrado");
-                return;
-            }
-
-            dao.eliminar(proveedor.getId());
-            view.showMessage("Proveedor eliminado correctamente");
-
-        } catch (SQLException ex) {
-            view.showError("Ocurrió un error al eliminar el proveedor: " + ex.getMessage());
-            ex.printStackTrace();
-        }
+        dao.eliminar(proveedor.getId());
+        view.showMessage("Proveedor eliminado correctamente");
+    } catch (SQLException ex) {
+        view.showError("Ocurrió un error al eliminar el proveedor: " + ex.getMessage());
+        ex.printStackTrace();
     }
+}
 
     public boolean validateRequired(Proveedor proveedor) {
         return proveedor != null

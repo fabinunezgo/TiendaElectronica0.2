@@ -29,12 +29,9 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
     FrmVenta1 frm;
 
     private VentasDAO dao;
-<<<<<<< HEAD
     private View observer;
    
-=======
 
->>>>>>> 722ec65 (se realizan algunas correciones)
     /**
      * Creates new form FrmVenta1
      */
@@ -561,14 +558,14 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             clear();
             return;
         }
-<<<<<<< HEAD
+
         txtId.setText(String.valueOf(ent.getCodigo()));
         txtIdCliente.setText(ent.getClienteId());
         txtProductoVendidos.setText(ent.getProductosVendidos());
         txtSubtotal.setText(String.valueOf(ent.getSubtotal());
         txtImpuestos.setText(ent.getImpuesto());
         txtTotal.setText(ent.getTotal());  
-=======
+
 
         txtId.setText(String.valueOf(ent.getId()));
         txtIdCliente.setText(String.valueOf(ent.getClienteId()));
@@ -580,7 +577,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
         txtSubtotal.setText(String.valueOf(ent.getSubtotal()));
         txtImpuestos.setText(String.valueOf(ent.getImpuesto()));
         txtTotal.setText(String.valueOf(ent.getTotal()));
->>>>>>> 722ec65 (se realizan algunas correciones)
+
     }
 
     @Override
@@ -627,21 +624,18 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
     }
 
     public void changeStateBtns() {
-<<<<<<< HEAD
+
         UtilGui.changeStateButtons( BtnAgregar1, BtnActualizar1, BtnEliminar1);
-=======
-        UtilGui.changeStateButtons(BtnAgregar1, BtnActualizar1, BtnEliminar1);
->>>>>>> 722ec65 (se realizan algunas correciones)
+}
+       
+
     }
 
-    private List<productovendido> ProductoVendido() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-<<<<<<< HEAD
     
+
      private void setObserver(View observer) {
         this.observer = observer;
-=======
+     }
 
     private List<productovendido> getProductosVendidos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -651,12 +645,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void setObserver(FrmVenta1 aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     private void setEnt(List<Venta> ents) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
->>>>>>> 722ec65 (se realizan algunas correciones)
-    }
 }
+

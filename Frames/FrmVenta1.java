@@ -550,10 +550,10 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
             clear();
             return;
         }
-        txtId.setText(ent.getId());
+        txtId.setText(String.valueOf(ent.getCodigo()));
         txtIdCliente.setText(ent.getClienteId());
         txtProductoVendidos.setText(ent.getProductosVendidos());
-        txtSubtotal.setText(ent.getSubtotal());
+        txtSubtotal.setText(String.valueOf(ent.getSubtotal());
         txtImpuestos.setText(ent.getImpuesto());
         txtTotal.setText(ent.getTotal());  
     }

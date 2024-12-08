@@ -400,11 +400,11 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
             clear();
             return;
         }
-        TxtId.setText(ent.getId());
+        TxtId.setText(String.valueOf(ent.getCodigo()));
         TxtNombre.setText(ent.getNombre());
         TxtCategoria.setText(ent.getCategoria());
-        TxtPrecio.setText(ent.getPrecio());
-        TxtCantidadDisponible.setText(ent.getCantidadDisponible());
+        TxtPrecio.setText(String.valueOf(ent.getPrecio()));
+        TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));
         TxtProveedor.setText(ent.getProveedor());  
     }
 
@@ -438,18 +438,18 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
     
-        int option = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea eliminar el producto actual?",
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION
-        );
+      int option = JOptionPane.showConfirmDialog(
+        this,
+        "¿Está seguro que desea eliminar el producto actual?",
+        "Confirmar Eliminación",
+        JOptionPane.YES_NO_OPTION
+    );
 
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
-        controller.delete(producto);
-        clear();
+      if (option == JOptionPane.NO_OPTION) {
+        return;
+    }
+      controller.delete(producto);
+      clear();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

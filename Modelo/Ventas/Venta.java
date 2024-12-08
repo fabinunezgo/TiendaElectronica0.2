@@ -52,6 +52,10 @@ public class Venta {
     }
 
     public void setFecha(Date fecha) {
+        setFecha(fecha);
+    }
+
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

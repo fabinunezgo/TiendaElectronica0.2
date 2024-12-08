@@ -4,28 +4,52 @@
  */
 package Frames;
 
+import Controller.ControllerVentas;
+import Modelo.Ventas.Venta;
 import Modelo.Ventas.VentasDAO;
+import Utilis.UtilGui;
+import View.View;
 import conexion.PruebaConexion;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author user
  */
-public class FrmVenta1 extends javax.swing.JPanel {
-
-    
+public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
     private VentasDAO dao;
+    ControllerVentas controller;
+    Venta venta;
 
     /**
      * Creates new form FrmVenta1
      */
     public FrmVenta1() {
         initComponents();
-        
+
+    }
+
+    private void calcularTotal() {
+        String subtotalStr = txtSubtotal.getText().trim();
+        String impuestosStr = txtImpuestos.getText().trim();
+
+        try {
+            double subtotal = subtotalStr.isEmpty() ? 0 : Double.parseDouble(subtotalStr);
+            double impuestos = impuestosStr.isEmpty() ? 0 : Double.parseDouble(impuestosStr);
+            double total = subtotal + impuestos;
+
+            txtTotal.setText(String.format("%.2f", total));
+        } catch (NumberFormatException e) {
+            // Si los valores no son válidos, no actualizar el total
+            txtTotal.setText("");
+        }
     }
 
     /**
@@ -47,9 +71,9 @@ public class FrmVenta1 extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
+        TxtProductosVendidos = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtProductosVendidos = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -131,20 +155,20 @@ public class FrmVenta1 extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Fecha");
 
-        txtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
+        TxtProductosVendidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        TxtProductosVendidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
+                TxtProductosVendidosActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Productos Vendidos");
 
-        txtProductosVendidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtProductosVendidos.addActionListener(new java.awt.event.ActionListener() {
+        txtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductosVendidosActionPerformed(evt);
+                txtFechaActionPerformed(evt);
             }
         });
 
@@ -210,13 +234,13 @@ public class FrmVenta1 extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addComponent(TxtProductosVendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(txtIdCliente)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtId)
-                    .addComponent(txtProductosVendidos)
+                    .addComponent(txtFecha)
                     .addComponent(txtSubtotal)
                     .addComponent(txtImpuestos)
                     .addComponent(txtTotal))
@@ -251,12 +275,12 @@ public class FrmVenta1 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtProductosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jLabel5))
                     .addComponent(BtnActualizar1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtProductosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,13 +393,13 @@ public class FrmVenta1 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
+    private void TxtProductosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtProductosVendidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtProductosVendidosActionPerformed
+
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
-
-    private void txtProductosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductosVendidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductosVendidosActionPerformed
 
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
         // TODO add your handling code here:
@@ -390,31 +414,54 @@ public class FrmVenta1 extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
-        if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
-            || txtProductosVendidos.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         String id = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
-        String Fecha = txtFecha.getText().trim();
-        String productosVendidos = txtProductosVendidos.getText().trim();
-        String Subtotal = txtSubtotal.getText().trim();
-        String Impuestos = txtImpuestos.getText().trim();
-        String total = txtTotal.getText().trim();
+        String fecha = TxtProductosVendidos.getText().trim();
+        String productosVendidos = txtFecha.getText().trim();
+        String subtotalStr = txtSubtotal.getText().trim();
+        String impuestosStr = txtImpuestos.getText().trim();
+        String totalStr = txtTotal.getText().trim();
 
-        List<String> datosGuardados = new ArrayList<>();
-        datosGuardados.add("ID: " + id);
-        datosGuardados.add("ID Cliente: " + idCliente);
-        datosGuardados.add("Fecha:" + Fecha);
-        datosGuardados.add("Productos Vendidos: " + productosVendidos);
-        datosGuardados.add("Subtotal:" + Subtotal);
-        datosGuardados.add("Impuestos:" + Impuestos);
-        datosGuardados.add(" total:" + total);
-       
+        if (id.isEmpty() || idCliente.isEmpty() || productosVendidos.isEmpty()
+                || fecha.isEmpty() || subtotalStr.isEmpty() || impuestosStr.isEmpty() || totalStr.isEmpty()) {
+            showError("Todos los campos deben ser completados.");
+            return;
+        }
 
-        JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        double subtotal;
+        double impuestos;
+        double total;
+
+        try {
+            subtotal = Double.parseDouble(subtotalStr);
+            impuestos = Double.parseDouble(impuestosStr);
+            total = Double.parseDouble(totalStr);
+        } catch (NumberFormatException e) {
+            showError("Los valores numéricos no son válidos.");
+            return;
+        }
+
+        
+        venta.setId(Integer.parseInt(txtId.getText().trim())); // Asegúrate de que id sea int
+        venta.setClienteId(Integer.parseInt(txtIdCliente.getText().trim())); // Asegúrate de que clienteId sea int
+        try {
+            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(txtFecha.getText().trim())); // Ajusta el formato de la fecha
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmVenta1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        venta.setProductosVendidos(ProductosVendidos()); // Asigna correctamente la lista de productos vendidos
+        venta.setSubtotal(Double.parseDouble(txtSubtotal.getText().trim())); // Asegúrate de que subtotal sea double
+        venta.setImpuesto(Double.parseDouble(txtImpuestos.getText().trim())); // Asegúrate de que impuestos sea double
+        venta.setTotal(Double.parseDouble(txtTotal.getText().trim())); // Asegúrate de que total sea double
+
+        boolean success = controller.agregar(venta); // Agregar venta a la base de datos
+        if (success) {
+            showMessage("Datos guardados correctamente.");
+            clear(); // Limpiar los campos
+        } else {
+            showError("Error al guardar los datos de la venta.");
+        }
     }//GEN-LAST:event_BtnAgregar1ActionPerformed
 
     private void BtnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminar1ActionPerformed
@@ -426,7 +473,7 @@ public class FrmVenta1 extends javax.swing.JPanel {
 
     private void BtnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizar1ActionPerformed
         if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty()
-            || txtProductosVendidos.getText().isEmpty()) {
+                || txtFecha.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -437,6 +484,7 @@ public class FrmVenta1 extends javax.swing.JPanel {
     private javax.swing.JButton BtnActualizar1;
     private javax.swing.JButton BtnAgregar1;
     private javax.swing.JButton BtnEliminar1;
+    private javax.swing.JTextField TxtProductosVendidos;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -456,8 +504,71 @@ public class FrmVenta1 extends javax.swing.JPanel {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtImpuestos;
-    private javax.swing.JTextField txtProductosVendidos;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Venta ent) {
+        if (venta == null) {
+            JOptionPane.showMessageDialog(this, "La venta no existe o no se ha seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        txtId.setText(String.valueOf(venta.getId()));
+        TxtProductosVendidos.setText(venta.getFecha().toString());
+        txtIdCliente.setText(String.valueOf(venta.getClienteId()));
+        txtFecha.setText(venta.getProductosVendidos().stream()
+                .map(p -> "- " + p.getProductoId() + " (Cantidad: " + p.getCantidad() + ")")
+                .reduce("", (a, b) -> a + "\n" + b).trim());
+        txtSubtotal.setText(String.format("%.2f", venta.getSubtotal()));
+        txtImpuestos.setText(String.format("%.2f", venta.getImpuesto()));
+        txtTotal.setText(String.format("%.2f", venta.getTotal()));
+    }
+
+    @Override
+    public void showAll(List<Venta> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showError(String err) {
+        JOptionPane.showMessageDialog(this, err, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public boolean validateRequired() {
+        if (venta == null) {
+            showError("No se ha cargado un cliente.");
+            return false;
+        }
+        if (txtId.getText().trim().isEmpty()
+                || txtIdCliente.getText().trim().isEmpty()
+                || txtFecha.getText().trim().isEmpty()
+                || TxtProductosVendidos.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty()
+                || txtImpuestos.getText().trim().isEmpty()
+                || txtTotal.getText().trim().isEmpty()) {
+
+        }
+        showError("Todos los campos deben ser completados.");
+        return false;
+    }
+
+    private void clear() {
+        UtilGui.clearTxts(
+                txtId,
+                txtIdCliente,
+                txtFecha,
+                TxtProductosVendidos,
+                txtSubtotal,
+                txtImpuestos,
+                txtTotal
+        );
+    }
 }

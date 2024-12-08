@@ -11,6 +11,8 @@ import Modelo.Ventas.VentasDAO;
 import Modelo.Ventas.productovendido;
 import Utilis.UtilGui;
 import View.View;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,9 +30,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
     
 
     private VentasDAO dao;
-    ControllerVentas controller;
-    Venta venta;
-
+   
     /**
      * Creates new form FrmVenta1
      */
@@ -433,7 +433,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
         String total = txtTotal.getText().trim();
 
         if (id.isEmpty() || idCliente.isEmpty() || productosVendidos.isEmpty()
-                || fecha.isEmpty() || subtotalStr.isEmpty() || impuestosStr.isEmpty() || totalStr.isEmpty()) {
+                || Fecha.isEmpty() || subtotalStr.isEmpty() || impuestosStr.isEmpty() || totalStr.isEmpty()) {
             showError("Todos los campos deben ser completados.");
             return;
         }

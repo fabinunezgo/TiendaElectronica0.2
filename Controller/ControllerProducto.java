@@ -7,6 +7,7 @@
 package Controller;
 
 import Conexion.Conexion;
+import Modelo.Producto.Producto;
 import Modelo.Producto.ProductoDAO;
 import Modelo.Producto.ProductoDTO;
 import View.View;
@@ -26,12 +27,12 @@ public class ControllerProducto {
             this.dao = new ProductoDAO(Conexion.getConnection());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            ex.printStackTrace(); // Imprime el seguimiento completo del error
+            ex.printStackTrace();
             view.showError("Error al conectar con la Base de Datos");
         }
     }
 
-    public boolean agregar(ProductoDTO producto) {
+    public boolean agregar(Producto producto) {
         if (producto == null || !validateRequired(producto)) {
             view.showError("Faltan datos requeridos");
             return false;
@@ -42,7 +43,7 @@ public class ControllerProducto {
                 return false;
             }
 
-            dao.agregar(producto);
+            dao.agregar(convertToDTO(producto));
             view.showMessage("Producto registrado correctamente");
             return true;
         } catch (SQLException ex) {
@@ -55,29 +56,29 @@ public class ControllerProducto {
     public void readAll() {
         try {
             List<ProductoDTO> productos = dao.readAll();
-            List<ProductoDTO> productList = productos.stream()
+            List<Producto> productList = productos.stream()
                     .filter(Objects::nonNull)
+                    .map(this::convertToEntity)
                     .collect(Collectors.toList());
             view.showAll(productList);
         } catch (SQLException ex) {
-            // Manejo de errores al cargar los productos
             view.showError("Error al cargar los productos: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-    public void update(ProductoDTO producto) {
+    public void update(Producto producto) {
         if (producto == null || !validateRequired(producto)) {
             view.showError("Faltan datos requeridos");
             return;
-        }  
+        }
         try {
             if (!validatePK(producto.getCodigo())) {
                 view.showError("El código del producto no está registrado");
                 return;
             }
 
-            dao.actualizar(producto);
+            dao.actualizar(convertToDTO(producto));
             view.showMessage("Producto actualizado correctamente");
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al actualizar el producto: " + ex.getMessage());
@@ -85,7 +86,7 @@ public class ControllerProducto {
         }
     }
 
-    public void delete(ProductoDTO producto) {
+    public void delete(Producto producto) {
         if (producto == null || producto.getCodigo() <= 0) {
             view.showError("No se ha seleccionado ningún producto para eliminar");
             return;
@@ -103,12 +104,12 @@ public class ControllerProducto {
         }
     }
 
-    private boolean validateRequired(ProductoDTO producto) {
-        return producto != null 
-            && producto.getCodigo() > 0 
-            && producto.getNombre() != null 
-            && !producto.getNombre().trim().isEmpty()
-            && producto.getPrecio() > 0;
+    private boolean validateRequired(Producto producto) {
+        return producto != null
+                && producto.getCodigo() > 0
+                && producto.getNombre() != null
+                && !producto.getNombre().trim().isEmpty()
+                && producto.getPrecio() > 0;
     }
 
     private boolean validatePK(int codigo) {
@@ -130,5 +131,27 @@ public class ControllerProducto {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    private ProductoDTO convertToDTO(Producto producto) {
+        return new ProductoDTO(
+                producto.getCodigo(),
+                producto.getNombre(),
+                producto.getCategoria(),
+                (int) producto.getPrecio(), 
+                producto.getCantidadDisponible(),
+                producto.getProveedor()
+        );
+    }
+
+    private Producto convertToEntity(ProductoDTO productoDTO) {
+        return new Producto(
+                productoDTO.getCodigo(),
+                productoDTO.getNombre(),
+                productoDTO.getCategoria(),
+                productoDTO.getPrecio(),
+                productoDTO.getCantidadDisponible(),
+                productoDTO.getProveedor()
+        );
     }
 }

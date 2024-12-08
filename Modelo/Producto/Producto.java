@@ -3,7 +3,7 @@ package Modelo.Producto;
 
 
 public class Producto {
-    private int codigo;
+    private int codigo; 
     private String nombre;
     private String categoria;
     private double precio;
@@ -60,7 +60,7 @@ public class Producto {
 
  
 
-    public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
+     public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -68,15 +68,20 @@ public class Producto {
         this.cantidadDisponible = cantidadDisponible;
         this.proveedor = proveedor;
     }
+    
+    @Override
+    public String toString() {
+        return "Producto{" +
+               "codigo=" + codigo +
+               ", nombre='" + nombre + '\'' +
+               ", categoria='" + categoria + '\'' +
+               ", precio=" + precio +
+               ", cantidadDisponible=" + cantidadDisponible +
+               ", proveedor='" + proveedor + '\'' +
+               '}';
+    }
 
     public Object getId() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-   
-
-    
-   
-
 }

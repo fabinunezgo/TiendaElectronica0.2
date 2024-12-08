@@ -384,7 +384,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         // Agregar producto
         boolean success;
         ProductoDTO Producto = null;
-        success = controller.agregar(Producto);
+        success = controller.agregar(producto);
         if (success) {
             showMessage("Producto registrado correctamente: " + producto.getNombre());
             clear(); // Limpiar campos del formulario
@@ -453,19 +453,22 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    
-      int option = JOptionPane.showConfirmDialog(
+if (producto == null) {
+        showError("No hay ningún producto seleccionado para eliminar.");
+        return;
+    }
+    int option = JOptionPane.showConfirmDialog(
         this,
         "¿Está seguro que desea eliminar el producto actual?",
         "Confirmar Eliminación",
         JOptionPane.YES_NO_OPTION
     );
 
-      if (option == JOptionPane.NO_OPTION) {
-        return;
-      }
-      controller.delete(producto);
-      clear();
+    if (option == JOptionPane.YES_OPTION) {
+        controller.delete(producto); 
+        clear(); // Limpia los campos después de la eliminación
+        showMessage("Producto eliminado correctamente.");
+    }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 

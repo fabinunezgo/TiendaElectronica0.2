@@ -3,7 +3,6 @@ package Modelo.Producto;
 import Frames.FrmProducto;
 
 public class Producto {
-
     private int codigo;
     private String nombre;
     private String categoria;

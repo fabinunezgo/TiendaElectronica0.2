@@ -4,7 +4,9 @@
  */
 package Frames;
 
+import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
+import Utilis.UtilGui;
 import View.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,12 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         initComponents();
         
         
+    
     }
+     public void changeStateBtns() {
+        UtilGui.changeStateButtons( btnAgregar,   btnEliminar, btnBuscar);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,31 +291,6 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
- if (txtCodigo.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
-            || txtCategoria.getText().trim().isEmpty() || TxtCantidadDisponible.getText().trim().isEmpty()
-            || txtPrecio.getText().trim().isEmpty() || txtProveedor.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    String codigo = txtCodigo.getText().trim();
-    String nombre = txtNombre.getText().trim();
-    String categoria = txtCategoria.getText().trim();
-    String cantidadDisponible = TxtCantidadDisponible.getText().trim();
-    String precio = txtPrecio.getText().trim();
-    String proveedor = txtProveedor.getText().trim();
-
-    List<String> datosGuardados = new ArrayList<>();
-    datosGuardados.add("Código: " + codigo);
-    datosGuardados.add("Nombre: " + nombre);
-    datosGuardados.add("Categoría: " + categoria);
-    datosGuardados.add("Cantidad Disponible: " + cantidadDisponible);
-    datosGuardados.add("Precio: " + precio);
-    datosGuardados.add("Proveedor: " + proveedor);
-
-JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -424,6 +406,14 @@ JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Éxito", J
         txtProveedor.setText("");
 
     }
+       private void SetEditableStateTxts(boolean value) {
+        txtCodigo.setEditable(value);
+        txtCodigo.setEditable(value);
+        txtPrecio.setEditable(value);
+        txtCantidad.setEditable(value);
+        txtProveedor.setEditable(value);
+    }
+
 
     @Override
     public void show(Producto ent) {

@@ -2,12 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+
+package Controller;
+
 import Conexion.Conexion;
 import Modelo.Producto.ProductoDAO;
 import Modelo.Producto.ProductoDTO;
 import View.View;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ControllerProducto {
 
@@ -20,6 +26,7 @@ public class ControllerProducto {
             this.dao = new ProductoDAO(Conexion.getConnection());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            ex.printStackTrace(); // Imprime el seguimiento completo del error
             view.showError("Error al conectar con la Base de Datos");
         }
     }
@@ -30,15 +37,17 @@ public class ControllerProducto {
             return false;
         }
         try {
-            if (dao.agregar(producto)) {
-                view.showMessage("Producto registrado correctamente");
-                return true;
-            } else {
-                view.showError("No se pudo registrar el producto");
+            if (existeProducto(producto.getCodigo())) {
+                view.showError("El código del producto ya está registrado");
                 return false;
             }
+
+            dao.agregar(producto);
+            view.showMessage("Producto registrado correctamente");
+            return true;
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al agregar el producto: " + ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
     }
@@ -46,25 +55,33 @@ public class ControllerProducto {
     public void readAll() {
         try {
             List<ProductoDTO> productos = dao.readAll();
-            view.showAll(productos);
+            List<ProductoDTO> productList = productos.stream()
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+            view.showAll(productList);
         } catch (SQLException ex) {
             // Manejo de errores al cargar los productos
             view.showError("Error al cargar los productos: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
+
     public void update(ProductoDTO producto) {
         if (producto == null || !validateRequired(producto)) {
             view.showError("Faltan datos requeridos");
             return;
         }  
         try {
-            if (dao.actualizar(producto)) {
-                view.showMessage("Producto actualizado correctamente");
-            } else {
-                view.showError("No se pudo actualizar el producto");
+            if (!validatePK(producto.getCodigo())) {
+                view.showError("El código del producto no está registrado");
+                return;
             }
+
+            dao.actualizar(producto);
+            view.showMessage("Producto actualizado correctamente");
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al actualizar el producto: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -74,21 +91,44 @@ public class ControllerProducto {
             return;
         }
         try {
-            if (dao.eliminar(producto.getCodigo())) {
-                view.showMessage("Producto eliminado correctamente");
-            } else {
-                view.showError("No se pudo eliminar el producto");
+            if (!validatePK(producto.getCodigo())) {
+                view.showError("El código del producto no está registrado");
+                return;
             }
+            dao.eliminar(producto.getCodigo());
+            view.showMessage("Producto eliminado correctamente");
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al eliminar el producto: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
-      private boolean validateRequired(ProductoDTO producto) {
+    private boolean validateRequired(ProductoDTO producto) {
         return producto != null 
             && producto.getCodigo() > 0 
             && producto.getNombre() != null 
-            && !producto.getNombre().isEmpty()
+            && !producto.getNombre().trim().isEmpty()
             && producto.getPrecio() > 0;
+    }
+
+    private boolean validatePK(int codigo) {
+        try {
+            return dao.read(codigo) != null;
+        } catch (SQLException ex) {
+            view.showError("Error al validar el código: " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean existeProducto(int codigo) {
+        try {
+            ProductoDTO productoDTO = dao.read(codigo);
+            return productoDTO != null;
+        } catch (SQLException ex) {
+            view.showError("Error al verificar la existencia del producto: " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

@@ -55,7 +55,6 @@ public class Venta {
         setFecha(fecha);
     }
 
-  
 
     public void setClienteId(int clienteId) {
         this.clienteId = clienteId;

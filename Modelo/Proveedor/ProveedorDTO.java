@@ -10,12 +10,12 @@ package Modelo.Proveedor;
  */
 public class ProveedorDTO {
 
-    private final int id;
+    private final String id;
     private final String nombre;
     private final String contacto;
     private final String direccion;
    
-     public int getId() {
+     public String getId() {
         return id;
     }
 
@@ -31,7 +31,7 @@ public class ProveedorDTO {
         return direccion;
     }
 
-    public ProveedorDTO(int id, String nombre, String contacto, String direccion) {
+    public ProveedorDTO(String id, String nombre, String contacto, String direccion) {
         this.id = id;
         this.nombre = nombre;
         this.contacto = contacto;

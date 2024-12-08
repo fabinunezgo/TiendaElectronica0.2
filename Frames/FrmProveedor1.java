@@ -4,19 +4,7 @@ import Controller.ControllerProveedor;
 import Modelo.Proveedor.Proveedor;
 import Utilis.UtilGui;
 import View.View;
-import Modelo.Proveedor.Proveedor;
-import Utilis.UtilGui;
-import View.View;
-import java.lang.ModuleLayer.Controller;
 import java.util.List;
-import javax.swing.JOptionPane;
-
-/**
- *
- * @author thyfa
- */
-import javax.swing.JOptionPane;
-
 import javax.swing.JOptionPane;
 
 public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor> {
@@ -280,33 +268,24 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         String nombre = txtNombre.getText().trim();
         String contacto = txtContacto.getText().trim();
         String direccion = txtDireccion.getText().trim();
-
-// Verificar si los campos están vacíos
         if (id.isEmpty() || nombre.isEmpty() || contacto.isEmpty() || direccion.isEmpty()) {
             showError("Todos los campos deben ser completados.");
             return;
         }
-
-// Validación del formato de ID, si es necesario (por ejemplo, debe ser un número)
         if (!id.matches("^\\d+$")) {
             showError("El ID debe ser un número válido.");
             return;
         }
-
-// Verificar si el proveedor ya existe
-        boolean proveedorExiste = controller.existe(id);
+        boolean proveedorExiste;
+        proveedorExiste = controller.existeProveedor(id);
         if (proveedorExiste) {
             showError("Ya existe un proveedor con ese ID.");
             return;
         }
-
-// Establecer los atributos del proveedor
-        proveedor.setId(Integer.parseInt(id));
+        proveedor.setId(id);
         proveedor.setNombre(nombre);
         proveedor.setContacto(contacto);
         proveedor.setDireccion(direccion);
-
-// Agregar el proveedor
         boolean success = controller.agregar(proveedor);
         if (success) {
             showMessage("Proveedor registrado correctamente: " + proveedor.getNombre());
@@ -385,9 +364,9 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     public void showAll(List<Proveedor> ents) {
         if (frm == null) {
             frm = new FrmProveedor1();
-            frm.setObserver(this);
+            
         }
-        frm.setEnts(ents);
+     
         frm.setVisible(true);
     }
 

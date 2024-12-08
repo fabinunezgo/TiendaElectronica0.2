@@ -3,12 +3,12 @@ package Modelo.Proveedor;
 
 
 public class Proveedor {
-    private int id;
+    private String id;
     private String nombre;
     private String contacto;
     private String direccion;
    
-     public int getId() {
+     public String getId() {
         return id;
     }
 
@@ -24,7 +24,7 @@ public class Proveedor {
         return direccion;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public class Proveedor {
     
     
 
-    public Proveedor(int id, String nombre, String contacto, String direccion) {
+    public Proveedor(String id, String nombre, String contacto, String direccion) {
         this.id = id;
         this.nombre = nombre;
         this.contacto = contacto;

@@ -73,7 +73,8 @@ public class ControllerProveedor {
             return;
         }
         try {
-            if (!validatePK(proveedor.getId())) {
+            if (validatePK(proveedor.getId())) {
+            } else {
                 view.showError("El ID del proveedor no está registrado");
                 return;
             }
@@ -93,7 +94,7 @@ public class ControllerProveedor {
             return;
         }
         try {
-            if (!validatePK(proveedor.getId())) {
+            if (!validatePK(proveedor.getId()))) {
                 view.showError("El ID del proveedor no está registrado");
                 return;
             }
@@ -125,10 +126,14 @@ public class ControllerProveedor {
     }
 
     public boolean existeProveedor(int id) {
+        return existeProveedor(id);
+    }
+
+    public boolean existeProveedor(String id) {
         try {
             ProveedorDTO proveedorDTO = dao.read(id);
             return proveedorDTO != null;
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             view.showError("Error al verificar la existencia del proveedor: " + ex.getMessage());
             ex.printStackTrace();
             return false;

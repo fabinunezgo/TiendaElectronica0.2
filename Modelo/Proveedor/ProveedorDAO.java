@@ -67,7 +67,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 return new ProveedorDTO(
-                    resultSet.getInt("id"),
+                    resultSet.getString("id"),
                     resultSet.getString("nombre"),
                     resultSet.getString("contacto"),
                     resultSet.getString("direccion")
@@ -92,7 +92,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 ProveedorDTO proveedor = new ProveedorDTO(
-                    resultSet.getInt("id"),
+                    resultSet.getString("id"),
                     resultSet.getString("nombre"),
                     resultSet.getString("contacto"),
                     resultSet.getString("direccion")
@@ -114,7 +114,7 @@ public class ProveedorDAO extends Dao<ProveedorDTO> {
         CallableStatement stmt = null;
         try {
             stmt = con.prepareCall(sql);
-            stmt.setInt(1, dto.getId());
+            stmt.setString(1, dto.getId());
             stmt.setString(2, dto.getNombre());
             stmt.setString(3, dto.getContacto());
             stmt.setString(4, dto.getDireccion());

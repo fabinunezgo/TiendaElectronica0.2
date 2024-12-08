@@ -55,9 +55,7 @@ public class Venta {
         setFecha(fecha);
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
+  
 
     public void setClienteId(int clienteId) {
         this.clienteId = clienteId;

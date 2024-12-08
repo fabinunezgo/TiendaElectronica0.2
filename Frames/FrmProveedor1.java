@@ -4,12 +4,19 @@
  */
 package Frames;
 
+<<<<<<< HEAD
 
 
 import Controller.ControllerProveedor;
 import Modelo.Proveedor.Proveedor;
 import Utilis.UtilGui;
 import View.View;
+=======
+import Modelo.Proveedor.Proveedor;
+import Utilis.UtilGui;
+import View.View;
+import java.lang.ModuleLayer.Controller;
+>>>>>>> 1d0d66c (se realizan cambios)
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -17,11 +24,17 @@ import javax.swing.JOptionPane;
  *
  * @author thyfa
  */
+<<<<<<< HEAD
 public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor> {
     Proveedor proveedor;
     ControllerProveedor controller;
     FrmProveedor1 frm;
 
+=======
+public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor>{
+ Proveedor proveedor;
+ Controller controller;
+>>>>>>> 1d0d66c (se realizan cambios)
     /**
      * Creates new form FrmProveedor1
      */
@@ -238,12 +251,12 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         }
         if (cedula.length() != 9) {
             JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 9 dígitos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtId.setText(""); 
+            txtId.setText("");
             return;
         }
         if (!cedula.matches("[0-9]+")) {
             JOptionPane.showMessageDialog(this, "La cédula no puede contener letras ni caracteres especiales.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtId.setText(""); 
+            txtId.setText("");
             return;
         }
         JOptionPane.showMessageDialog(this, "La cédula es válida.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -264,25 +277,55 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
                 JOptionPane.showMessageDialog(this, "El contacto debe ser un número de 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
             }
             txtContacto.setText("");
-            return; 
+            return;
         }
         JOptionPane.showMessageDialog(this, "El contacto es válido y fue agregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
 
 
     }//GEN-LAST:event_txtContactoActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty()
-                || txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
+       
+        String id = txtId.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String contacto = txtContacto.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+
+// Verificar si los campos están vacíos
+        if (id.isEmpty() || nombre.isEmpty() || contacto.isEmpty() || direccion.isEmpty()) {
+            showError("Todos los campos deben ser completados.");
             return;
         }
-        boolean datosAgregadosExitosamente = true;
 
-        if (datosAgregadosExitosamente) {
-            JOptionPane.showMessageDialog(this, "Los datos se han agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+// Validación del formato de ID, si es necesario (por ejemplo, debe ser un número)
+        if (!id.matches("^\\d+$")) {
+            showError("El ID debe ser un número válido.");
+            return;
         }
+
+// Verificar si el proveedor ya existe
+        boolean proveedorExiste = controller.existe(id);
+        if (proveedorExiste) {
+            showError("Ya existe un proveedor con ese ID.");
+            return;
+        }
+
+// Establecer los atributos del proveedor
+        proveedor.setId(Integer.parseInt(id));
+        proveedor.setNombre(nombre);
+        proveedor.setContacto(contacto);
+        proveedor.setDireccion(direccion);
+
+// Agregar el proveedor
+       boolean success = controller.agregar(proveedor);
+        if (success) {
+            showMessage("Proveedor registrado correctamente: " + proveedor.getNombre());
+            SetEditableStateTxts(false);
+            changeStateBtns();
+        } else {
+            showError("Error al registrar proveedor.");
+        }
+
 
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
@@ -314,7 +357,12 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
-
+ private void SetEditableStateTxts(boolean value) {
+        txtId.setEditable(value);
+        txtNombre.setEditable(value);
+        txtContacto.setEditable(value);
+        txtDireccion.setEditable(value);
+    }
 
     private void clear() {
         UtilGui.clearTxts(txtId,
@@ -352,6 +400,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
+<<<<<<< HEAD
 
 
     @Override
@@ -368,15 +417,35 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     @Override
     public void showMessage(String msg) {
          JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+=======
+    @Override
+    public void show(Proveedor ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showAll(List<Proveedor> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+>>>>>>> 1d0d66c (se realizan cambios)
     }
 
     @Override
     public void showError(String err) {
+<<<<<<< HEAD
         JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+=======
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+>>>>>>> 1d0d66c (se realizan cambios)
     }
 
     @Override
     public boolean validateRequired() {
+<<<<<<< HEAD
       if (proveedor == null) {
         showError("No se ha cargado un proveedor");
         return false;
@@ -409,4 +478,12 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         txtDireccion.setText(ent.getDireccion());
          
     }
+=======
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+     public void changeStateBtns() {
+        UtilGui.changeStateButtons(BtnAgregar, BtnActualizar, BtnEliminar);
+    }
+
+>>>>>>> 1d0d66c (se realizan cambios)
 }

@@ -1,7 +1,7 @@
 
 package Frames;
 
-import *;
+
 import Controller.ControllerCliente;
 import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
@@ -318,7 +318,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Producto producto = new Producto();
+       
         String codigoStr = txtCodigo.getText().trim();
         String nombre = txtNombre.getText().trim();
         String categoria = txtCategoria.getText().trim();

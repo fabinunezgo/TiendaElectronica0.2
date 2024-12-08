@@ -8,6 +8,7 @@ package Frames;
 import Controller.ControllerVentas;
 import Modelo.Ventas.Venta;
 import Modelo.Ventas.VentasDAO;
+import Modelo.Ventas.productovendido;
 import Utilis.UtilGui;
 import View.View;
 import java.util.ArrayList;
@@ -449,21 +450,19 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
             showError("Los valores numéricos no son válidos.");
             return;
         }
-
-        
-        venta.setId(Integer.parseInt(txtId.getText().trim())); // Asegúrate de que id sea int
-        venta.setClienteId(Integer.parseInt(txtIdCliente.getText().trim())); // Asegúrate de que clienteId sea int
+        venta.setId(Integer.parseInt(txtId.getText().trim())); 
+        venta.setClienteId(Integer.parseInt(txtIdCliente.getText().trim()));
         try {
-            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(txtFecha.getText().trim())); // Ajusta el formato de la fecha
+            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(txtFecha.getText().trim())); 
         } catch (ParseException ex) {
             Logger.getLogger(FrmVenta1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        venta.setProductosVendidos(ProductosVendidos()); // Asigna correctamente la lista de productos vendidos
+        venta.setProductosVendidos(ProductoVendido()); // Asigna correctamente la lista de productos vendidos
         venta.setSubtotal(Double.parseDouble(txtSubtotal.getText().trim())); // Asegúrate de que subtotal sea double
         venta.setImpuesto(Double.parseDouble(txtImpuestos.getText().trim())); // Asegúrate de que impuestos sea double
         venta.setTotal(Double.parseDouble(txtTotal.getText().trim())); // Asegúrate de que total sea double
 
-        boolean success = controller.agregar(venta); // Agregar venta a la base de datos
+        boolean success = controller.agregar(venta); 
         if (success) {
             showMessage("Datos guardados correctamente.");
             clear(); // Limpiar los campos
@@ -601,5 +600,13 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta>{
 
     public void changeStateBtns() {
         UtilGui.changeStateButtons( BtnAgregar1, BtnActualizar1, BtnEliminar1);
+    }
+
+    public void changeStateBtns() {
+        UtilGui.changeStateButtons(BtnActualizar1, BtnAgregar1, BtnEliminar1);
+    }
+
+    private List<productovendido> ProductoVendido() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

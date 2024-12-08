@@ -8,15 +8,17 @@ import Conexion.Conexion;
 import Modelo.Usuario.UsuarioDAO;
 import Modelo.Usuario.UsuarioDTO;
 import View.View;
-import java.util.List;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author user
  */
 public class ControllerUsuario {
-        private UsuarioDAO dao;
+    private UsuarioDAO dao;
     private final View view;
 
     public ControllerUsuario(View view) {
@@ -34,13 +36,16 @@ public class ControllerUsuario {
             view.showError("Faltan datos requeridos");
             return false;
         }
-        try {
-            if (dao.agregar(usuario)) {
+        try (Connection connection = Conexion.getConnection()) {
+            String query = "{CALL añadirUsuario(?, ?, ?, ?)}";
+            try (CallableStatement stmt = connection.prepareCall(query)) {
+                stmt.setString(1, usuario.getNombre());
+                stmt.setString(2, usuario.getUsername());
+                stmt.setString(3, usuario.getPassword());
+                stmt.setString(4, usuario.getRol());
+                stmt.executeUpdate();
                 view.showMessage("Usuario registrado correctamente");
                 return true;
-            } else {
-                view.showError("No se pudo registrar el usuario");
-                return false;
             }
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al agregar el usuario: " + ex.getMessage());
@@ -62,11 +67,16 @@ public class ControllerUsuario {
             view.showError("Faltan datos requeridos");
             return;
         }
-        try {
-            if (dao.actualizar(usuario)) {
+        try (Connection connection = Conexion.getConnection()) {
+            String query = "{CALL actualizarUsuario(?, ?, ?, ?, ?)}";
+            try (CallableStatement stmt = connection.prepareCall(query)) {
+                stmt.setInt(1, usuario.getId());
+                stmt.setString(2, usuario.getNombre());
+                stmt.setString(3, usuario.getUsername());
+                stmt.setString(4, usuario.getPassword());
+                stmt.setString(5, usuario.getRol());
+                stmt.executeUpdate();
                 view.showMessage("Usuario actualizado correctamente");
-            } else {
-                view.showError("No se pudo actualizar el usuario");
             }
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al actualizar el usuario: " + ex.getMessage());
@@ -78,11 +88,12 @@ public class ControllerUsuario {
             view.showError("No se ha seleccionado ningún usuario para eliminar");
             return;
         }
-        try {
-            if (dao.eliminar(usuario.getId())) {
+        try (Connection connection = Conexion.getConnection()) {
+            String query = "{CALL eliminarUsuario(?)}";
+            try (CallableStatement stmt = connection.prepareCall(query)) {
+                stmt.setInt(1, usuario.getId());
+                stmt.executeUpdate();
                 view.showMessage("Usuario eliminado correctamente");
-            } else {
-                view.showError("No se pudo eliminar el usuario");
             }
         } catch (SQLException ex) {
             view.showError("Ocurrió un error al eliminar el usuario: " + ex.getMessage());
@@ -96,5 +107,4 @@ public class ControllerUsuario {
                usuario.getPassword() != null && !usuario.getPassword().isEmpty() &&
                usuario.getRol() != null && !usuario.getRol().isEmpty();
     }
-    
 }

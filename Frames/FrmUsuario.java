@@ -4,24 +4,27 @@
  */
 package Frames;
 
+import Controller.ControllerUsuario;
 import Modelo.Usuario.Usuario;
-import Utilis.UtilGui;
 import View.View;
-import java.util.List;
 import javax.swing.JOptionPane;
+import Utilis.UtilGui;
+import java.util.List;
 
 /**
  *
  * @author thyfa
  */
-public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuario>  {
+public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuario> {
+
+    ControllerUsuario controller;
     Usuario usuario;
-    /**
-     * Creates new form FrmLogin
-     */
+    
     public FrmUsuario() {
         initComponents();
+        controller = new ControllerUsuario(this);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,9 +50,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         TxtRol = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
-        btnDelete = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
+        BtnActualizar = new javax.swing.JButton();
+        BtnAgregar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -175,24 +178,24 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                BtnEliminarActionPerformed(evt);
             }
         });
 
-        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                BtnActualizarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnAgregar.setText("Agregar");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnAgregarActionPerformed(evt);
             }
         });
 
@@ -202,11 +205,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(jButton1)
+                .addComponent(BtnAgregar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -214,13 +217,13 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(21, 21, 21)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(BtnAgregar)
                         .addGap(35, 35, 35))))
         );
 
@@ -246,7 +249,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
         if (usuario == null) {
             showError("No hay ningún usuario cargado actualmente");
             return;
@@ -262,10 +265,10 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         if (option == JOptionPane.NO_OPTION) return;
         showMessage("El usuario ha sido eliminado correctamente");
         clear();
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }//GEN-LAST:event_BtnEliminarActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if (usuario == null) {
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+         if (usuario == null) {
             showError("No hay ningún usuario cargado actualmente");
             return;
         }
@@ -277,7 +280,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         String newId = TxtId.getText().trim();
         String newNombre = TxtNombre.getText().trim();
         String newNombreUsuario = TxtNombreU.getText().trim();
-        String newContraseña = TxtContraseña.getText().trim();
+        String newContraseña = new String(txtContraseña.getPassword()).trim(); // Se obtiene la contraseña correctamente
         String newRol = TxtRol.getText().trim();
 
         if (!newId.equals(String.valueOf(usuario.getId())) ||
@@ -296,34 +299,26 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
         } else {
             showMessage("No se realizó ningún cambio");
         }
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         String username = txtNombreUsuario.getText();
-                String password = new String(txtContraseña.getUIClassID());
-                
-                if (!username.isEmpty() && !password.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso: " + username);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, completa ambos campos.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+       
+    }//GEN-LAST:event_BtnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizar;
+    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnEliminar;
     private javax.swing.JLabel TxtContraseña;
     private javax.swing.JLabel TxtId;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombreU;
     private javax.swing.JLabel TxtRol;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -337,47 +332,56 @@ public class FrmUsuario extends javax.swing.JInternalFrame implements View<Usuar
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void show(Usuario ent) {
-        usuario = ent;
-        if (ent == null) {
-            clear();
-            return;
-        }
-        
-         TxtId.setText(String.valueOf((int) ent.getId()));
-         TxtNombre.setText(ent.getNombre());
-         TxtNombreU.setText(ent.getUsername());
-         TxtContraseña.setText(ent.getPassword());
-         TxtRol.setText(ent.getRol());
-    }
-
-    @Override
     public void showAll(List<Usuario> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void showMessage(String msg) {
-        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-       JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public boolean validateRequired() {
-        return UtilGui.validateFields(TxtId,TxtNombre,TxtNombreU,TxtContraseña,TxtRol);
+        if (txtNombre.getText().trim().isEmpty() ||
+            txtNombreUsuario.getText().trim().isEmpty() ||
+            txtContraseña.getText().trim().isEmpty() ||
+            jComboBox1.getSelectedItem() == null) {
+            showError("Todos los campos deben ser completados.");
+            return false;
+        }
+        return true;
     }
-    private void clear(){
-      UtilGui.clearTxts(
-            TxtId,
-            TxtNombre,
-            TxtNombreU,
-            TxtContraseña,
-            TxtRol
-    );
-     }
 
+     private void clear() {
+        UtilGui.clearTxts(jTextField4, txtNombre, txtNombreUsuario, txtContraseña);
+        jComboBox1.setSelectedIndex(0);
+    }
+     
+     private void SetEditableStateTxts(boolean value) {
+        jTextField4.setEditable(value);
+        txtNombre.setEditable(value);
+        txtNombreUsuario.setEditable(value);
+        txtContraseña.setEditable(value);
+        jComboBox1.setEnabled(value);
+    }
+     private void changeStateBtns() {
+        UtilGui.changeStateButtons(BtnActualizar,BtnEliminar,BtnAgregar);
+    }
+     
+     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        clear();
+        SetEditableStateTxts(true);
+        changeStateBtns();
+    }   
+
+    @Override
+    public void show(Usuario ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

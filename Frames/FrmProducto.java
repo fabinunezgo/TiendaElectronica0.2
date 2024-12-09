@@ -1,6 +1,5 @@
 package Frames;
 
-
 import Controller.ControllerProducto;
 import Modelo.Producto.Producto;
 import Modelo.Producto.ProductoDTO;
@@ -399,33 +398,17 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     @Override
     public void show(Producto ent) {
-
-        producto = ent;
-        if (ent == null) {
-            clear();
-            return;
-        }
-        TxtId.setText(String.valueOf(ent.getCodigo()));
-        TxtNombre.setText(ent.getNombre());
-        TxtCategoria.setText(ent.getCategoria());
-        TxtPrecio.setText(String.valueOf(ent.getPrecio()));
-        TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));
-        TxtProveedor.setText(ent.getProveedor());  
-
-      producto = ent;
+    producto = ent;
     if (ent == null) {
-        clear();  // 
+        clear();
         return;
-
     }
-
-   
-    TxtId.setText(String.valueOf(ent.getId()));  
-    TxtNombre.setText(ent.getNombre());  
-    TxtCategoria.setText(ent.getCategoria());  // Categoría es un String, no necesita conversión
-    TxtPrecio.setText(String.valueOf(ent.getPrecio()));  
-    TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));  
-    TxtProveedor.setText(ent.getProveedor());  
+    TxtId.setText(String.valueOf(ent.getId()));
+    TxtNombre.setText(ent.getNombre());
+    TxtCategoria.setText(ent.getCategoria()); 
+    TxtPrecio.setText(String.valueOf(ent.getPrecio()));
+    TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));
+    TxtProveedor.setText(ent.getProveedor());
 }
 
     @Override
@@ -451,8 +434,15 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     
     @Override
     public boolean validateRequired() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    
+        if (txtNombre.getText().trim().isEmpty() ||
+        txtCategoria.getText().trim().isEmpty() ||
+        txtPrecio.getText().trim().isEmpty() ||
+        txtCantidad.getText().trim().isEmpty() ||
+        txtProveedor.getText().trim().isEmpty()) {
+        showError("Todos los campos deben ser llenados.");
+        return false;
+    }
+    return true;
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -477,43 +467,48 @@ if (producto == null) {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (producto == null) {
-            showError("No hay ningún producto cargado actualmente para actualizar.");
-            return;
-        }
-        int option = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea actualizar la información del producto?",
-                "Confirmar Actualización",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
+       if (producto == null) {
+        showError("No hay ningún producto cargado actualmente para actualizar.");
+        return;
+    }
 
-        String nuevoNombre = txtNombre.getText().trim();
-        String nuevaCategoria = txtCategoria.getText().trim();
-        double nuevoPrecio;
-        int nuevaCantidad;
-        String nuevoProveedor = txtProveedor.getText().trim();
-        if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty()) {
-            showError("Todos los campos deben ser llenados.");
-            return;
-        }
-        try {
-            nuevoPrecio = Double.parseDouble(txtPrecio.getText().trim());
-            nuevaCantidad = Integer.parseInt(txtCantidad.getText().trim());
-        } catch (NumberFormatException e) {
-            showError("El precio y la cantidad deben ser valores numéricos.");
-            return;
-        }
+    int option = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea actualizar la información del producto?",
+            "Confirmar Actualización",
+            JOptionPane.YES_NO_OPTION
+    );
+    if (option == JOptionPane.NO_OPTION) {
+        return;
+    }
 
-        producto.setNombre(nuevoNombre);
-        producto.setCategoria(nuevaCategoria);
-        producto.setPrecio(nuevoPrecio);
-        producto.setCantidadDisponible(nuevaCantidad);
-        producto.setProveedor(nuevoProveedor);
-        showMessage("Producto actualizado correctamente.");
+    String nuevoNombre = txtNombre.getText().trim();
+    String nuevaCategoria = txtCategoria.getText().trim();
+    String nuevoProveedor = txtProveedor.getText().trim();
+    String precioText = txtPrecio.getText().trim();
+    String cantidadText = txtCantidad.getText().trim();
+
+    if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty() || precioText.isEmpty() || cantidadText.isEmpty()) {
+        showError("Todos los campos deben ser llenados.");
+        return;
+    }
+
+    double nuevoPrecio;
+    int nuevaCantidad;
+    try {
+        nuevoPrecio = Double.parseDouble(precioText);
+        nuevaCantidad = Integer.parseInt(cantidadText);
+    } catch (NumberFormatException e) {
+        showError("El precio y la cantidad deben ser valores numéricos.");
+        return;
+    }
+
+    producto.setNombre(nuevoNombre);
+    producto.setCategoria(nuevaCategoria);
+    producto.setPrecio(nuevoPrecio);
+    producto.setCantidadDisponible(nuevaCantidad);
+    producto.setProveedor(nuevoProveedor);
+    showMessage("Producto actualizado correctamente.");
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -547,9 +542,6 @@ if (producto == null) {
     private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
 
-   
- 
-
     private void clear() {
         txtNombre.setText("");
         txtCategoria.setText("");
@@ -571,10 +563,10 @@ if (producto == null) {
     }
 
     private void setEnts(List<Producto> ents) {
-
     DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+    model.setRowCount(0); 
     for (Producto p : ents) {
         model.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getCantidadDisponible(), p.getProveedor()});
-    }
+        }
     }
 }

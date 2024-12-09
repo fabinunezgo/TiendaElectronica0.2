@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
 package Controller;
 
 import Conexion.Conexion;
@@ -17,7 +16,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ControllerProducto {
-
     private ProductoDAO dao;
     private final View view;
 
@@ -109,7 +107,11 @@ public class ControllerProducto {
                 && producto.getCodigo() > 0
                 && producto.getNombre() != null
                 && !producto.getNombre().trim().isEmpty()
-                && producto.getPrecio() > 0;
+                && producto.getPrecio() > 0
+                && producto.getCategoria() != null
+                && !producto.getCategoria().trim().isEmpty()
+                && producto.getProveedor() != null
+                && !producto.getProveedor().trim().isEmpty();
     }
 
     private boolean validatePK(int codigo) {
@@ -138,8 +140,8 @@ public class ControllerProducto {
                 producto.getCodigo(),
                 producto.getNombre(),
                 producto.getCategoria(),
-                (int) producto.getPrecio(), 
                 producto.getCantidadDisponible(),
+                producto.getPrecio(),
                 producto.getProveedor()
         );
     }

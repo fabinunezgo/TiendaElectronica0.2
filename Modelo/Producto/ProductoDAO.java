@@ -83,7 +83,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
     }
     @Override
     public ProductoDTO read(Object id) throws SQLException {
-        String sql = "SELECT * FROM Productos WHERE codigo = ?";
+        String sql = "SELECT * FROM Producto WHERE codigo = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, (int) id);
             ResultSet resultSet = statement.executeQuery();
@@ -138,7 +138,7 @@ public class ProductoDAO extends Dao<ProductoDTO> {
      
     @Override
     public boolean eliminar(Object id) throws SQLException {
-        String sql = "{CALL eliminarProducto(?)}";  
+        String sql = "{CALL eliminarProducto(?)}";  // Procedimiento almacenado
         try (CallableStatement stmt = connection.prepareCall(sql)) {
             stmt.setInt(1, (int) id);
             return stmt.executeUpdate() > 0;

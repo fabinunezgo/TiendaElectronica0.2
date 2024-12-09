@@ -20,6 +20,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     ControllerProducto controller;
     FrmProducto frm;
     private View observer;
+    List<Producto> ents;
 
     /**
      * Creates new form FrmProducto
@@ -27,12 +28,11 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     public FrmProducto() {
         initComponents();
         controller = new ControllerProducto(this);
-        
-        
-    
+        controller.readAll();
+
     }
      public void changeStateBtns() {
-        UtilGui.changeStateButtons( btnAgregar,   btnEliminar, btnBuscar);
+        UtilGui.changeStateButtons(btnAgregar, btnEliminar, btnBuscar);
     }
 
 
@@ -319,116 +319,117 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        int selectedRow = tblClientes.getSelectedRow();
+        if (selectedRow == -1) {
+            return;
+        }
+        String Codigo = tblClientes.getValueAt(selectedRow, 0).toString();
+        observer = this;
+        observer.show(ents.stream()
+                .filter(customer -> customer.getCodigo() == Integer.valueOf(Codigo)) // Compara directamente como números
+                .findFirst()
+                .orElse(null));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-    String codigoStr = txtCodigo.getText().trim();  
-    System.out.println("Código ingresado: '" + codigoStr + "'");  
+    String codigoStr = txtCodigo.getText().trim();
+        System.out.println("Código ingresado: '" + codigoStr + "'");
 
-    if (codigoStr.isEmpty()) {
-        showError("El código no puede estar vacío.");
-        return;
-    }
-
-    int codigo;
-    try {
-        codigo = Integer.parseInt(codigoStr); 
-        System.out.println("Código numérico válido: " + codigo); 
-    } catch (NumberFormatException e) {
-        showError("El código debe ser un número entero.");
-        return;
-    }
-
-    String nombre = txtNombre.getText().trim();
-    String categoria = txtCategoria.getText().trim();
-    String precioStr = txtPrecio.getText().trim();
-    String cantidadStr = txtCantidad.getText().trim();
-    String proveedor = txtProveedor.getText().trim();
-
-    if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
-        showError("Todos los campos deben ser completados.");
-        return;
-    }
-
-    double precio;
-    try {
-        precio = Double.parseDouble(precioStr);
-        if (precio <= 0) {
-            showError("El precio debe ser mayor que cero.");
+        if (codigoStr.isEmpty()) {
+            showError("El código no puede estar vacío.");
             return;
         }
-    } catch (NumberFormatException e) {
-        showError("El precio debe ser un valor numérico.");
-        return;
-    }
 
-    int cantidad;
-    try {
-        cantidad = Integer.parseInt(cantidadStr);
-        if (cantidad < 0) {
-            showError("La cantidad debe ser un número mayor o igual a cero.");
+        int codigo;
+        try {
+            codigo = Integer.parseInt(codigoStr);
+            System.out.println("Código numérico válido: " + codigo);
+        } catch (NumberFormatException e) {
+            showError("El código debe ser un número entero.");
             return;
         }
-    } catch (NumberFormatException e) {
-        showError("La cantidad debe ser un valor numérico.");
-        return;
-    }
 
-    if (controller.existeProducto(codigo)) {
-        showError("Ya existe un producto con este código.");
-        return;
-    }
+        String nombre = txtNombre.getText().trim();
+        String categoria = txtCategoria.getText().trim();
+        String precioStr = txtPrecio.getText().trim();
+        String cantidadStr = txtCantidad.getText().trim();
+        String proveedor = txtProveedor.getText().trim();
 
-    producto.setCodigo(codigo);
-    producto.setNombre(nombre);
-    producto.setCategoria(categoria);
-    producto.setPrecio(precio);
-    producto.setCantidadDisponible(cantidad);
-    producto.setProveedor(proveedor);
+        if (nombre.isEmpty() || categoria.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty()) {
+            showError("Todos los campos deben ser completados.");
+            return;
+        }
 
-    boolean success = controller.agregar(producto);
-    if (success) {
-        showMessage("Producto registrado correctamente: " + producto.getNombre());
-        clear(); 
-    } else {
-        showError("Error al registrar producto.");
-    }
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio <= 0) {
+                showError("El precio debe ser mayor que cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showError("El precio debe ser un valor numérico.");
+            return;
+        }
+
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(cantidadStr);
+            if (cantidad < 0) {
+                showError("La cantidad debe ser un número mayor o igual a cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showError("La cantidad debe ser un valor numérico.");
+            return;
+        }
+
+        if (controller.existeProducto(codigo)) {
+            showError("Ya existe un producto con este código.");
+            return;
+        }
+
+        producto = new Producto(codigo, nombre, categoria, precio, cantidad, proveedor);
+
+        boolean success = controller.agregar(producto);
+        if (success) {
+            showMessage("Producto registrado correctamente: " + producto.getNombre());
+            clear();
+        } else {
+            showError("Error al registrar producto.");
+        }
+        controller.readAll();
     }
 
     @Override
     public void show(Producto ent) {
-    producto = ent;
-    if (ent == null) {
-        clear();
-        return;
+
+        producto = ent;
+        if (ent == null) {
+            clear();
+            return;
+        }
+        txtCodigo.setText(String.valueOf(ent.getCodigo()));
+        txtNombre.setText(ent.getNombre());
+        txtCategoria.setText(ent.getCategoria());
+        txtPrecio.setText(String.valueOf(ent.getPrecio()));
+        txtCantidad.setText(String.valueOf(ent.getCantidadDisponible()));
+        txtProveedor.setText(ent.getProveedor());
     }
-    TxtId.setText(String.valueOf(ent.getId()));
-    TxtNombre.setText(ent.getNombre());
-    TxtCategoria.setText(ent.getCategoria()); 
-    TxtPrecio.setText(String.valueOf(ent.getPrecio()));
-    TxtCantidadDisponible.setText(String.valueOf(ent.getCantidadDisponible()));
-    TxtProveedor.setText(ent.getProveedor());
-}
 
     @Override
     public void showAll(List<Producto> ents) {
-          if (frm == null) {
-        frm = new FrmProducto(); 
-        frm.setObserver(this);
+        setEnts(ents);
     }
-        frm.setEnts(ents); 
-        frm.setVisible(true);
-   }
     
     @Override
     public void showMessage(String msg) {
-       JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showError(String err) {
-       JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     
@@ -456,77 +457,65 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 if (producto == null) {
-        showError("No hay ningún producto seleccionado para eliminar.");
-        return;
-    }
-    int option = JOptionPane.showConfirmDialog(
-        this,
-        "¿Está seguro que desea eliminar el producto actual?",
-        "Confirmar Eliminación",
-        JOptionPane.YES_NO_OPTION
-    );
+            showError("No hay ningún producto seleccionado para eliminar.");
+            return;
+        }
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea eliminar el producto actual?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
 
-    if (option == JOptionPane.YES_OPTION) {
-        controller.delete(producto); 
-        clear(); // Limpia los campos después de la eliminación
-        showMessage("Producto eliminado correctamente.");
-    }
+        if (option == JOptionPane.YES_OPTION) {
+            controller.delete(producto);
+            clear(); // Limpia los campos después de la eliminación
+            showMessage("Producto eliminado correctamente.");
+        }
+        controller.readAll();
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
        if (producto == null) {
-        showError("No hay ningún producto cargado actualmente para actualizar.");
-        return;
-    }
+            showError("No hay ningún producto cargado actualmente para actualizar.");
+            return;
+        }
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea actualizar la información del producto?",
+                "Confirmar Actualización",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
 
-    int option = JOptionPane.showConfirmDialog(
-            this,
-            "¿Está seguro que desea actualizar la información del producto?",
-            "Confirmar Actualización",
-            JOptionPane.YES_NO_OPTION
-    );
-    if (option == JOptionPane.NO_OPTION) {
-        return;
-    }
+        String nuevoNombre = txtNombre.getText().trim();
+        String nuevaCategoria = txtCategoria.getText().trim();
+        double nuevoPrecio;
+        int nuevaCantidad;
+        String nuevoProveedor = txtProveedor.getText().trim();
+        if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty()) {
+            showError("Todos los campos deben ser llenados.");
+            return;
+        }
+        try {
+            nuevoPrecio = Double.parseDouble(txtPrecio.getText().trim());
+            nuevaCantidad = Integer.parseInt(txtCantidad.getText().trim());
+        } catch (NumberFormatException e) {
+            showError("El precio y la cantidad deben ser valores numéricos.");
+            return;
+        }
 
-    String nuevoNombre = txtNombre.getText().trim();
-    String nuevaCategoria = txtCategoria.getText().trim();
-    String nuevoProveedor = txtProveedor.getText().trim();
-    String precioText = txtPrecio.getText().trim();
-    String cantidadText = txtCantidad.getText().trim();
-    String codigoText = txtCodigo.getText().trim();
-
-    if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty() || precioText.isEmpty() || cantidadText.isEmpty() || codigoText.isEmpty()) {
-        showError("Todos los campos deben ser llenados.");
-        return;
-    }
-
-    int nuevoCodigo;
-    try {
-        nuevoCodigo = Integer.parseInt(codigoText);
-    } catch (NumberFormatException e) {
-        showError("El código debe ser un número entero.");
-        return;
-    }
-
-    double nuevoPrecio;
-    int nuevaCantidad;
-    try {
-        nuevoPrecio = Double.parseDouble(precioText);
-        nuevaCantidad = Integer.parseInt(cantidadText);
-    } catch (NumberFormatException e) {
-        showError("El precio y la cantidad deben ser valores numéricos.");
-        return;
-    }
-
-    producto.setCodigo(nuevoCodigo);
-    producto.setNombre(nuevoNombre);
-    producto.setCategoria(nuevaCategoria);
-    producto.setPrecio(nuevoPrecio);
-    producto.setCantidadDisponible(nuevaCantidad);
-    producto.setProveedor(nuevoProveedor);
-    showMessage("Producto actualizado correctamente.");
+        producto.setNombre(nuevoNombre);
+        producto.setCategoria(nuevaCategoria);
+        producto.setPrecio(nuevoPrecio);
+        producto.setCantidadDisponible(nuevaCantidad);
+        producto.setProveedor(nuevoProveedor);
+        controller.update(producto);
+        showMessage("Producto actualizado correctamente.");
+        controller.readAll();                   
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -560,7 +549,7 @@ if (producto == null) {
     private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
 
-    private void clear() {
+private void clear() {
         txtNombre.setText("");
         txtCategoria.setText("");
         txtCodigo.setText("");
@@ -569,22 +558,26 @@ if (producto == null) {
         txtProveedor.setText("");
 
     }
-       private void SetEditableStateTxts(boolean value) {
-    txtCodigo.setEditable(value);
-    txtPrecio.setEditable(value);
-    txtCantidad.setEditable(value);
-    txtProveedor.setEditable(value);
-}
+
+    private void SetEditableStateTxts(boolean value) {
+        txtCodigo.setEditable(value);
+        txtPrecio.setEditable(value);
+        txtCantidad.setEditable(value);
+        txtProveedor.setEditable(value);
+    }
+
     private void setObserver(View observer) {
         this.observer = observer;
 
     }
 
     private void setEnts(List<Producto> ents) {
-    DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
-    model.setRowCount(0); 
-    for (Producto p : ents) {
-        model.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getCantidadDisponible(), p.getProveedor()});
+        this.ents = ents;
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.setRowCount(0);
+
+        for (Producto p : ents) {
+            model.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getCantidadDisponible(), p.getProveedor()});
         }
     }
 }

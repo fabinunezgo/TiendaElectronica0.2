@@ -1,8 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Modelo.Producto;
 
-
-
+/**
+ *
+ * @author fabia
+ */
 public class Producto {
+
     private int codigo; 
     private String nombre;
     private String categoria;
@@ -68,6 +75,8 @@ public class Producto {
         this.cantidadDisponible = cantidadDisponible;
         this.proveedor = proveedor;
     }
+     
+     
     
     @Override
     public String toString() {

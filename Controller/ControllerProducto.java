@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+
 package Controller;
 
 import Conexion.Conexion;
@@ -16,6 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ControllerProducto {
+
     private ProductoDAO dao;
     private final View view;
 
@@ -36,16 +38,6 @@ public class ControllerProducto {
             return false;
         }
         try {
-            if (producto.getCodigo() <= 0) {
-                view.showError("El código debe ser un número entero positivo");
-                return false;
-            }
-
-            if (producto.getNombre().matches(".*\\d.*")) {
-                view.showError("El nombre no debe contener números");
-                return false;
-            }
-
             if (existeProducto(producto.getCodigo())) {
                 view.showError("El código del producto ya está registrado");
                 return false;
@@ -85,6 +77,7 @@ public class ControllerProducto {
                 view.showError("El código del producto no está registrado");
                 return;
             }
+
             dao.actualizar(convertToDTO(producto));
             view.showMessage("Producto actualizado correctamente");
         } catch (SQLException ex) {
@@ -114,10 +107,9 @@ public class ControllerProducto {
     private boolean validateRequired(Producto producto) {
         return producto != null
                 && producto.getCodigo() > 0
-                && producto.getNombre() != null && !producto.getNombre().trim().isEmpty()
-                && producto.getPrecio() > 0
-                && producto.getCategoria() != null && !producto.getCategoria().trim().isEmpty()
-                && producto.getProveedor() != null && !producto.getProveedor().trim().isEmpty();
+                && producto.getNombre() != null
+                && !producto.getNombre().trim().isEmpty()
+                && producto.getPrecio() > 0;
     }
 
     private boolean validatePK(int codigo) {
@@ -146,8 +138,8 @@ public class ControllerProducto {
                 producto.getCodigo(),
                 producto.getNombre(),
                 producto.getCategoria(),
+                (int) producto.getPrecio(), 
                 producto.getCantidadDisponible(),
-                producto.getPrecio(),
                 producto.getProveedor()
         );
     }

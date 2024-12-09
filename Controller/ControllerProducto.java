@@ -36,6 +36,16 @@ public class ControllerProducto {
             return false;
         }
         try {
+            if (producto.getCodigo() <= 0) {
+                view.showError("El código debe ser un número entero positivo");
+                return false;
+            }
+
+            if (producto.getNombre().matches(".*\\d.*")) {
+                view.showError("El nombre no debe contener números");
+                return false;
+            }
+
             if (existeProducto(producto.getCodigo())) {
                 view.showError("El código del producto ya está registrado");
                 return false;
@@ -75,7 +85,6 @@ public class ControllerProducto {
                 view.showError("El código del producto no está registrado");
                 return;
             }
-
             dao.actualizar(convertToDTO(producto));
             view.showMessage("Producto actualizado correctamente");
         } catch (SQLException ex) {
@@ -105,13 +114,10 @@ public class ControllerProducto {
     private boolean validateRequired(Producto producto) {
         return producto != null
                 && producto.getCodigo() > 0
-                && producto.getNombre() != null
-                && !producto.getNombre().trim().isEmpty()
+                && producto.getNombre() != null && !producto.getNombre().trim().isEmpty()
                 && producto.getPrecio() > 0
-                && producto.getCategoria() != null
-                && !producto.getCategoria().trim().isEmpty()
-                && producto.getProveedor() != null
-                && !producto.getProveedor().trim().isEmpty();
+                && producto.getCategoria() != null && !producto.getCategoria().trim().isEmpty()
+                && producto.getProveedor() != null && !producto.getProveedor().trim().isEmpty();
     }
 
     private boolean validatePK(int codigo) {

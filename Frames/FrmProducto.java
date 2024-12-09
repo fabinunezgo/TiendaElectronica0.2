@@ -434,7 +434,7 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
     
     @Override
     public boolean validateRequired() {
-        if (txtNombre.getText().trim().isEmpty() ||
+    if (txtNombre.getText().trim().isEmpty() ||
         txtCategoria.getText().trim().isEmpty() ||
         txtPrecio.getText().trim().isEmpty() ||
         txtCantidad.getText().trim().isEmpty() ||
@@ -442,6 +442,14 @@ public class FrmProducto extends javax.swing.JInternalFrame implements View<Prod
         showError("Todos los campos deben ser llenados.");
         return false;
     }
+
+    try {
+        Integer.parseInt(txtCodigo.getText().trim());
+    } catch (NumberFormatException e) {
+        showError("El código debe ser un número entero.");
+        return false;
+    }
+
     return true;
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -487,9 +495,18 @@ if (producto == null) {
     String nuevoProveedor = txtProveedor.getText().trim();
     String precioText = txtPrecio.getText().trim();
     String cantidadText = txtCantidad.getText().trim();
+    String codigoText = txtCodigo.getText().trim();
 
-    if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty() || precioText.isEmpty() || cantidadText.isEmpty()) {
+    if (nuevoNombre.isEmpty() || nuevaCategoria.isEmpty() || nuevoProveedor.isEmpty() || precioText.isEmpty() || cantidadText.isEmpty() || codigoText.isEmpty()) {
         showError("Todos los campos deben ser llenados.");
+        return;
+    }
+
+    int nuevoCodigo;
+    try {
+        nuevoCodigo = Integer.parseInt(codigoText);
+    } catch (NumberFormatException e) {
+        showError("El código debe ser un número entero.");
         return;
     }
 
@@ -503,6 +520,7 @@ if (producto == null) {
         return;
     }
 
+    producto.setCodigo(nuevoCodigo);
     producto.setNombre(nuevoNombre);
     producto.setCategoria(nuevaCategoria);
     producto.setPrecio(nuevoPrecio);

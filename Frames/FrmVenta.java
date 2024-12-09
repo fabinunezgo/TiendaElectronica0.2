@@ -1,13 +1,4 @@
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-//package Frames;
-
-
-
+package Frames;
 
 import Controller.ControllerVentas;
 import Modelo.Ventas.Venta;
@@ -17,8 +8,12 @@ import Utilis.UtilGui;
 import View.View;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,41 +22,40 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
+public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
 
     Venta venta;
     ControllerVentas controller;
-    FrmVenta1 frm;
+    FrmVenta frm;
 
-    private VentasDAO dao;
+    List<Venta> ents;
     private View observer;
-   
 
     /**
      * Creates new form FrmVentas
      */
-    public FrmVenta1() {
+    public FrmVenta() {
         initComponents();
         controller = new ControllerVentas(this);
+        controller.readAll();
 
     }
 
     private void calcularTotal() {
-        String subtotalStr = txtSubtotal.getText().trim();
-        String impuestosStr = txtImpuestos.getText().trim();
+        String subtotalStr = txtCantidad.getText().trim();
+        String impuestosStr = txtPrecio.getText().trim();
 
         try {
             double subtotal = subtotalStr.isEmpty() ? 0 : Double.parseDouble(subtotalStr);
             double impuestos = impuestosStr.isEmpty() ? 0 : Double.parseDouble(impuestosStr);
             double total = subtotal + impuestos;
 
-            txtTotal.setText(String.format("%.2f", total));
+            txtSubtotal.setText(String.format("%.2f", total));
         } catch (NumberFormatException e) {
             // Si los valores no son válidos, no actualizar el total
-            txtTotal.setText("");
+            txtSubtotal.setText("");
         }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -425,64 +419,57 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
-        // Verificar si los campos están vacíos
         if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
-                || txtFecha.getText().trim().isEmpty() || txtProductoVendidos.getText().trim().isEmpty()
-                || txtSubtotal.getText().trim().isEmpty() || txtImpuestos.getText().trim().isEmpty()
-                || txtTotal.getText().trim().isEmpty()) {
+                || txtFecha.getText().trim().isEmpty() || txtProducto.getText().trim().isEmpty()
+                || txtCantidad.getText().trim().isEmpty() || txtPrecio.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
 // Obtener los datos de los campos de texto
-        String id = txtId.getText().trim();
+        String idS = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
         String fechaStr = txtFecha.getText().trim();
-        String productosVendidosStr = txtProductoVendidos.getText().trim(); // Debes obtener los productos vendidos correctamente
-        String subtotalStr = txtSubtotal.getText().trim();
-        String impuestosStr = txtImpuestos.getText().trim();
-        String totalStr = txtTotal.getText().trim();
+        String producto = txtProducto.getText().trim(); // Debes obtener los productos vendidos correctamente
+        String cantidad = txtCantidad.getText().trim();
+        String precioS = txtPrecio.getText().trim();
+        String subtotalS = txtSubtotal.getText().trim();
+        String impuestoS = txtImpuesto.getText().trim();
+        String totalS = txtTotal.getText().trim();
 
 // Validación de los valores numéricos
-        double subtotal, impuestos, total;
+        double precio, subtotal, impuestos, total;
+        Integer id;
+        Date fecha;
         try {
-            subtotal = Double.parseDouble(subtotalStr);
-            impuestos = Double.parseDouble(impuestosStr);
-            total = Double.parseDouble(totalStr);
+            fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
+            id = Integer.parseInt(idS);
+            precio = Double.parseDouble(precioS);
+            subtotal = Double.parseDouble(subtotalS);
+            impuestos = Double.parseDouble(impuestoS);
+            total = Double.parseDouble(totalS);
         } catch (NumberFormatException e) {
+            System.out.println(e);
             showError("Los valores numéricos no son válidos.");
+            return;
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmVenta.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
 
 // Crear un objeto Venta y asignar sus valores
-        venta.setId(Integer.parseInt(id));
-        venta.setClienteId(Integer.parseInt(idCliente));
+        venta = new Venta(id, fecha, Integer.valueOf(idCliente), Integer.valueOf(producto), Integer.valueOf(cantidad), precio);
 
-        try {
-            // Asignar la fecha usando el formato adecuado
-            venta.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr));
-        } catch (ParseException ex) {
-            showError("La fecha tiene un formato incorrecto.");
-            return;
-        }
-
-// Aquí debes agregar la lógica para obtener los productos vendidos (el ejemplo asume que tienes un método para ello)
-        List<productovendido> productosVendidos = getProductosVendidos(); // Define este método para obtener la lista de productos vendidos
-        venta.setProductosVendidos(productosVendidos);
-
-// Asignar los valores numéricos de subtotal, impuestos y total
-        venta.setSubtotal(subtotal);
-        venta.setImpuesto(impuestos);
-        venta.setTotal(total);
-
-// Intentar guardar la venta en el sistema
         boolean success = controller.agregar(venta);
         if (success) {
-            showMessage("Datos guardados correctamente.");
-            clear(); // Limpiar los campos
+            showMessage("Venta registrada correctamente: " + String.valueOf(venta.getId()));
+            SetEditableStateTxts(false);
+            //changeStateBtns();
         } else {
-            showError("Error al guardar los datos de la venta.");
+            showError("Error al registrar venta.");
         }
+        controller.readAll();
 
     }//GEN-LAST:event_BtnAgregar1ActionPerformed
 
@@ -498,34 +485,86 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             return;
         }
         controller.delete(venta);
+        controller.readAll();
+
         clear();
 
     }//GEN-LAST:event_BtnEliminar1ActionPerformed
 
     private void BtnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizar1ActionPerformed
-        if (txtId.getText().isEmpty() || txtIdCliente.getText().isEmpty()
-                || txtFecha.getText().isEmpty()) {
+        // Verificar si los campos están vacíos
+        if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
+                || txtFecha.getText().trim().isEmpty() || txtProducto.getText().trim().isEmpty()
+                || txtCantidad.getText().trim().isEmpty() || txtPrecio.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+// Obtener los datos de los campos de texto
+        String idS = txtId.getText().trim();
+        String idCliente = txtIdCliente.getText().trim();
+        String fechaStr = txtFecha.getText().trim();
+        String producto = txtProducto.getText().trim(); // Debes obtener los productos vendidos correctamente
+        String cantidad = txtCantidad.getText().trim();
+        String precioS = txtPrecio.getText().trim();
+        String subtotalS = txtSubtotal.getText().trim();
+        String impuestoS = txtImpuesto.getText().trim();
+        String totalS = txtTotal.getText().trim();
+
+// Validación de los valores numéricos
+        double precio, subtotal, impuestos, total;
+        Integer id;
+        Date fecha;
+        try {
+            fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
+            id = Integer.parseInt(idS);
+            precio = Double.parseDouble(precioS);
+            subtotal = Double.parseDouble(subtotalS);
+            impuestos = Double.parseDouble(impuestoS);
+            total = Double.parseDouble(totalS);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            showError("Los valores numéricos no son válidos.");
+            return;
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmVenta.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea actualizar el proveedor actual?",
+                "Confirmar Actualizacion",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        venta = new Venta(id, fecha, Integer.valueOf(idCliente), Integer.valueOf(producto), Integer.valueOf(cantidad), precio);
+        controller.update(venta);
+        controller.readAll();
+
     }//GEN-LAST:event_BtnActualizar1ActionPerformed
     private void clear() {
         UtilGui.clearTxts(txtId,
                 txtIdCliente,
-                txtProductoVendidos,
-                txtSubtotal,
-                txtImpuestos,
-                txtTotal
+                txtProducto,
+                txtCantidad,
+                txtPrecio,
+                txtSubtotal
         );
+        this.txtImpuesto.setText("0.13");
     }
-
     private void SetEditableStateTxts(boolean value) {
         txtId.setEditable(value);
         txtIdCliente.setEditable(value);
-        txtProductoVendidos.setEditable(value);
+        txtProducto.setEditable(value);
+        txtCantidad.setEditable(value);
+        txtPrecio.setEditable(value);
         txtSubtotal.setEditable(value);
-        txtImpuestos.setEditable(value);
-        txtTotal.setEditable(value);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -566,35 +605,35 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
         txtId.setText(String.valueOf(ent.getId()));
         txtIdCliente.setText(String.valueOf(ent.getClienteId()));
-         txtProductoVendidos.setText(ent.getProductosVendidos().toString());
-        txtSubtotal.setText(String.valueOf(ent.getSubtotal()));
-        txtImpuestos.setText(String.valueOf(ent.getImpuesto()));
-       txtTotal.setText(String.valueOf(ent.getTotal()));
 
+        txtProducto.setText(String.valueOf(ent.getProductoId()));
 
-        txtId.setText(String.valueOf(ent.getId()));
-        txtIdCliente.setText(String.valueOf(ent.getClienteId()));
+        txtFecha.setText(String.valueOf(ent.getFecha()));
 
-        String productosVendidos = convertProductosToString(ent.getProductosVendidos());
-        txtProductoVendidos.setText(productosVendidos);
+        txtCantidad.setText(String.valueOf(ent.getCantidad()));
+        txtPrecio.setText(String.valueOf(ent.getPrecio()));
 
-        // Convertir los valores numéricos a String
-        txtSubtotal.setText(String.valueOf(ent.getSubtotal()));
-        txtImpuestos.setText(String.valueOf(ent.getImpuesto()));
-        txtTotal.setText(String.valueOf(ent.getTotal()));
+        int cantidad = Integer.valueOf(this.txtCantidad.getText().trim());
+        double precio = Double.valueOf(this.txtPrecio.getText().trim());
+
+        this.txtSubtotal.setText(String.valueOf(cantidad * precio));
+        this.txtTotal.setText(String.valueOf((cantidad * precio) + (cantidad * precio * 0.13)));
 
     }
 
     @Override
     public void showAll(List<Venta> ents) {
-        if (frm == null) {
-            frm = new FrmVenta1(); 
-            frm.setObserver(this); 
+        setEnts(ents);
+    }
+
+    private void setEnts(List<Venta> ents) {
+        this.ents = ents;
+        DefaultTableModel model = (DefaultTableModel) tblVenta.getModel();
+        model.setRowCount(0);
+
+        for (Venta p : ents) {
+            model.addRow(new Object[]{p.getId(), p.getClienteId(), p.getFecha(), p.getProductoId(), p.getCantidad(), p.getPrecio()});
         }
-
-
-        frm.setEnt(ents);
-        frm.setVisible(true);
     }
 
     @Override
@@ -615,10 +654,10 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
         }
         if (txtId.getText().trim().isEmpty()
                 || txtIdCliente.getText().trim().isEmpty()
-                || txtProductoVendidos.getText().trim().isEmpty()
-                || txtSubtotal.getText().trim().isEmpty()
-                || txtImpuestos.getText().trim().isEmpty()
-                || txtTotal.getText().trim().isEmpty()) {
+                || txtProducto.getText().trim().isEmpty()
+                || txtCantidad.getText().trim().isEmpty()
+                || txtPrecio.getText().trim().isEmpty()
+                || txtSubtotal.getText().trim().isEmpty()) {
             showError("Todos los campos deben ser completados");
             return false;
         }
@@ -628,27 +667,10 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
     public void changeStateBtns() {
 
-        UtilGui.changeStateButtons( BtnAgregar1, BtnActualizar1, BtnEliminar1);
-}
-       
+        UtilGui.changeStateButtons(BtnAgregar1, BtnActualizar1, BtnEliminar1);
 
     }
 
-    
-
-     private void setObserver(View observer) {
-        this.observer = observer;
-     }
-
-    private List<productovendido> getProductosVendidos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private String convertProductosToString(List<productovendido> productosVendidos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void setEnt(List<Venta> ents) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-}
 

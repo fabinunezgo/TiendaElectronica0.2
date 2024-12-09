@@ -8,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,22 +20,28 @@ public class VentasDAO extends Dao<VentasDTO> {
 
     @Override
     public boolean agregar(VentasDTO dto) throws SQLException {
-        if (dto == null || !validateFKClient(dto.getClienteId())) {
-        return false;
-    }
-    String sql = "{CALL insertarVenta(?, ?, ?, ?, ?, ?)}";
-    try (CallableStatement stmt = connection.prepareCall(sql)) {
-        stmt.setTimestamp(1, new java.sql.Timestamp(dto.getFecha().getTime())); 
-        stmt.setString(2, dto.getClienteId()); 
-        stmt.setInt(3, dto.getProductosVendidos().size()); 
-        
-        
-        stmt.setBigDecimal(4, BigDecimal.valueOf(dto.getSubtotal())); 
-        stmt.setBigDecimal(5, BigDecimal.valueOf(dto.getImpuesto())); 
-        stmt.setBigDecimal(6, BigDecimal.valueOf(dto.getTotal())); 
-        
-        return stmt.executeUpdate() > 0; 
-    }
+
+        CallableStatement stmt = null;
+
+        try {
+            String sql = "{CALL insertarVenta(?, ?, ?, ?, ?, ?)}";
+            stmt = connection.prepareCall(sql);
+            stmt.setString(1, String.valueOf(dto.getId()));
+            stmt.setString(2, new SimpleDateFormat("yyyy-MM-dd").format(dto.getFecha()));
+            stmt.setString(3, dto.getClienteId());
+            stmt.setString(4, String.valueOf(dto.getProductoId()));
+            stmt.setString(5, String.valueOf(dto.getCantidad()));
+            stmt.setBigDecimal(6, BigDecimal.valueOf(dto.getPrecio()));
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error al agregar el cliente: " + e.getMessage(), e);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
     }
 
     @Override
@@ -49,13 +56,12 @@ public class VentasDAO extends Dao<VentasDTO> {
                 if (rs.next()) {
                     List<productovendido> productosVendidos = new ArrayList<>();
                     return new VentasDTO(
-                        rs.getInt("id"),
-                        rs.getDate("fecha"),
-                        rs.getString("clienteId"), 
-                        productosVendidos,
-                        rs.getDouble("subtotal"),
-                        rs.getDouble("impuesto"),
-                        rs.getDouble("total")
+                            rs.getInt("id"),
+                            rs.getDate("fecha"),
+                            rs.getString("idCliente"),
+                            rs.getInt("idProducto"),
+                            rs.getInt("cantidad"),
+                            rs.getDouble("precio")
                     );
                 }
             }
@@ -72,13 +78,12 @@ public class VentasDAO extends Dao<VentasDTO> {
                 while (rs.next()) {
                     List<productovendido> productosVendidos = new ArrayList<>();
                     ventas.add(new VentasDTO(
-                        rs.getInt("id"),
-                        rs.getDate("fecha"),
-                        rs.getString("clienteId"), 
-                        productosVendidos,
-                        rs.getDouble("subtotal"),
-                        rs.getDouble("impuesto"),
-                        rs.getDouble("total")
+                            rs.getInt("id"),
+                            rs.getDate("fecha"),
+                            rs.getString("idCliente"),
+                            rs.getInt("idProducto"),
+                            rs.getInt("cantidad"),
+                            rs.getDouble("precio")
                     ));
                 }
             }
@@ -90,12 +95,13 @@ public class VentasDAO extends Dao<VentasDTO> {
     public boolean actualizar(VentasDTO dto) throws SQLException {
         String sql = "{CALL actualizarVenta(?, ?, ?, ?, ?, ?)}";
         try (CallableStatement stmt = connection.prepareCall(sql)) {
-            stmt.setInt(1, dto.getId());
-            stmt.setDate(2, new java.sql.Date(dto.getFecha().getTime()));
-            stmt.setString(3, dto.getClienteId()); 
-            stmt.setDouble(4, dto.getSubtotal());
-            stmt.setDouble(5, dto.getImpuesto());
-            stmt.setDouble(6, dto.getTotal());
+            stmt.setString(1, String.valueOf(dto.getId()));
+            stmt.setString(2, new SimpleDateFormat("yyyy-MM-dd").format(dto.getFecha()));
+            stmt.setString(3, dto.getClienteId());
+            stmt.setString(4, String.valueOf(dto.getProductoId()));
+            stmt.setString(5, String.valueOf(dto.getCantidad()));
+            stmt.setBigDecimal(6, BigDecimal.valueOf(dto.getPrecio()));
+
             return stmt.executeUpdate() > 0;
         }
     }

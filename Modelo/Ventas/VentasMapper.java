@@ -15,28 +15,31 @@ public class VentasMapper implements Mapper<Venta, VentasDTO> {
 
     @Override
     public VentasDTO toDTO(Venta ent) {
-   return new VentasDTO(
-           ent.getId(),
-           ent.getFecha(),
-           String.valueOf(ent.getClienteId()), 
-           ent.getProductosVendidos(),
-           ent.getSubtotal(),
-           ent.getImpuesto(),
-           ent.getTotal()
-   );
-}
+        return new VentasDTO(
+                ent.getId(),
+                ent.getFecha(),
+                String.valueOf(ent.getClienteId()),
+                ent.getProductoId(),
+                ent.getCantidad(),
+                ent.getPrecio(),
+                ent.getSubtotal(),
+                ent.getImpuesto(),
+                ent.getTotal()
+        );
+    }
 
     @Override
     public Venta toEnt(VentasDTO dto) throws SQLException {
-   return new Venta(
-           dto.getId(),
-           dto.getFecha(),
-           Integer.parseInt(dto.getClienteId()), 
-           dto.getProductosVendidos(),
-           dto.getSubtotal(),
-           dto.getImpuesto(),
-           dto.getTotal()
-   );
-}
-
+        return new Venta(
+                dto.getId(),
+                dto.getFecha(),
+                Integer.parseInt(dto.getClienteId()),
+                dto.getProductoId(),
+                dto.getCantidad(),
+                dto.getPrecio(),
+                dto.getSubtotal(),
+                dto.getImpuesto(),
+                dto.getTotal()
+        );
+    }
 }

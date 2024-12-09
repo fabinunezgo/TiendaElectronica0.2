@@ -12,13 +12,16 @@ import java.util.List;
  * @author thyfa
  */
 public class VentasDTO {
-    private final int id;
-    private final Date fecha;
-    private final String idCliente;
-    private final List<productovendido> productosVendidos;
-    private final double subtotal;
-    private final double impuesto;
-    private final double total;
+
+    private int id;
+    private Date fecha;
+    private String clienteId;
+    private int productoId;
+    private int cantidad;
+    private double precio;
+    private double subtotal;
+    private double impuesto;
+    private double total;
 
     public int getId() {
         return id;
@@ -29,39 +32,52 @@ public class VentasDTO {
     }
 
     public String getClienteId() {
-        return idCliente;
+        return clienteId;
     }
 
-    public List<productovendido> getProductosVendidos() {
-        return productosVendidos;
+    public int getProductoId() {
+        return productoId;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
     }
 
     public double getSubtotal() {
         return subtotal;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
     public double getImpuesto() {
         return impuesto;
     }
 
-    public VentasDTO(int id, Date fecha, String idCliente, List<productovendido> productosVendidos, double subtotal, double impuesto, double total) {
-    this.id = id;
-    this.fecha = fecha;
-    this.idCliente = idCliente;
-    this.productosVendidos = productosVendidos;
-    this.subtotal = subtotal;
-    this.impuesto = impuesto;
-    this.total = total;
-}
-    
-    
-    
- 
-    
-}
+    public double getTotal() {
+        return total;
+    }
 
+    public VentasDTO(int id, Date fecha, String clienteId, int productoId, int cantidad, double precio, double subtotal, double impuesto, double total) {
+        this.id = id;
+        this.fecha = fecha;
+        this.clienteId = clienteId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.subtotal = subtotal;
+        this.impuesto = impuesto;
+        this.total = total;
+    }
+
+    public VentasDTO(int id, Date fecha, String clienteId, int productoId, int cantidad, double precio) {
+        this.id = id;
+        this.fecha = fecha;
+        this.clienteId = clienteId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+}
    

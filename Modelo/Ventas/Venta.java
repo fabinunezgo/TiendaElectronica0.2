@@ -9,7 +9,9 @@ public class Venta {
     private int id;
     private Date fecha;
     private int clienteId;
-    private List<productovendido> productosVendidos;
+    private int productoId;
+    private int cantidad;
+    private double precio;
     private double subtotal;
     private double impuesto;
     private double total;
@@ -24,10 +26,6 @@ public class Venta {
 
     public int getClienteId() {
         return clienteId;
-    }
-
-    public List<productovendido> getProductosVendidos() {
-        return productosVendidos;
     }
 
     public double getSubtotal() {
@@ -60,9 +58,6 @@ public class Venta {
         this.clienteId = clienteId;
     }
 
-    public void setProductosVendidos(List<productovendido> productosVendidos) {
-        this.productosVendidos = productosVendidos;
-    }
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
@@ -72,17 +67,55 @@ public class Venta {
         this.total = total;
     }
 
-    public Venta(int id, Date fecha, int clienteId, List<productovendido> productosVendidos, double subtotal, double impuesto, double total) {
+    public int getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public Venta(int id, Date fecha, int clienteId, int productoId, int cantidad, double precio, double subtotal, double impuesto, double total) {
         this.id = id;
         this.fecha = fecha;
         this.clienteId = clienteId;
-        this.productosVendidos = productosVendidos;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precio = precio;
         this.subtotal = subtotal;
         this.impuesto = impuesto;
         this.total = total;
     }
- 
-    
+
+    public Venta(int id, Date fecha, int clienteId, int productoId, int cantidad, double precio) {
+        this.id = id;
+        this.fecha = fecha;
+        this.clienteId = clienteId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", clienteId=" + clienteId + ", productoId=" + productoId + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", impuesto=" + impuesto + ", total=" + total + '}';
+    }   
 }
 
  

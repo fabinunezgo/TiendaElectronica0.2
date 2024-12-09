@@ -1,5 +1,11 @@
 package Frames;
 
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+//package Frames;
 import Controller.ControllerVentas;
 import Modelo.Ventas.Venta;
 import Modelo.Ventas.VentasDAO;
@@ -17,16 +23,15 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author user
-/**
+ * @author user /**
  *
  * @author user
  */
-public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
+public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
     Venta venta;
     ControllerVentas controller;
-    FrmVenta frm;
+    FrmVenta1 frm;
 
     List<Venta> ents;
     private View observer;
@@ -34,7 +39,7 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
     /**
      * Creates new form FrmVentas
      */
-    public FrmVenta() {
+    public FrmVenta1() {
         initComponents();
         controller = new ControllerVentas(this);
         controller.readAll();
@@ -52,7 +57,6 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
 
             txtSubtotal.setText(String.format("%.2f", total));
         } catch (NumberFormatException e) {
-            // Si los valores no son válidos, no actualizar el total
             txtSubtotal.setText("");
         }
     }
@@ -76,18 +80,23 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         jLabel3 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtProductoVendidos = new javax.swing.JTextField();
+        txtProducto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtSubtotal = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtImpuestos = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
+        txtSubtotal = new javax.swing.JTextField();
         BtnEliminar1 = new javax.swing.JButton();
         BtnActualizar1 = new javax.swing.JButton();
         BtnAgregar1 = new javax.swing.JButton();
+        txtImpuesto = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnSelecionar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblVenta = new javax.swing.JTable();
@@ -160,15 +169,15 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Fecha");
 
-        txtProductoVendidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtProductoVendidos.addActionListener(new java.awt.event.ActionListener() {
+        txtProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductoVendidosActionPerformed(evt);
+                txtProductoActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Productos Vendidos");
+        jLabel5.setText("Producto");
 
         txtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -180,30 +189,42 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel6.setText("Subtotal");
 
-        txtSubtotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
+        txtCantidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSubtotalActionPerformed(evt);
+                txtCantidadActionPerformed(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Impuestos");
 
-        txtImpuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtImpuestos.addActionListener(new java.awt.event.ActionListener() {
+        txtPrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtImpuestosActionPerformed(evt);
+                txtPrecioActionPerformed(evt);
+            }
+        });
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Total");
 
-        txtTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+        txtSubtotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtSubtotal.setEnabled(false);
+        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalActionPerformed(evt);
+                txtSubtotalActionPerformed(evt);
             }
         });
 
@@ -228,38 +249,91 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
             }
         });
 
+        txtImpuesto.setText("0.13");
+        txtImpuesto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtImpuesto.setEnabled(false);
+        txtImpuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtImpuestoActionPerformed(evt);
+            }
+        });
+
+        txtTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTotal.setEnabled(false);
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setText("Cantidad");
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setText("Precio");
+
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtProductoVendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtIdCliente)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtId)
-                    .addComponent(txtFecha)
-                    .addComponent(txtSubtotal)
-                    .addComponent(txtImpuestos)
-                    .addComponent(txtTotal))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnAgregar1)
-                        .addGap(19, 19, 19))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(txtProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtIdCliente)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtId)
+                            .addComponent(txtFecha)
+                            .addComponent(txtCantidad)
+                            .addComponent(txtPrecio)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(58, 58, 58)
+                                        .addComponent(jLabel7)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnEliminar1)
-                            .addComponent(BtnActualizar1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnEliminar1)
+                                    .addComponent(BtnActualizar1))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnSelecionar)
+                                    .addComponent(BtnAgregar1))
+                                .addGap(19, 19, 19))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,21 +359,29 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
                         .addComponent(jLabel5))
                     .addComponent(BtnActualizar1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtProductoVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnAgregar1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
                 .addGap(11, 11, 11)
-                .addComponent(txtImpuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelecionar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -311,14 +393,14 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
 
             },
             new String [] {
-                "Id", "IdCliente", "Fecha", "Productos Vendidos", "Subtotal", "Impuesto", "Total"
+                "Id", "IdCliente", "Fecha", "IdProducto", "Cantidad", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -335,21 +417,17 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(3, 3, 3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
@@ -398,27 +476,28 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
-    private void txtProductoVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoVendidosActionPerformed
+    private void txtProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductoVendidosActionPerformed
+    }//GEN-LAST:event_txtProductoActionPerformed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
 
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioActionPerformed
+
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSubtotalActionPerformed
 
-    private void txtImpuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtImpuestosActionPerformed
-
-    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalActionPerformed
-
     private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
+        // Verificar si los campos están vacíos
         if (txtId.getText().trim().isEmpty() || txtIdCliente.getText().trim().isEmpty()
                 || txtFecha.getText().trim().isEmpty() || txtProducto.getText().trim().isEmpty()
                 || txtCantidad.getText().trim().isEmpty() || txtPrecio.getText().trim().isEmpty()
@@ -427,7 +506,6 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
             return;
         }
 
-// Obtener los datos de los campos de texto
         String idS = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
         String fechaStr = txtFecha.getText().trim();
@@ -438,7 +516,6 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         String impuestoS = txtImpuesto.getText().trim();
         String totalS = txtTotal.getText().trim();
 
-// Validación de los valores numéricos
         double precio, subtotal, impuestos, total;
         Integer id;
         Date fecha;
@@ -454,11 +531,10 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
             showError("Los valores numéricos no son válidos.");
             return;
         } catch (ParseException ex) {
-            Logger.getLogger(FrmVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmVenta1.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
 
-// Crear un objeto Venta y asignar sus valores
         venta = new Venta(id, fecha, Integer.valueOf(idCliente), Integer.valueOf(producto), Integer.valueOf(cantidad), precio);
 
         boolean success = controller.agregar(venta);
@@ -528,7 +604,7 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
             showError("Los valores numéricos no son válidos.");
             return;
         } catch (ParseException ex) {
-            Logger.getLogger(FrmVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmVenta1.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
 
@@ -548,6 +624,47 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         controller.readAll();
 
     }//GEN-LAST:event_BtnActualizar1ActionPerformed
+
+    private void txtImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtImpuestoActionPerformed
+
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
+
+    }//GEN-LAST:event_txtPrecioKeyPressed
+
+    private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
+        // TODO add your handling code here:
+        int cantidad = Integer.valueOf(this.txtCantidad.getText().trim());
+        double precio = Double.valueOf(this.txtPrecio.getText().trim());
+
+        this.txtSubtotal.setText(String.valueOf(cantidad * precio));
+        this.txtTotal.setText(String.valueOf((cantidad * precio) + (cantidad * precio * 0.13)));
+    }//GEN-LAST:event_txtPrecioKeyReleased
+
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRow = this.tblVenta.getSelectedRow();
+        if (selectedRow == -1) {
+            return;
+        }
+        String Id = tblVenta.getValueAt(selectedRow, 0).toString();
+        observer = this;
+        observer.show(ents.stream()
+                .filter(customer -> customer.getId() == Integer.valueOf(Id)) // Compara directamente como números
+                .findFirst()
+                .orElse(null));
+    }//GEN-LAST:event_btnSelecionarActionPerformed
     private void clear() {
         UtilGui.clearTxts(txtId,
                 txtIdCliente,
@@ -558,6 +675,7 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
         );
         this.txtImpuesto.setText("0.13");
     }
+
     private void SetEditableStateTxts(boolean value) {
         txtId.setEditable(value);
         txtIdCliente.setEditable(value);
@@ -571,8 +689,10 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
     private javax.swing.JButton BtnActualizar1;
     private javax.swing.JButton BtnAgregar1;
     private javax.swing.JButton BtnEliminar1;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -580,17 +700,20 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblVenta;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdCliente;
-    private javax.swing.JTextField txtImpuestos;
-    private javax.swing.JTextField txtProductoVendidos;
+    private javax.swing.JTextField txtImpuesto;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
@@ -671,6 +794,15 @@ public class FrmVenta extends javax.swing.JPanel implements View<Venta> {
 
     }
 
+    private List<productovendido> getProductosVendidos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    private String convertProductosToString(List<productovendido> productosVendidos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+    private void setEnt(List<Venta> ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}

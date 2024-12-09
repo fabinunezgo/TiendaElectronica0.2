@@ -1,7 +1,5 @@
 package Modelo.Proveedor;
 
-
-
 public class Proveedor {
     private String id;
     private String nombre;
@@ -48,5 +46,10 @@ public class Proveedor {
         this.nombre = nombre;
         this.contacto = contacto;
         this.direccion = direccion;
+    }
+
+    @Override
+    public String toString() {
+        return "Proveedor{" + "id=" + id + ", nombre=" + nombre + ", contacto=" + contacto + ", direccion=" + direccion + '}';
     }
 }

@@ -57,6 +57,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
 
             txtSubtotal.setText(String.format("%.2f", total));
         } catch (NumberFormatException e) {
+            // Si los valores no son válidos, no actualizar el total
             txtSubtotal.setText("");
         }
     }
@@ -506,6 +507,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             return;
         }
 
+// Obtener los datos de los campos de texto
         String idS = txtId.getText().trim();
         String idCliente = txtIdCliente.getText().trim();
         String fechaStr = txtFecha.getText().trim();
@@ -516,6 +518,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
         String impuestoS = txtImpuesto.getText().trim();
         String totalS = txtTotal.getText().trim();
 
+// Validación de los valores numéricos
         double precio, subtotal, impuestos, total;
         Integer id;
         Date fecha;
@@ -535,6 +538,7 @@ public class FrmVenta1 extends javax.swing.JPanel implements View<Venta> {
             return;
         }
 
+// Crear un objeto Venta y asignar sus valores
         venta = new Venta(id, fecha, Integer.valueOf(idCliente), Integer.valueOf(producto), Integer.valueOf(cantidad), precio);
 
         boolean success = controller.agregar(venta);

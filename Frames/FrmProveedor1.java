@@ -6,12 +6,15 @@ import Utilis.UtilGui;
 import View.View;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Proveedor> {
 
     Proveedor proveedor;
     ControllerProveedor controller;
     FrmProveedor1 frm;
+    List<Proveedor> ents;
+    private View observer;
 
     /**
      * Creates new form FrmProveedor1
@@ -19,6 +22,8 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     public FrmProveedor1() {
         initComponents();
         controller = new ControllerProveedor(this);
+        controller.readAll();
+
     }
 
     /**
@@ -45,6 +50,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         txtDireccion = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        btnSelecionar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -149,6 +155,13 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         });
         jScrollPane2.setViewportView(tblClientes);
 
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,25 +174,32 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3)
+                                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnSelecionar)))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(33, 33, 33))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGap(33, 33, 33)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -197,17 +217,21 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3))
                     .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(BtnActualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(4, 4, 4)))
                         .addGap(23, 23, 23)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,7 +239,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
                     .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -281,29 +305,51 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         if (proveedorExiste) {
             showError("Ya existe un proveedor con ese ID.");
             return;
+        } else {
+            System.out.println("todo bien");
         }
-        proveedor.setId(id);
-        proveedor.setNombre(nombre);
-        proveedor.setContacto(contacto);
-        proveedor.setDireccion(direccion);
+        proveedor = new Proveedor(id, nombre, contacto, direccion);
+
         boolean success = controller.agregar(proveedor);
         if (success) {
             showMessage("Proveedor registrado correctamente: " + proveedor.getNombre());
             SetEditableStateTxts(false);
-            changeStateBtns();
+            //changeStateBtns();
         } else {
             showError("Error al registrar proveedor.");
         }
-
+        controller.readAll();
 
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        String id = txtId.getText();
+        String nombre = txtNombre.getText();
+        String contacto = txtContacto.getText();
+        String direccion = txtDireccion.getText();
+        
         if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty()
                 || txtContacto.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea actualizar el proveedor actual?",
+                "Confirmar Actualizacion",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (option == JOptionPane.NO_OPTION) {
+            return;
+        }
+        proveedor = new Proveedor(id,nombre,contacto,direccion);
+        
+        controller.update(proveedor);
+
+
+        controller.readAll();
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
@@ -319,6 +365,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
         }
         controller.delete(proveedor);
         clear();
+        controller.readAll();
 
 
     }//GEN-LAST:event_BtnEliminarActionPerformed
@@ -326,6 +373,21 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRow = tblClientes.getSelectedRow();
+        if (selectedRow == -1) {
+            return;
+        }
+        String Id = tblClientes.getValueAt(selectedRow, 0).toString();
+        observer = this;
+        observer.show(ents.stream()
+            .filter(customer -> customer.getId().equals(Id)) // Compara directamente como números
+            .findFirst()
+            .orElse(null));
+    }//GEN-LAST:event_btnSelecionarActionPerformed
     private void SetEditableStateTxts(boolean value) {
         txtId.setEditable(value);
         txtNombre.setEditable(value);
@@ -346,6 +408,7 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -362,19 +425,21 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
 
     @Override
     public void showAll(List<Proveedor> ents) {
-        if (frm == null) {
-            frm = new FrmProveedor1();
-            
-        }
-     
-        frm.setVisible(true);
+        setEnts(ents);
     }
+    
+    private void setEnts(List<Proveedor> ents) {
+        this.ents = ents;
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.setRowCount(0);
 
+        for (Proveedor p : ents) {
+            model.addRow(new Object[]{p.getId(), p.getNombre(), p.getContacto(), p.getDireccion()});
+        }
+    }
     @Override
     public void showMessage(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
-        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
     }
 
@@ -415,7 +480,6 @@ public class FrmProveedor1 extends javax.swing.JInternalFrame implements View<Pr
 
     @Override
     public void showError(String err) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);
     }
-
 }
